@@ -44,8 +44,7 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 	if (player->getPositionX() == 32*map->getTileSize() && player->getPositionY() == 0 * map->getTileSize()) {
-
-		int a = 1;
+		exit(0);
 	}
 }
 
