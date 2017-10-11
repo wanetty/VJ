@@ -38,6 +38,7 @@ public:
 	
 	int width() const { return widthTex; }
 	int height() const { return heightTex; }
+	GLuint texID() const { return texId; }
 
 private:
 	int widthTex, heightTex;

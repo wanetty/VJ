@@ -30,6 +30,7 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
+	initfondo();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
@@ -37,6 +38,7 @@ void Scene::init()
 	player->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+	
 }
 
 void Scene::update(int deltaTime)
@@ -48,15 +50,19 @@ void Scene::update(int deltaTime)
 void Scene::render()
 {
 	glm::mat4 modelview;
-
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	
 	modelview = glm::mat4(1.0f);
+
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	map->render();
+	texProgram.setUniformMatrix4f("modelview", modelview);
+	fondo->render(imgfondo);
+	//map->render();
 	player->render();
+	
 }
 
 void Scene::initShaders()
@@ -88,6 +94,14 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
+void Scene::initfondo() {
+	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(640.f, 512.f) };
+	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
+	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
+	fondo = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
+	imgfondo.loadFromFile("images/fondo.jpg", TEXTURE_PIXEL_FORMAT_RGB);
+}
+
 
 
 
