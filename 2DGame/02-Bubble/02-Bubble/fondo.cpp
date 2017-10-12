@@ -7,8 +7,8 @@
 
 void Fondo::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
-	spritesheet.loadFromFile("images/fondodos.png", TEXTURE_PIXEL_FORMAT_RGB);
-	sprite = Sprite::createSprite(glm::ivec2(640, 512), glm::vec2(1,1), &spritesheet, &shaderProgram);
+	spritesheet.loadFromFile("images/fondocuatro.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(640, 480), glm::vec2(1,1), &spritesheet, &shaderProgram);
 	
 
 	tileMapDispl = tileMapPos;

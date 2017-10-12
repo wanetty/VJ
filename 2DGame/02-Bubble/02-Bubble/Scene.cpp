@@ -72,7 +72,7 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
-	map->render();
+	//map->render();
 	player->render();
 	flecha->render();
 }
