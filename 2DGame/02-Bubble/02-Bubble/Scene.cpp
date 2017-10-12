@@ -5,6 +5,7 @@
 #include "Game.h"
 
 
+
 #define SCREEN_X 32
 #define SCREEN_Y 16
 
@@ -16,6 +17,8 @@ Scene::Scene()
 {
 	map = NULL;
 	player = NULL;
+	fondo = NULL;
+	flecha = NULL;
 }
 
 Scene::~Scene()
@@ -24,6 +27,10 @@ Scene::~Scene()
 		delete map;
 	if(player != NULL)
 		delete player;
+	if (fondo != NULL)
+		delete fondo;
+	if (flecha != NULL)
+		delete flecha;
 }
 
 
@@ -33,12 +40,16 @@ void Scene::init()
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	player = new Player();
 	fondo = new Fondo();
+	flecha = new Flecha();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	player->setTileMap(map);
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
+	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	flecha->setPosition(glm::vec2(16 * map->getTileSize(), 20 * map->getTileSize()));
+	flecha->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -47,6 +58,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	flecha->update(deltaTime);
 }
 
 void Scene::render()
@@ -62,6 +74,7 @@ void Scene::render()
 	fondo->render();
 	map->render();
 	player->render();
+	flecha->render();
 }
 
 void Scene::initShaders()

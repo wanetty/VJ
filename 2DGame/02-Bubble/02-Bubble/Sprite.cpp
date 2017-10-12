@@ -62,6 +62,22 @@ void Sprite::render() const
 	glDisable(GL_TEXTURE_2D);
 }
 
+void Sprite::render_flecha(float angulo) const
+{
+	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(position.x+64/2, position.y+128/2, 0.f));
+    modelview = glm::rotate(modelview, angulo, glm::vec3(0, 0, 1));
+	modelview = glm::translate(modelview, glm::vec3(-128/2,-64/2, 0.f));
+	shaderProgram->setUniformMatrix4f("modelview", modelview);
+	shaderProgram->setUniform2f("texCoordDispl", texCoordDispl.x, texCoordDispl.y);
+	glEnable(GL_TEXTURE_2D);
+	texture->use();
+	glBindVertexArray(vao);
+	glEnableVertexAttribArray(posLocation);
+	glEnableVertexAttribArray(texCoordLocation);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDisable(GL_TEXTURE_2D);
+}
+
 void Sprite::free()
 {
 	glDeleteBuffers(1, &vbo);

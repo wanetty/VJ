@@ -25,6 +25,7 @@ public:
 	void update(int deltaTime);
 	void render() const;
 	void free();
+	void render_flecha(float angulo) const;
 
 	void setNumberAnimations(int nAnimations);
 	void setAnimationSpeed(int animId, int keyframesPerSec);

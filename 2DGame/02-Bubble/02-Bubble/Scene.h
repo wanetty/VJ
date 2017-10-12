@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "fondo.h"
+#include "Flecha.h"
 
 
 // Scene contains all the entities of our game.
@@ -34,6 +35,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	Fondo *fondo;
+	Flecha *flecha;
 
 };
 
