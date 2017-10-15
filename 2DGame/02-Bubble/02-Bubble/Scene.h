@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "fondo.h"
 #include "Flecha.h"
+#include "Bola.h"
 
 
 // Scene contains all the entities of our game.
@@ -36,6 +37,7 @@ private:
 	glm::mat4 projection;
 	Fondo *fondo;
 	Flecha *flecha;
+	Bola *bola;
 
 };
 

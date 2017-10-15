@@ -64,9 +64,9 @@ void Sprite::render() const
 
 void Sprite::render_flecha(float angulo) const
 {
-	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(position.x+64/2, position.y+128/2, 0.f));
+	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(position.x+48/2, position.y+96/2, 0.f));
     modelview = glm::rotate(modelview, angulo, glm::vec3(0, 0, 1));
-	modelview = glm::translate(modelview, glm::vec3(-128/2,-64/2, 0.f));
+	modelview = glm::translate(modelview, glm::vec3(-96/2,-48/2, 0.f));
 	shaderProgram->setUniformMatrix4f("modelview", modelview);
 	shaderProgram->setUniform2f("texCoordDispl", texCoordDispl.x, texCoordDispl.y);
 	glEnable(GL_TEXTURE_2D);
