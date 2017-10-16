@@ -13,12 +13,15 @@ public:
 
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+	void setDireccion(float x);
 	
 private:
-	glm::ivec2 tileMapDispl, posBola;
+	glm::vec2 tileMapDispl, posBola,direccion;
+	float direccionx,direcciony;
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
+	float angulo;
 	bool lanzada;
 
 	

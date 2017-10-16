@@ -18,6 +18,7 @@ public:
 
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+	float getAngulo();
 
 private:
 	glm::ivec2 tileMapDispl, posFlecha;

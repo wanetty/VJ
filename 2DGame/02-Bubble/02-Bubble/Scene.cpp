@@ -54,6 +54,7 @@ void Scene::init()
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	bola->setPosition(glm::vec2(16.5 * map->getTileSize(), 23 * map->getTileSize()));
 	bola->setTileMap(map);
+	bola->setDireccion(flecha->getAngulo());
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -63,6 +64,7 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 	flecha->update(deltaTime);
+	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
 }
 

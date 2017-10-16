@@ -33,6 +33,7 @@ void Flecha::update(int deltaTime)
 		if (angulo < M_PI - grados*20)
 			angulo += (grados) * 5;
 	}
+
 }
 
 void Flecha::render()
@@ -49,4 +50,8 @@ void Flecha::setPosition(const glm::vec2 &pos)
 {
 	posFlecha = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posFlecha.x), float(tileMapDispl.y + posFlecha.y)));
+}
+
+float Flecha::getAngulo() {
+	return angulo;
 }
