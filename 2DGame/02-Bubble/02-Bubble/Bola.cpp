@@ -36,8 +36,11 @@ void Bola::update(int deltaTime)
 		direccionx = 0;
 		direcciony = 0;
 	}
-
+	if (posBola.y < 48-16) lanzada = false;
 	if (lanzada) {
+		if (posBola.x <=  (192-32) || posBola.x >= (450-64)) {
+			direccionx *= -1;
+		}	
 		posBola.x -= direccionx *5.f;
 		posBola.y -= direcciony *5.f;
 	}
