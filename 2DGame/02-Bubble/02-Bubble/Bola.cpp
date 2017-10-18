@@ -23,7 +23,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	if (Game::instance().getKey(32)) {
+	if (Game::instance().getKey(32) && !lanzada) {
 		lanzada = true;
 
 		direccionx = cos(angulo);
