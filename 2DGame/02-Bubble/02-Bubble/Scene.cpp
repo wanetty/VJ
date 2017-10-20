@@ -10,15 +10,11 @@
 #define SCREEN_Y 50
 
 
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 25
-
 
 
 Scene::Scene()
 {
 	map = NULL;
-	player = NULL;
 	fondo = NULL;
 	flecha = NULL;
 }
@@ -27,8 +23,6 @@ Scene::~Scene()
 {
 	if(map != NULL)
 		delete map;
-	if(player != NULL)
-		delete player;
 	if (fondo != NULL)
 		delete fondo;
 	if (flecha != NULL)
@@ -40,13 +34,9 @@ void Scene::init()
 {
 	initShaders();
 	map = TileMap::createTileMap("levels/mapa1.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-	player = new Player();
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	player->setTileMap(map);
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
@@ -64,7 +54,6 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
 	flecha->update(deltaTime);
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
@@ -82,7 +71,6 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
 	map->render();
-	player->render();
 	flecha->render();
 	bola->render();
 }
