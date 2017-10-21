@@ -28,6 +28,7 @@ public:
 	void free();
 	void set_bola(int &x, int &y, int &color);
 	int getTileSize() const { return tileSize; }
+	bool comprueba_posicion(int &x, int &y);
 
 private:
 	bool loadLevel(const string &levelFile);

@@ -167,6 +167,27 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 void TileMap::set_bola(int &x,int &y,int &color) {
 	map[y * mapSize.x + x] = color;
 }
+bool TileMap::comprueba_posicion(int &x, int &y) {
+	bool primero = true;
+				if (map[(y -1) * mapSize.x + (x)] != 0) {
+					return false;
+				}
+				else if (map[(y) * mapSize.x + (x+1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y)* mapSize.x + (x - 1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y-1 )* mapSize.x + (x - 1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y - 1)* mapSize.x + (x + 1)] != 0 && !primero) {
+					return false;
+				}
+				primero = false;
+		
+	return true;
+}
 
 
 // Collision tests for axis aligned bounding boxes.

@@ -25,6 +25,9 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
+	int TileBolax = (posBola.x) / 32;
+	int TileBolay = (posBola.y) / 32;
+	int Color = 1;
 	if (Game::instance().getKey(32) && !lanzada) {
 		lanzada = true;
 		direccionx = cos(angulo);
@@ -37,17 +40,22 @@ void Bola::update(int deltaTime)
 		direccionx = 0;
 		direcciony = 0;
 	}
-	if (posBola.y <= 0) {
+	if (posBola.y <= 0 ) {
 		lanzada = false;
-		int TileBolax = (posBola.x+16) / 32;
-		int TileBolay = (posBola.y+16) / 32;
-		int Color = 1;
 		map->set_bola(TileBolax, TileBolay, Color);
 		posBola.x = Bola_inipos_x;
 		posBola.y = Bola_inipos_y;
 		direccionx = 0;
 		direcciony = 0;
 
+	}
+	if (lanzada && !map->comprueba_posicion(TileBolax, TileBolay)) {
+		lanzada = false;
+		map->set_bola(TileBolax, TileBolay, Color);
+		posBola.x = Bola_inipos_x;
+		posBola.y = Bola_inipos_y;
+		direccionx = 0;
+		direcciony = 0;
 	}
 	if (lanzada) {
 		if (posBola.x <=  0 || posBola.x > (8*32)-16) {
