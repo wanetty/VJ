@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include "TileMap.h"
+#include "Game.h"
 
 
 using namespace std;
@@ -11,7 +12,7 @@ using namespace std;
 TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	TileMap *map = new TileMap(levelFile, minCoords, program);
-	
+
 	return map;
 }
 
@@ -28,6 +29,14 @@ TileMap::~TileMap()
 		delete map;
 }
 
+
+
+void TileMap::update(const glm::vec2 &minCoords, ShaderProgram &program) {
+	if (Game::instance().getKey('n')) {
+		map[1*mapSize.x + 1] = 2;
+	}
+	prepareArrays(minCoords, program);
+}
 
 void TileMap::render() const
 {
@@ -100,6 +109,8 @@ bool TileMap::loadLevel(const string &levelFile)
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	int desviacion = 0;
+	int limite = mapSize.x;
 	int tile, nTiles = 0;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
 	vector<float> vertices;
@@ -107,14 +118,22 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	halfTexel = glm::vec2(0.5f / tilesheet.width(), 0.5f / tilesheet.height());
 	for(int j=0; j<mapSize.y; j++)
 	{
-		for(int i=0; i<mapSize.x; i++)
+		if (j % 2 != 0) {
+			desviacion = 16;
+			limite = mapSize.x - 1;
+		}
+		else {
+			desviacion = 0;
+			limite = mapSize.x;
+		}
+		for(int i=0; i<limite; i++)
 		{
 			tile = map[j * mapSize.x + i];
 			if(tile != 0)
 			{
 				// Non-empty tile
-				nTiles++;
-				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
+ 				nTiles++;
+				posTile = glm::vec2(desviacion + minCoords.x + i * tileSize , minCoords.y + j * tileSize);
 				texCoordTile[0] = glm::vec2(float((tile-1)%3) / tilesheetSize.x, float((tile-1)/3) / tilesheetSize.y);
 				texCoordTile[1] = texCoordTile[0] + tileTexSize;
 				//texCoordTile[0] += halfTexel;
@@ -145,6 +164,10 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
+void TileMap::set_bola(int &x,int &y,int &color) {
+	map[y * mapSize.x + x] = color;
+}
+
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is

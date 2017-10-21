@@ -23,9 +23,10 @@ public:
 	TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program);
 	~TileMap();
 
+	void update(const glm::vec2 &minCoords, ShaderProgram &program);
 	void render() const;
 	void free();
-	
+	void set_bola(int &x, int &y, int &color);
 	int getTileSize() const { return tileSize; }
 
 private:

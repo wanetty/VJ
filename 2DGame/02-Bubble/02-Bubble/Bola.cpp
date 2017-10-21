@@ -37,13 +37,24 @@ void Bola::update(int deltaTime)
 		direccionx = 0;
 		direcciony = 0;
 	}
-	if (posBola.y <= 0) lanzada = false;
+	if (posBola.y <= 0) {
+		lanzada = false;
+		int TileBolax = (posBola.x+16) / 32;
+		int TileBolay = (posBola.y+16) / 32;
+		int Color = 1;
+		map->set_bola(TileBolax, TileBolay, Color);
+		posBola.x = Bola_inipos_x;
+		posBola.y = Bola_inipos_y;
+		direccionx = 0;
+		direcciony = 0;
+
+	}
 	if (lanzada) {
-		if (posBola.x <=  0 || posBola.x > (8*32)-32) {
+		if (posBola.x <=  0 || posBola.x > (8*32)-16) {
 			direccionx *= -1;
 		}	
-		posBola.x -= direccionx *5.f;
-		posBola.y -= direcciony *5.f;
+		posBola.x -= direccionx *10.f;
+		posBola.y -= direcciony *10.f;
 	}
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 

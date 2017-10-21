@@ -16,15 +16,13 @@ public:
 	void setDireccion(float x);
 	
 private:
-	glm::vec2 tileMapDispl, posBola,direccion;
+	glm::ivec2 tileMapDispl, posBola,direccion;
 	float direccionx,direcciony;
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
 	float angulo;
 	bool lanzada;
-
-	
 };
 #endif // _BOLA_INCLUDE
 

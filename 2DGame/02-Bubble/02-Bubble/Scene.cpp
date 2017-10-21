@@ -58,6 +58,7 @@ void Scene::update(int deltaTime)
 	flecha->update(deltaTime);
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
+	map->update(glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 }
 
 void Scene::render()
