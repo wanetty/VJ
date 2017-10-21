@@ -9,7 +9,8 @@
 #define SCREEN_X 191
 #define SCREEN_Y 50
 
-
+#define Pos_felcha_x 104
+#define Pos_felcha_y 302
 
 
 Scene::Scene()
@@ -41,10 +42,10 @@ void Scene::init()
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	flecha->setPosition(glm::vec2(128-24, 302));
+	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
 	flecha->setTileMap(map);
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	bola->setPosition(glm::vec2(16.5 * map->getTileSize(), 23 * map->getTileSize()));
+	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setTileMap(map);
 	bola->setDireccion(flecha->getAngulo());
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
