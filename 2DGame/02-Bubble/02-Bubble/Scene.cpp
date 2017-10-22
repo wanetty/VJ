@@ -9,16 +9,13 @@
 #define SCREEN_X 191
 #define SCREEN_Y 50
 
-
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 25
-
+#define Pos_felcha_x 104
+#define Pos_felcha_y 302
 
 
 Scene::Scene()
 {
 	map = NULL;
-	player = NULL;
 	fondo = NULL;
 	flecha = NULL;
 }
@@ -27,8 +24,6 @@ Scene::~Scene()
 {
 	if(map != NULL)
 		delete map;
-	if(player != NULL)
-		delete player;
 	if (fondo != NULL)
 		delete fondo;
 	if (flecha != NULL)
@@ -40,21 +35,17 @@ void Scene::init()
 {
 	initShaders();
 	map = TileMap::createTileMap("levels/mapa1.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-	player = new Player();
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	player->setTileMap(map);
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	flecha->setPosition(glm::vec2(128-24, 302));
+	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
 	flecha->setTileMap(map);
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	bola->setPosition(glm::vec2(16.5 * map->getTileSize(), 23 * map->getTileSize()));
+	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setTileMap(map);
 	bola->setDireccion(flecha->getAngulo());
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -64,10 +55,10 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
 	flecha->update(deltaTime);
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
+	map->update(glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 }
 
 void Scene::render()
@@ -82,7 +73,6 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
 	map->render();
-	player->render();
 	flecha->render();
 	bola->render();
 }

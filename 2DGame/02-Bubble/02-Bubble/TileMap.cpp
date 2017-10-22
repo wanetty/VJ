@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include "TileMap.h"
+#include "Game.h"
 
 
 using namespace std;
@@ -11,7 +12,7 @@ using namespace std;
 TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	TileMap *map = new TileMap(levelFile, minCoords, program);
-	
+
 	return map;
 }
 
@@ -28,6 +29,14 @@ TileMap::~TileMap()
 		delete map;
 }
 
+
+
+void TileMap::update(const glm::vec2 &minCoords, ShaderProgram &program) {
+	if (Game::instance().getKey('n')) {
+		map[1*mapSize.x + 1] = 2;
+	}
+	prepareArrays(minCoords, program);
+}
 
 void TileMap::render() const
 {
@@ -100,6 +109,8 @@ bool TileMap::loadLevel(const string &levelFile)
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	int desviacion = 0;
+	int limite = mapSize.x;
 	int tile, nTiles = 0;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
 	vector<float> vertices;
@@ -107,15 +118,23 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	halfTexel = glm::vec2(0.5f / tilesheet.width(), 0.5f / tilesheet.height());
 	for(int j=0; j<mapSize.y; j++)
 	{
-		for(int i=0; i<mapSize.x; i++)
+		if (j % 2 != 0) {
+			desviacion = 16;
+			limite = mapSize.x - 1;
+		}
+		else {
+			desviacion = 0;
+			limite = mapSize.x;
+		}
+		for(int i=0; i<limite; i++)
 		{
 			tile = map[j * mapSize.x + i];
 			if(tile != 0)
 			{
 				// Non-empty tile
-				nTiles++;
-				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
-				texCoordTile[0] = glm::vec2(float((tile-1)%2) / tilesheetSize.x, float((tile-1)/2) / tilesheetSize.y);
+ 				nTiles++;
+				posTile = glm::vec2(desviacion + minCoords.x + i * tileSize , minCoords.y + j * tileSize);
+				texCoordTile[0] = glm::vec2(float((tile-1)%3) / tilesheetSize.x, float((tile-1)/3) / tilesheetSize.y);
 				texCoordTile[1] = texCoordTile[0] + tileTexSize;
 				//texCoordTile[0] += halfTexel;
 				texCoordTile[1] -= halfTexel;
@@ -145,64 +164,39 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
+void TileMap::set_bola(int &x,int &y,int &color) {
+	map[y * mapSize.x + x] = color;
+}
+bool TileMap::comprueba_posicion(int &x, int &y) {
+	bool primero = true;
+				if (map[(y -1) * mapSize.x + (x)] != 0) {
+					return false;
+				}
+				else if (map[(y) * mapSize.x + (x+1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y)* mapSize.x + (x - 1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y-1 )* mapSize.x + (x - 1)] != 0 && !primero) {
+					return false;
+				}
+				else if (map[(y - 1)* mapSize.x + (x + 1)] != 0 && !primero) {
+					return false;
+				}
+				primero = false;
+		
+	return true;
+}
+
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
 
-bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
-{
-	int x, y0, y1;
-	
-	x = pos.x / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for(int y=y0; y<=y1; y++)
-	{
-		if(map[y*mapSize.x+x] != 0)
-			return true;
-	}
-	
-	return false;
-}
 
-bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
-{
-	int x, y0, y1;
-	
-	x = (pos.x + size.x - 1) / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for(int y=y0; y<=y1; y++)
-	{
-		if(map[y*mapSize.x+x] != 0)
-			return true;
-	}
-	
-	return false;
-}
 
-bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const
-{
-	int x0, x1, y;
-	
-	x0 = pos.x / tileSize;
-	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y + size.y - 1) / tileSize;
-	for(int x=x0; x<=x1; x++)
-	{
-		if(map[y*mapSize.x+x] != 0)
-		{
-			if(*posY - tileSize * y + size.y <= 4)
-			{
-				*posY = tileSize * y - size.y;
-				return true;
-			}
-		}
-	}
-	
-	return false;
-}
+
 
 
 

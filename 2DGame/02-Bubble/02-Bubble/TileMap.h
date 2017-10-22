@@ -23,15 +23,13 @@ public:
 	TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program);
 	~TileMap();
 
+	void update(const glm::vec2 &minCoords, ShaderProgram &program);
 	void render() const;
 	void free();
-	
+	void set_bola(int &x, int &y, int &color);
 	int getTileSize() const { return tileSize; }
+	bool comprueba_posicion(int &x, int &y);
 
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
-	
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
