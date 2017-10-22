@@ -14,6 +14,8 @@ public:
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
 	void setDireccion(float x);
+	void reincio_bola();
+	
 	
 private:
 	glm::ivec2 tileMapDispl, posBola,direccion;

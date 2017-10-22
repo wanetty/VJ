@@ -165,27 +165,28 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
 void TileMap::set_bola(int &x,int &y,int &color) {
-	map[y * mapSize.x + x] = color;
+
+	if(y % 2 != 0 && y == 7) map[y * mapSize.x + x] = color;
+	else map[y * mapSize.x + x] = color;
 }
 bool TileMap::comprueba_posicion(int &x, int &y) {
-	bool primero = true;
-				if (map[(y -1) * mapSize.x + (x)] != 0) {
-					return false;
+	bool primero = false;
+	bool impar = false;
+	if (y % 2 != 0 && x >= 7) return true;
+	if (y >= 10 || x >= 7) primero = true;
+				 if (map[(y) * mapSize.x + (x+1)] != 0 && !primero) {
+					return false; //izq
 				}
-				else if (map[(y) * mapSize.x + (x+1)] != 0 && !primero) {
-					return false;
+				else if (map[(y)* mapSize.x + (x - 1)] != 0 && !primero ) {
+					return false;//der
 				}
-				else if (map[(y)* mapSize.x + (x - 1)] != 0 && !primero) {
-					return false;
+				else if (map[(y-1 )* mapSize.x + (x - (y + 1) % 2)] != 0 && !primero ) {
+					return false;//arriba izquerda
 				}
-				else if (map[(y-1 )* mapSize.x + (x - 1)] != 0 && !primero) {
-					return false;
+				else if (map[(y - 1)* mapSize.x + (x - ((y + 1) % 2)+1)] != 0 && !primero ) {
+					return false;//arribaderecha.
 				}
-				else if (map[(y - 1)* mapSize.x + (x + 1)] != 0 && !primero) {
-					return false;
-				}
-				primero = false;
-		
+				//primero = false;
 	return true;
 }
 
