@@ -25,25 +25,40 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	int TileBolax = (posBola.x+16) / 32;
-	int TileBolay = (posBola.y+16) / 32;
 	int Color = 1;
 	if (Game::instance().getKey(32) && !lanzada) {
 		lanzada = true;
 		direccionx = cos(angulo);
 		direcciony = sin(angulo);
 	}
-	if (TileBolay == 0 ) {
+	if (posBola.y <= 0 ) {
 		lanzada = false;
-		map->set_bola(TileBolax, TileBolay, Color);
+		map->set_bola(posBola.x, posBola.y, Color);
 		this->reincio_bola();
 
 	}
-	if (lanzada && !map->comprueba_posicion(TileBolax, TileBolay)) {
+	if (lanzada && !map->comprueba_derecha((posBola.x + 31), posBola.y+16)) {
 		lanzada = false;
-		map->set_bola(TileBolax, TileBolay, Color);
+		map->set_bola((posBola.x + 31), posBola.y + 16, Color);
 		this->reincio_bola();
 		
+	}else if (lanzada && !map->comprueba_izquierda(posBola.x, posBola.y+16)) {
+		lanzada = false;
+		map->set_bola(posBola.x, posBola.y + 16, Color);
+		this->reincio_bola();
+
+	}
+	else if (lanzada && !map->comprueba_arrizquiera(posBola.x, posBola.y)) {
+		lanzada = false;
+		map->set_bola(posBola.x, posBola.y, Color);
+		this->reincio_bola();
+
+	}
+	else if (lanzada && !map->comprueba_arrderecha((posBola.x + 15), posBola.y)) {
+		lanzada = false;
+		map->set_bola((posBola.x + 15), posBola.y, Color);
+		this->reincio_bola();
+
 	}
 	if (lanzada) {
 		if (posBola.x <=  0 || posBola.x > (8*32)-16) {

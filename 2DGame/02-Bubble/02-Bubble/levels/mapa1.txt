@@ -3,9 +3,9 @@ TILEMAP
 32 32 							-- Tile size & block size
 images/mapbolas.png 					-- Tilesheet
 3 3							-- Number of tiles in tilesheet
-1  12  3
-11  3   
-   4    
+1   2  3
+        
+        
         
         
         

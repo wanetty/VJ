@@ -164,31 +164,62 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
-void TileMap::set_bola(int &x,int &y,int &color) {
-
-	if(y % 2 != 0 && y == 7) map[y * mapSize.x + x] = color;
-	else map[y * mapSize.x + x] = color;
+void TileMap::set_bola(const int x,const  int y,const  int color) {
+	int auxx = (x) / tileSize;
+	int auxy = (y) / tileSize;
+	if (auxy % 2 != 0 && auxx == 7) {
+		auxx = 6;
+		map[auxy * mapSize.x + auxx] = color;
+	}
+	else map[auxy * mapSize.x + auxx] = color;
 }
-bool TileMap::comprueba_posicion(int &x, int &y) {
+bool TileMap::comprueba_izquierda(const int x, const int y) {
 	bool primero = false;
-	bool impar = false;
-	if (y % 2 != 0 && x >= 7) return true;
-	if (y >= 10 || x >= 7) primero = true;
-				 if (map[(y) * mapSize.x + (x+1)] != 0 && !primero) {
+	int auxx = (x+32) / tileSize;
+	int auxy = (y+32) / tileSize;
+	if (auxy > 9) primero = true;
+				auxx = (x) / tileSize;
+				auxy = (y) / tileSize;
+				 if (map[(auxy) * mapSize.x + (auxx +1)] != 0 && !primero) {
 					return false; //izq
 				}
-				else if (map[(y)* mapSize.x + (x - 1)] != 0 && !primero ) {
-					return false;//der
-				}
-				else if (map[(y-1 )* mapSize.x + (x - (y + 1) % 2)] != 0 && !primero ) {
-					return false;//arriba izquerda
-				}
-				else if (map[(y - 1)* mapSize.x + (x - ((y + 1) % 2)+1)] != 0 && !primero ) {
-					return false;//arribaderecha.
-				}
-				//primero = false;
 	return true;
 }
+bool TileMap::comprueba_derecha(const int x, const int y) {
+	int auxx = (x) / tileSize;
+	int auxy = (y) / tileSize;
+	bool primero = false;
+	if (auxy > 9) primero = true;
+	if (map[(auxy)* mapSize.x + (auxx - 1)] != 0 && !primero) {
+		return false;//der
+	}
+	return true;
+}
+
+bool TileMap::comprueba_arrderecha(const int x, const int y) {
+	bool primero = false;
+	int auxx = (x) / tileSize;
+	int auxy = (y) / tileSize;
+	if (auxy > 9) primero = true;
+	if (auxy % 2 == 0 && auxx == 7) return true;
+	if (auxy % 2 != 0 && auxx == 7) auxx = 6;
+	if (map[(auxy - 1)* mapSize.x + (auxx - ((auxy + 1) % 2) + 1)] != 0 && !primero) {
+ 			return false;//arribaderecha.
+	}
+	return true;
+}
+bool TileMap::comprueba_arrizquiera(const int x, const int y) {
+	bool primero = false;
+	int auxx = (x) / tileSize;
+	int auxy = (y) / tileSize;
+	if (auxy > 9) primero = true;
+	if (auxy % 2 == 0 &&  auxx == 0) return true;
+	if (map[(auxy - 1)* mapSize.x + (auxx - ((auxy + 1) % 2))] != 0 && !primero) {
+		return false;//arriba izquerda
+	}
+	return true;
+}
+
 
 
 // Collision tests for axis aligned bounding boxes.

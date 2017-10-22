@@ -26,9 +26,12 @@ public:
 	void update(const glm::vec2 &minCoords, ShaderProgram &program);
 	void render() const;
 	void free();
-	void set_bola(int &x, int &y, int &color);
+	void set_bola(const int x,const  int y,const  int color);
 	int getTileSize() const { return tileSize; }
-	bool comprueba_posicion(int &x, int &y);
+	bool comprueba_derecha(const int x, const int y);
+	bool comprueba_izquierda(const int x, const int y);
+	bool comprueba_arrderecha(const int x, const int y);
+	bool comprueba_arrizquiera(const int x, const int y);
 
 private:
 	bool loadLevel(const string &levelFile);
