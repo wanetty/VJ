@@ -19,7 +19,8 @@ public:
 	void set_color(const int colour);
 	
 private:
-	glm::ivec2 tileMapDispl, posBola,direccion;
+	glm::ivec2 tileMapDispl,direccion;
+	glm::vec2 posBola;
 	ShaderProgram shaderProgrambola;
 	float direccionx,direcciony;
 	Texture spritesheet;

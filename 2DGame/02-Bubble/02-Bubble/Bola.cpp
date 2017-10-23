@@ -40,26 +40,26 @@ void Bola::update(int deltaTime)
 		this->reincio_bola();
 
 	}
-	if (lanzada && !map->comprueba_derecha((posBola.x + 31), posBola.y+16)) {
+	if (lanzada && !map->comprueba_derecha((posBola.x + 32), posBola.y+32)) {
 		lanzada = false;
-		map->set_bola((posBola.x + 31), posBola.y + 16, color);
+		map->set_bola((posBola.x + 32), posBola.y + 32, color);
 		this->reincio_bola();
 		
-	}else if (lanzada && !map->comprueba_izquierda(posBola.x, posBola.y+16)) {
+	}else if (lanzada && !map->comprueba_izquierda(posBola.x, posBola.y+32)) {
 		lanzada = false;
-		map->set_bola(posBola.x, posBola.y + 16, color);
+		map->set_bola(posBola.x, posBola.y + 32, color);
 		this->reincio_bola();
 
 	}
-	else if (lanzada && !map->comprueba_arrizquiera(posBola.x, posBola.y)) {
+	else if (lanzada && !map->comprueba_arrizquiera(posBola.x+16, posBola.y+32)) {
 		lanzada = false;
-		map->set_bola(posBola.x, posBola.y, color);
+		map->set_bola(posBola.x+16, posBola.y+32, color);
 		this->reincio_bola();
 
 	}
-	else if (lanzada && !map->comprueba_arrderecha((posBola.x + 15), posBola.y)) {
+	else if (lanzada && !map->comprueba_arrderecha((posBola.x + 16), posBola.y+32)) {
 		lanzada = false;
-		map->set_bola((posBola.x + 15), posBola.y, color);
+		map->set_bola((posBola.x + 16), posBola.y+32, color);
 		this->reincio_bola();
 
 	}

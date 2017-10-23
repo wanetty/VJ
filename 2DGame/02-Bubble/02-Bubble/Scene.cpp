@@ -44,9 +44,8 @@ void Scene::init()
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
 	flecha->setTileMap(map);
-	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map);
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
-	bola->setTileMap(map);
 	bola->setDireccion(flecha->getAngulo());
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
