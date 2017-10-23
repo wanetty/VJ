@@ -9,6 +9,8 @@
 #include "fondo.h"
 #include "Flecha.h"
 #include "Bola.h"
+#include "Bolsas.h"
+#include "Base.h"
 
 
 // Scene contains all the entities of our game.
@@ -38,6 +40,8 @@ private:
 	Fondo *fondo;
 	Flecha *flecha;
 	Bola *bola;
+	Bolsas * bolsa;
+	Base *base;
 
 };
 

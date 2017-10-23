@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
+#include "Bolsas.h"
 
 
 
@@ -18,6 +19,8 @@ Scene::Scene()
 	map = NULL;
 	fondo = NULL;
 	flecha = NULL;
+	bolsa = NULL;
+	base = NULL;
 }
 
 Scene::~Scene()
@@ -38,6 +41,8 @@ void Scene::init()
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
+	bolsa = new Bolsas();
+	base = new Base();
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
@@ -47,6 +52,12 @@ void Scene::init()
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map);
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setDireccion(flecha->getAngulo());
+	bolsa->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	bolsa->setPosition(glm::vec2(191-40,385+25));
+	bolsa->setTileMap(map);
+	base->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	base->setPosition(glm::vec2(250, 385 + 20));
+	base->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -58,6 +69,7 @@ void Scene::update(int deltaTime)
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
 	map->update(glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	//bolsa->update(deltaTime);
 }
 
 void Scene::render()
@@ -72,8 +84,11 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
 	map->render();
+	base->render();
 	flecha->render();
 	bola->render();
+	bolsa->render();
+	
 }
 
 void Scene::initShaders()
