@@ -11,7 +11,7 @@
 void Bolsas::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 
-	spritesheet.loadFromFile("images/bolsas.png", TEXTURE_PIXEL_FORMAT_RGB);
+	spritesheet.loadFromFile("images/bolsas.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(128, 64), glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBolsas.x), float(tileMapDispl.y + posBolsas.y)));
@@ -41,6 +41,6 @@ void Bolsas::setTileMap(TileMap *tileMap)
 void Bolsas::setPosition(const glm::vec2 &pos)
 {
 	posBolsas = pos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBolsas.x), float(tileMapDispl.y + posBolsas.y)));
+	sprite->setPosition(glm::vec2(float(posBolsas.x), float(posBolsas.y)));
 }
 
