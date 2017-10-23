@@ -27,11 +27,14 @@ public:
 	void render() const;
 	void free();
 	void set_bola(const int x,const  int y,const  int color);
+	int  get_bola(const int pos);
+	char get_sizebolsa();
 	int getTileSize() const { return tileSize; }
 	bool comprueba_derecha(const int x, const int y);
 	bool comprueba_izquierda(const int x, const int y);
 	bool comprueba_arrderecha(const int x, const int y);
 	bool comprueba_arrizquiera(const int x, const int y);
+
 
 private:
 	bool loadLevel(const string &levelFile);
@@ -42,10 +45,12 @@ private:
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
 	glm::ivec2 position, mapSize, tilesheetSize;
-	int tileSize, blockSize;
+	int tileSize, blockSize; 
+	char sizebolsa;
 	Texture tilesheet;
 	glm::vec2 tileTexSize;
 	int *map;
+	int *bolsa;
 
 };
 

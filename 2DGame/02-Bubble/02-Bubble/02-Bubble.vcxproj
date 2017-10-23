@@ -22,6 +22,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprite_texture.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite_texture.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>

@@ -59,7 +59,7 @@ bool TileMap::loadLevel(const string &levelFile)
 	ifstream fin;
 	string line, tilesheetFile;
 	stringstream sstream;
-	char tile;
+	char tile, color;
 	
 	fin.open(levelFile.c_str());
 	if(!fin.is_open())
@@ -101,6 +101,14 @@ bool TileMap::loadLevel(const string &levelFile)
 #ifndef _WIN32
 		fin.get(tile);
 #endif
+	}
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> sizebolsa;
+	bolsa = new int[sizebolsa - int('0')];
+	for (int i = 0; i < (sizebolsa-int('0')); ++i) {
+		fin.get(color);
+		if (color > '0' && color < '9')bolsa[i] = color - int('0');
 	}
 	fin.close();
 	
@@ -218,6 +226,12 @@ bool TileMap::comprueba_arrizquiera(const int x, const int y) {
 		return false;//arriba izquerda
 	}
 	return true;
+}
+int TileMap::get_bola(const int pos) {
+	return bolsa[pos];
+}
+char TileMap::get_sizebolsa() {
+	return sizebolsa  - int('0');
 }
 
 

@@ -10,13 +10,17 @@
 # define Bola_inipos_x 112
 # define Bola_inipos_y 334
 
-void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap)
 {
 	
 	spritesheet.loadFromFile("images/mapbolas.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.333333333, 0.333333333), &spritesheet, &shaderProgram);
-	lanzada = false;
+	map = tileMap;
+	posbolsa = 0;
+	shaderProgrambola = shaderProgram;
 	tileMapDispl = tileMapPos;
+	set_color(map->get_bola(posbolsa));
+	++posbolsa;
+	lanzada = false;
 	direccion.x = 0;
 	direccion.y = 0;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
@@ -25,7 +29,6 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	int Color = 1;
 	if (Game::instance().getKey(32) && !lanzada) {
 		lanzada = true;
 		direccionx = cos(angulo);
@@ -33,30 +36,30 @@ void Bola::update(int deltaTime)
 	}
 	if (posBola.y <= 0 ) {
 		lanzada = false;
-		map->set_bola(posBola.x, posBola.y, Color);
+		map->set_bola(posBola.x, posBola.y, color);
 		this->reincio_bola();
 
 	}
 	if (lanzada && !map->comprueba_derecha((posBola.x + 31), posBola.y+16)) {
 		lanzada = false;
-		map->set_bola((posBola.x + 31), posBola.y + 16, Color);
+		map->set_bola((posBola.x + 31), posBola.y + 16, color);
 		this->reincio_bola();
 		
 	}else if (lanzada && !map->comprueba_izquierda(posBola.x, posBola.y+16)) {
 		lanzada = false;
-		map->set_bola(posBola.x, posBola.y + 16, Color);
+		map->set_bola(posBola.x, posBola.y + 16, color);
 		this->reincio_bola();
 
 	}
 	else if (lanzada && !map->comprueba_arrizquiera(posBola.x, posBola.y)) {
 		lanzada = false;
-		map->set_bola(posBola.x, posBola.y, Color);
+		map->set_bola(posBola.x, posBola.y, color);
 		this->reincio_bola();
 
 	}
 	else if (lanzada && !map->comprueba_arrderecha((posBola.x + 15), posBola.y)) {
 		lanzada = false;
-		map->set_bola((posBola.x + 15), posBola.y, Color);
+		map->set_bola((posBola.x + 15), posBola.y, color);
 		this->reincio_bola();
 
 	}
@@ -71,6 +74,9 @@ void Bola::update(int deltaTime)
 
 }
 void Bola::reincio_bola() {
+	set_color(map->get_bola(posbolsa));
+	++posbolsa;
+	if (map->get_sizebolsa() <= posbolsa) posbolsa = 0;
 	posBola.x = Bola_inipos_x;
 	posBola.y = Bola_inipos_y;
 	direccionx = 0;
@@ -91,5 +97,14 @@ void Bola::setPosition(const glm::vec2 &pos)
 }
 void Bola::setDireccion(float x) {
 	angulo = x;
+}
+void Bola::set_color(const int colour) {
+ 	color = colour;
+	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
+	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
+	glm::vec2 tileTexSize = glm::vec2(1.f / 3, 1.f / 3);
+	nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
+	nbola[1] = nbola[0] + tileTexSize;
+	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
 }
 
