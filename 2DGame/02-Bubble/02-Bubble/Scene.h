@@ -11,6 +11,9 @@
 #include "Bola.h"
 #include "Bolsas.h"
 #include "Base.h"
+#include "Rueda.h"
+#include "Arco.h"
+#include "Bub.h"
 
 
 // Scene contains all the entities of our game.
@@ -42,7 +45,9 @@ private:
 	Bola *bola;
 	Bolsas * bolsa;
 	Base *base;
-
+	Rueda *rueda;
+	Arco *arco;
+	Bub *bub;
 };
 
 

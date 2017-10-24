@@ -43,6 +43,9 @@ void Scene::init()
 	bola = new Bola();
 	bolsa = new Bolsas();
 	base = new Base();
+	rueda = new Rueda();
+	arco = new Arco();
+	bub = new Bub();
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
@@ -56,8 +59,17 @@ void Scene::init()
 	bolsa->setPosition(glm::vec2(191-40,385+25));
 	bolsa->setTileMap(map);
 	base->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	base->setPosition(glm::vec2(250, 385 + 20));
+	base->setPosition(glm::vec2(243, 385 + 25));
 	base->setTileMap(map);
+	rueda->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	rueda->setPosition(glm::vec2(320+40, 385 + 35));
+	rueda->setTileMap(map);
+	arco->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	arco->setPosition(glm::vec2(278, 385-10));
+	arco->setTileMap(map);
+	bub->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	bub->setPosition(glm::vec2(191+60, 385 + 32));
+	bub->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -85,9 +97,12 @@ void Scene::render()
 	fondo->render();
 	map->render();
 	base->render();
+	arco->render();
 	flecha->render();
 	bola->render();
 	bolsa->render();
+	rueda->render();
+	bub->render();
 	
 }
 

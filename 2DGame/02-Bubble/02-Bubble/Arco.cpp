@@ -12,7 +12,7 @@ void Arco::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 
 	spritesheet.loadFromFile("images/arco.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(52, 48), glm::vec2(1, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(81, 37), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posArco.x), float(tileMapDispl.y + posArco.y)));
 

@@ -12,7 +12,7 @@ void Base::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 
 	spritesheet.loadFromFile("images/cat.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(132, 64), glm::vec2(1, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(133, 56), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBase.x), float(tileMapDispl.y + posBase.y)));
 

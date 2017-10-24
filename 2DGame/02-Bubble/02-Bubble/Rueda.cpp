@@ -12,7 +12,7 @@ void Rueda::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 
 	spritesheet.loadFromFile("images/rueda2.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(100, 68), glm::vec2(1, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(64, 48), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posRueda.x), float(tileMapDispl.y + posRueda.y)));
 

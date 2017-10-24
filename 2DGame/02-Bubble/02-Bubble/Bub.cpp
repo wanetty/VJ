@@ -12,7 +12,7 @@ void Bub::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 
 	spritesheet.loadFromFile("images/Bub2.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(72, 60), glm::vec2(1, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(72,60), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBub.x), float(tileMapDispl.y + posBub.y)));
 
