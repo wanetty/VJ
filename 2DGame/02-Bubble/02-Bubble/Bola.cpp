@@ -34,42 +34,39 @@ void Bola::update(int deltaTime)
 		direccionx = cos(angulo);
 		direcciony = sin(angulo);
 	}
-	if (posBola.y <= 0 ) {
-		lanzada = false;
-		map->set_bola(posBola.x, posBola.y, color);
-		this->reincio_bola();
-
-	}
-	if (lanzada && !map->comprueba_derecha((posBola.x + 32), posBola.y+32)) {
-		lanzada = false;
-		map->set_bola((posBola.x + 32), posBola.y + 32, color);
-		this->reincio_bola();
-		
-	}else if (lanzada && !map->comprueba_izquierda(posBola.x, posBola.y+32)) {
-		lanzada = false;
-		map->set_bola(posBola.x, posBola.y + 32, color);
-		this->reincio_bola();
-
-	}
-	else if (lanzada && !map->comprueba_arrizquiera(posBola.x+16, posBola.y+32)) {
-		lanzada = false;
-		map->set_bola(posBola.x+16, posBola.y+32, color);
-		this->reincio_bola();
-
-	}
-	else if (lanzada && !map->comprueba_arrderecha((posBola.x + 16), posBola.y+32)) {
-		lanzada = false;
-		map->set_bola((posBola.x + 16), posBola.y+32, color);
-		this->reincio_bola();
-
-	}
 	if (lanzada) {
-		if (posBola.x <=  0 || posBola.x > (8*32)-16) {
+		glm::vec2 derecha = map->comprueba_derecha(posBola);
+		glm::vec2 izquierda = map->comprueba_izquierda(posBola);
+		glm::vec2 arriba = map->comprueba_arriba(posBola);
+		if (derecha.x != -1 && derecha.y != -1) {
+			lanzada = false;
+			map->set_bola(derecha, color);
+			this->reincio_bola();
+		}
+		else if (izquierda.x != -1 && izquierda.y != -1) {
+			lanzada = false;
+			map->set_bola(izquierda, color);
+			this->reincio_bola();
+		}
+		else if (arriba.x != -1 && arriba.y != -1) {
+			lanzada = false;
+			map->set_bola(arriba, color);
+			this->reincio_bola();
+		}
+		if (posBola.x <= 0 || posBola.x > (8 * 32) - 16) {
 			direccionx *= -1;
-		}	
+		}
 		posBola.x -= direccionx *10.f;
 		posBola.y -= direcciony *10.f;
 	}
+	if (lanzada && posBola.y <= 0 ) {
+		lanzada = false;
+		map->set_bola(posBola, color);
+		this->reincio_bola();
+
+	}
+	
+	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 
 }

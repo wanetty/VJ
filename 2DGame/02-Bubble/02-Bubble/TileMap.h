@@ -26,14 +26,14 @@ public:
 	void update(const glm::vec2 &minCoords, ShaderProgram &program);
 	void render() const;
 	void free();
-	void set_bola(const int x,const  int y,const  int color);
+	void set_bola(glm::vec2 pos,const  int color);
 	int  get_bola(const int pos);
 	char get_sizebolsa();
 	int getTileSize() const { return tileSize; }
-	bool comprueba_derecha(const int x, const int y);
-	bool comprueba_izquierda(const int x, const int y);
-	bool comprueba_arrderecha(const int x, const int y);
-	bool comprueba_arrizquiera(const int x, const int y);
+	glm::vec2 comprueba_derecha(glm::vec2 pos);
+	glm::vec2 comprueba_izquierda(glm::vec2 pos);
+	glm::vec2 comprueba_arriba(glm::vec2 pos);
+	glm::vec2 comprueba_arrizquiera(glm::vec2 pos);
 
 
 private:

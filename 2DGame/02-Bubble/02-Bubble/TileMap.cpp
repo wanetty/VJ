@@ -172,64 +172,81 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
-void TileMap::set_bola(const int x,const  int y,const  int color) {
-	int auxx = (x) / tileSize;
-	int auxy = (y) / tileSize;
-	if (auxy % 2 != 0 && auxx == 7) {
-		auxx = 6;
-		map[auxy * mapSize.x + auxx] = color;
-	}
-	else map[auxy * mapSize.x + auxx] = color;
-}
-bool TileMap::comprueba_izquierda(const int x, const int y) {
-	bool primero = false;
-	int auxx = (x+32) / tileSize;
-	int auxy = (y+32) / tileSize;
-	if (auxy > 9) primero = true;
-				auxx = (x) / tileSize;
-				auxy = (y) / tileSize;
-				 if (map[(auxy) * mapSize.x + (auxx +1)] != 0 && !primero) {
-					return false; //izq
-				}
-	return true;
-}
-bool TileMap::comprueba_derecha(const int x, const int y) {
-	int auxx = (x) / tileSize;
-	int auxy = (y) / tileSize;
-	bool primero = false;
-	if (auxy > 9) primero = true;
-	if (map[(auxy)* mapSize.x + (auxx - 1)] != 0 && !primero) {
-		return false;//der
-	}
-	return true;
-}
-
-bool TileMap::comprueba_arrderecha(const int x, const int y) {
-	bool primero = false;
-	int auxx = (x) / tileSize;
-	int auxy = (y) / tileSize;
-	if (auxy > 9) primero = true;
-	if (auxy % 2 == 0 && auxx == 7) return true;
-	if (auxy % 2 != 0 && auxx == 7) auxx = 6;
-	if (map[(auxy - 1)* mapSize.x + (auxx - ((auxy + 1) % 2) + 1)] != 0 && !primero) {
- 			return false;//arribaderecha.
-	}
-	return true;
-}
-bool TileMap::comprueba_arrizquiera(const int x, const int y) {
-	bool primero = false;
-	int auxx = (x) / tileSize;
-	int auxy = (y) / tileSize;
-	if (auxy > 9) primero = true;
-	if (auxy % 2 == 0 &&  auxx == 0) return true;
-	if (map[(auxy - 1)* mapSize.x + (auxx - ((auxy + 1) % 2))] != 0 && !primero) {
-		return false;//arriba izquerda
-	}
-	return true;
-}
 int TileMap::get_bola(const int pos) {
 	return bolsa[pos];
 }
+
+void  TileMap::set_bola(glm::vec2 pos,const int color) {
+	glm::ivec2 posMap;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16 ) / tileSize;
+	 map[posMap.y * mapSize.x + posMap.x] = color;
+}
+glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
+	glm::ivec2 posMap;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y%2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x+16) / tileSize;
+	int posy2 = posMap.y + 32;
+	for (int i = posMap.y; i < posy2; ++i) {
+		if (i+1 < 9) {
+			if (map[i*mapSize.x + posMap.x] != 0) {
+				return {i*32,posMap.x*32};
+			}
+		}
+	}
+	return { -1,-1 };
+}
+glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
+	glm::ivec2 posMap;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x+32) / tileSize : posMap.x = (pos.x + 16 + 32) / tileSize;
+	int posy2 = posMap.y + 32;
+	for (int i = posMap.y; i < posy2; ++i) {
+		if (i + 1 < 9) {
+			if (i % 2 == 0 && posMap.x < 8) {
+				if (map[i*mapSize.x + posMap.x] != 0) {
+					return { i * 32,posMap.x * 32 };
+				}
+			}
+			else if (i % 2 != 0 && posMap.x < 7) {
+				if (map[i*mapSize.x + posMap.x] != 0) {
+					return { i * 32,posMap.x * 32 };
+				}
+			}
+		}
+	}
+	return { -1,-1 };
+}
+
+glm::vec2 TileMap::comprueba_arriba(glm::vec2 pos) {
+	glm::ivec2 posMap;
+	int posx2;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16) / tileSize;
+	(posMap.y % 2 == 0) ?  posx2 = (pos.x+31) / tileSize : posx2 = (pos.x + 16 +31) / tileSize;
+	for (int j = posMap.y; j < posx2; ++j) {
+		if (posMap.y + 1 < 9) {
+			if (posMap.y % 2 == 0 && posMap.x < 8) {
+				if (map[posMap.y*mapSize.x + posMap.x] != 0) {
+					return { (posMap.y + 1) * 32,posMap.x * 32 };
+				}
+			}
+			else if (posMap.y % 2 != 0 && posMap.x < 7) {
+				if (map[posMap.y*mapSize.x + posMap.x] != 0) {
+					return { (posMap.y + 1) * 32,posMap.x * 32 };
+				}
+			}
+		}
+	}
+	return { -1,-1 };
+	
+}
+/*glm::vec2 TileMap::comprueba_arrizquiera(glm::vec2 pos) {
+	glm::ivec2 posMap;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16) / tileSize;
+}*/
+
 char TileMap::get_sizebolsa() {
 	return sizebolsa  - int('0');
 }
