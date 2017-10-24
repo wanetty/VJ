@@ -82,6 +82,7 @@ void Scene::update(int deltaTime)
 	bola->update(deltaTime);
 	map->update(glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	//bolsa->update(deltaTime);
+	bub->update(deltaTime);
 }
 
 void Scene::render()

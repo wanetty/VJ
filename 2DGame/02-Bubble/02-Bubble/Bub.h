@@ -21,5 +21,7 @@ private:
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
+	bool lanzada,vacio;
+	int tiempo;
 };
 #endif // _BUB_INCLUDE
