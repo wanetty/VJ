@@ -179,73 +179,75 @@ int TileMap::get_bola(const int pos) {
 void  TileMap::set_bola(glm::vec2 pos,const int color) {
 	glm::ivec2 posMap;
 	posMap.y = (pos.y) / tileSize;
-	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16 ) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16 ) / tileSize;
 	 map[posMap.y * mapSize.x + posMap.x] = color;
 }
 glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
 	glm::ivec2 posMap;
+	glm::vec2 centro = { 16,16 };
+	glm::vec2 izquierda = { -15,0 };
+	pos += centro;
+	glm::vec2 actual = pos;
+	pos += izquierda;
 	posMap.y = (pos.y) / tileSize;
-	(posMap.y%2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x+16) / tileSize;
-	int posy2 = posMap.y + 32;
-	for (int i = posMap.y; i < posy2; ++i) {
-		if (i+1 < 9) {
-			if (map[i*mapSize.x + posMap.x] != 0) {
-				return {i*32,posMap.x*32};
-			}
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y%2 == 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))) {
+		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+			return actual;
 		}
 	}
 	return { -1,-1 };
 }
 glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 	glm::ivec2 posMap;
+	glm::vec2 centro = { 16,16 };
+	glm::vec2 derecha  = { 15,0 };
+	pos += centro;
+	glm::vec2 actual = pos;
+	pos += derecha;
 	posMap.y = (pos.y) / tileSize;
-	(posMap.y % 2 == 0) ? posMap.x = (pos.x+32) / tileSize : posMap.x = (pos.x + 16 + 32) / tileSize;
-	int posy2 = posMap.y + 32;
-	for (int i = posMap.y; i < posy2; ++i) {
-		if (i + 1 < 9) {
-			if (i % 2 == 0 && posMap.x < 8) {
-				if (map[i*mapSize.x + posMap.x] != 0) {
-					return { i * 32,posMap.x * 32 };
-				}
-			}
-			else if (i % 2 != 0 && posMap.x < 7) {
-				if (map[i*mapSize.x + posMap.x] != 0) {
-					return { i * 32,posMap.x * 32 };
-				}
-			}
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
+		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+			return actual;
 		}
 	}
 	return { -1,-1 };
 }
 
-glm::vec2 TileMap::comprueba_arriba(glm::vec2 pos) {
+glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
 	glm::ivec2 posMap;
-	int posx2;
+	glm::vec2 centro = { 16,16 };
+	glm::vec2 derecha_arriba = { 15,-15 };
+	pos += centro;
+	glm::vec2 actual = pos;
+	pos += derecha_arriba;
 	posMap.y = (pos.y) / tileSize;
-	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16) / tileSize;
-	(posMap.y % 2 == 0) ?  posx2 = (pos.x+31) / tileSize : posx2 = (pos.x + 16 +31) / tileSize;
-	for (int j = posMap.y; j < posx2; ++j) {
-		if (posMap.y + 1 < 9) {
-			if (posMap.y % 2 == 0 && posMap.x < 8) {
-				if (map[posMap.y*mapSize.x + posMap.x] != 0) {
-					return { (posMap.y + 1) * 32,posMap.x * 32 };
-				}
-			}
-			else if (posMap.y % 2 != 0 && posMap.x < 7) {
-				if (map[posMap.y*mapSize.x + posMap.x] != 0) {
-					return { (posMap.y + 1) * 32,posMap.x * 32 };
-				}
-			}
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
+		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+			return actual;
 		}
 	}
 	return { -1,-1 };
 	
 }
-/*glm::vec2 TileMap::comprueba_arrizquiera(glm::vec2 pos) {
+glm::vec2 TileMap::comprueba_arriba_izquierda(glm::vec2 pos) {
 	glm::ivec2 posMap;
+	glm::vec2 centro = { 16,16 };
+	glm::vec2 izquierda_arriba = { -15,-15 };
+	pos += centro;
+	glm::vec2 actual = pos;
+	pos += izquierda_arriba;
 	posMap.y = (pos.y) / tileSize;
-	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x + 16) / tileSize;
-}*/
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x -16) / tileSize;
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
+		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+			return actual;
+		}
+	}
+	return { -1,-1 };
+}
 
 char TileMap::get_sizebolsa() {
 	return sizebolsa  - int('0');

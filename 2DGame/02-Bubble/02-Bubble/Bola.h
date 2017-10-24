@@ -27,7 +27,7 @@ private:
 	Sprite_texture *sprite;
 	TileMap *map;
 	float angulo;
-	bool lanzada;
+	bool lanzada, elegido;
 	int color,posbolsa;
 };
 #endif // _BOLA_INCLUDE

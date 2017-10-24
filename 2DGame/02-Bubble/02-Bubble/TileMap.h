@@ -32,8 +32,8 @@ public:
 	int getTileSize() const { return tileSize; }
 	glm::vec2 comprueba_derecha(glm::vec2 pos);
 	glm::vec2 comprueba_izquierda(glm::vec2 pos);
-	glm::vec2 comprueba_arriba(glm::vec2 pos);
-	glm::vec2 comprueba_arrizquiera(glm::vec2 pos);
+	glm::vec2 comprueba_arriba_derecha(glm::vec2 pos);
+	glm::vec2 comprueba_arriba_izquierda(glm::vec2 pos);
 
 
 private:
