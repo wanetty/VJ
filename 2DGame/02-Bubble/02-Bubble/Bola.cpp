@@ -64,7 +64,7 @@ void Bola::update(int deltaTime)
 			this->reincio_bola();
 		}
 		
-		if (posBola.x <= 0 || posBola.x > (8 * 32) - 16) {
+		if (posBola.x <= 0 || posBola.x > (8 * 32)-32) {
 			direccionx *= -1;
 		}
 		posBola.x -= direccionx *10.f;

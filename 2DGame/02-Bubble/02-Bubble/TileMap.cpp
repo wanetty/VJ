@@ -191,7 +191,7 @@ glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
 	pos += izquierda;
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
-	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y%2 == 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))) {
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y%2 == 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))) {
 		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
 			return actual;
 		}
@@ -207,7 +207,7 @@ glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 	pos += derecha;
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
-	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
 		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
 			return actual;
 		}
@@ -216,32 +216,36 @@ glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 }
 
 glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
-	glm::ivec2 posMap;
+	glm::ivec2 posMap, posActual;
 	glm::vec2 centro = { 16,16 };
 	glm::vec2 derecha_arriba = { 15,-15 };
 	pos += centro;
 	glm::vec2 actual = pos;
+	posActual = { actual.x / tileSize, actual.x / tileSize };
 	pos += derecha_arriba;
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
-	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
-		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
-			return actual;
+	if ((posActual.y % 2 == 0 && posActual.x != 7) || posActual.y % 2 != 0) {
+		if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
+			if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+				return actual;
+			}
 		}
 	}
 	return { -1,-1 };
 	
 }
 glm::vec2 TileMap::comprueba_arriba_izquierda(glm::vec2 pos) {
-	glm::ivec2 posMap;
+	glm::ivec2 posMap, posActual;
 	glm::vec2 centro = { 16,16 };
 	glm::vec2 izquierda_arriba = { -15,-15 };
 	pos += centro;
 	glm::vec2 actual = pos;
+	posActual = { actual.x / tileSize, actual.x / tileSize };
 	pos += izquierda_arriba;
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x -16) / tileSize;
-	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 7) || (posMap.y % 2 == 0 && posMap.x <= 8))){
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
 		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
 			return actual;
 		}
