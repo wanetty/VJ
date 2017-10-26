@@ -29,7 +29,7 @@ public:
 	void render() const;
 	void free();
 	void set_bola(glm::vec2 pos,const  int color);
-	int  get_bola(const int pos);
+	int  get_bola();
 	char get_sizebolsa();
 	int getTileSize() const { return tileSize; }
 	glm::vec2 comprueba_derecha(glm::vec2 pos);
@@ -44,6 +44,7 @@ private:
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 	bool pos_correcta(glm::ivec2 pos);
 	void borrar(list<glm::ivec2> lista);
+	bool comprueba_bolsa();
 
 private:
 	GLuint vao;
@@ -56,6 +57,7 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 	int *bolsa;
+	int posbolsa;
 
 };
 

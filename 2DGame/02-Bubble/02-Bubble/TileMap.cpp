@@ -21,6 +21,7 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 {
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
+	posbolsa = -1;
 }
 
 TileMap::~TileMap()
@@ -172,8 +173,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
-int TileMap::get_bola(const int pos) {
-	return bolsa[pos];
+int TileMap::get_bola() {
+	int i = 0;
+	posbolsa = 0;
+	//++posbolsa;
+	/*while (!comprueba_bolsa() && i < this->get_sizebolsa()) {
+		++i;
+	}*/
+	return bolsa[posbolsa];
 }
 
 void  TileMap::set_bola(glm::vec2 pos,const int color) {
@@ -201,20 +208,19 @@ glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
 glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 	glm::ivec2 posMap;
 	glm::vec2 centro = { 16,16 };
-	glm::vec2 derecha  = { 15,0 };
+	glm::vec2 derecha = { 15,0 };
 	pos += centro;
 	glm::vec2 actual = pos;
 	pos += derecha;
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
-	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
+	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))) {
 		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
 			return actual;
 		}
 	}
 	return { -1,-1 };
 }
-
 glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
 	glm::ivec2 posMap, posActual;
 	glm::vec2 centro = { 16,16 };
@@ -347,6 +353,30 @@ void TileMap::borrar(list<glm::ivec2> lista) {
 		map[actu.y *mapSize.x + actu.x] = 0;
 		lista.pop_front();
 	}
+}
+bool TileMap::comprueba_bolsa() {
+	if (posbolsa >= this->get_sizebolsa())posbolsa = 0;
+	int color = bolsa[posbolsa];
+	bool encontrado = false;
+	int limite;
+	for (int j = 0; j < mapSize.y && !encontrado ; j++)
+	{
+		if (j % 2 != 0) {
+			limite = mapSize.x - 1;
+		}
+		else {
+			limite = mapSize.x;
+		}
+		for (int i = 0; i < limite && !encontrado; i++)
+		{
+			if (color == map[j * mapSize.x + i]) encontrado = true;
+		}
+	}
+	if (!encontrado) {
+		++posbolsa;
+		return false;
+	}
+	return true;
 }
 
 

@@ -29,7 +29,7 @@ private:
 	TileMap *map;
 	float angulo;
 	bool lanzada, elegido;
-	int color,posbolsa;
+	int color;
 	Bub *bub;
 };
 #endif // _BOLA_INCLUDE

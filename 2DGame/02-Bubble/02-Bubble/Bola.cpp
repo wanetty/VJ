@@ -16,12 +16,10 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	
 	spritesheet.loadFromFile("images/mapbolas.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = tileMap;
-	posbolsa = 0;
 	bub = b;
 	shaderProgrambola = shaderProgram;
 	tileMapDispl = tileMapPos;
-	set_color(map->get_bola(posbolsa));
-	++posbolsa;
+	set_color(map->get_bola());
 	lanzada = false;
 	direccion.x = 0;
 	direccion.y = 0;
@@ -94,9 +92,7 @@ void Bola::update(int deltaTime)
 
 }
 void Bola::reincio_bola() {
-	set_color(map->get_bola(posbolsa));
-	++posbolsa;
-	if (map->get_sizebolsa() <= posbolsa) posbolsa = 0;
+	set_color(map->get_bola());
 	posBola.x = Bola_inipos_x;
 	posBola.y = Bola_inipos_y;
 	direccionx = 0;
