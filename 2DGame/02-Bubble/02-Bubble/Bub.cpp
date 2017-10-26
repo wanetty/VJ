@@ -14,7 +14,7 @@ enum PlayerAnims
 void Bub::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	
-	vacio = false;
+	
 	tiempo = 0;
 	spritesheet.loadFromFile("images/bubs2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(45,50), glm::vec2(0.25,0.5), &spritesheet, &shaderProgram);

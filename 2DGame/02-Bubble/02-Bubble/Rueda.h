@@ -9,7 +9,7 @@ class Rueda
 
 public:
 	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
-	void update(int deltaTime);
+	void update(int deltaTime,float ang);
 	void render();
 
 	void setTileMap(TileMap *tileMap);
@@ -21,5 +21,7 @@ private:
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
+	float angulo;
+	int tiempo;
 };
 #endif // _RUEDA_INCLUDE

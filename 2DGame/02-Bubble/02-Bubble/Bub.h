@@ -22,7 +22,7 @@ private:
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
-	bool lanzada,vacio;
+	bool lanzada;
 	int tiempo;
 };
 #endif // _BUB_INCLUDE
