@@ -40,6 +40,7 @@ void Bola::update(int deltaTime)
 			lanzada = false;
 			elegido = true;
 			map->set_bola(derecha, color);
+			map->comprueba_bolas(derecha,color);
 			this->reincio_bola();
 		}
 		glm::vec2 izquierda = map->comprueba_izquierda(posBola);
@@ -47,6 +48,7 @@ void Bola::update(int deltaTime)
 			lanzada = false;
 			elegido = true;
 			map->set_bola(izquierda, color);
+			map->comprueba_bolas(izquierda, color);
 			this->reincio_bola();
 		}
 		glm::vec2 arriba_iz = map->comprueba_arriba_izquierda(posBola);
@@ -54,6 +56,7 @@ void Bola::update(int deltaTime)
 			lanzada = false;
 			elegido = true;
 			map->set_bola(arriba_iz, color);
+			map->comprueba_bolas(arriba_iz, color);
 			this->reincio_bola();
 		}
 		glm::vec2 arriba_der = map->comprueba_arriba_derecha(posBola);
@@ -61,6 +64,7 @@ void Bola::update(int deltaTime)
 			lanzada = false;
 			elegido = true;
 			map->set_bola(arriba_der, color);
+			map->comprueba_bolas(arriba_der, color);
 			this->reincio_bola();
 		}
 		
