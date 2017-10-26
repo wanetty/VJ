@@ -14,6 +14,7 @@ public:
 
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+	void Bub::setLanzada(bool lanzada);
 
 
 private:

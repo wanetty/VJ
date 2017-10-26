@@ -4,11 +4,12 @@
 #include "Sprite.h"
 #include "TileMap.h"
 #include "Sprite_texture.h"
+#include "Bub.h"
 
 class Bola
 {
 public:
-	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap);
+	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *bub);
 	void update(int deltaTime);
 	void render();
 
@@ -29,6 +30,7 @@ private:
 	float angulo;
 	bool lanzada, elegido;
 	int color,posbolsa;
+	Bub *bub;
 };
 #endif // _BOLA_INCLUDE
 

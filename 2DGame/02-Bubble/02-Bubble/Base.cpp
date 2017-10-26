@@ -20,7 +20,7 @@ void Base::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Base::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,true);
 	if (Game::instance().getKey(32)) {
 		//hacer que salga una bola
 	}

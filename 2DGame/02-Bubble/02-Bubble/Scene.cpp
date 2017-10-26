@@ -52,7 +52,7 @@ void Scene::init()
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
 	flecha->setTileMap(map);
-	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map);
+	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map,bub);
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setDireccion(flecha->getAngulo());
 	bolsa->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);

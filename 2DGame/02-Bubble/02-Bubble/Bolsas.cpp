@@ -20,7 +20,7 @@ void Bolsas::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Bolsas::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,true);
 	if (Game::instance().getKey(32)) {
 		//hacer que salga una bola
 	}
