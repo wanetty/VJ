@@ -5,6 +5,8 @@
 #include <glm/glm.hpp>
 #include "Texture.h"
 #include "ShaderProgram.h"
+#include <stack>
+#include <list>
 
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
@@ -27,18 +29,23 @@ public:
 	void render() const;
 	void free();
 	void set_bola(glm::vec2 pos,const  int color);
-	int  get_bola(const int pos);
+	int  get_bola();
 	char get_sizebolsa();
 	int getTileSize() const { return tileSize; }
 	glm::vec2 comprueba_derecha(glm::vec2 pos);
 	glm::vec2 comprueba_izquierda(glm::vec2 pos);
 	glm::vec2 comprueba_arriba_derecha(glm::vec2 pos);
 	glm::vec2 comprueba_arriba_izquierda(glm::vec2 pos);
+	void  comprueba_bolas(glm::vec2 pos,int color);
 
 
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
+	bool pos_correcta(glm::ivec2 pos);
+	void borrar(list<glm::ivec2> lista);
+	bool comprueba_bolsa();
+	bool comprueba_bolas_flotantes(glm::ivec2 posi, int *visitados);
 
 private:
 	GLuint vao;
@@ -51,6 +58,7 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 	int *bolsa;
+	int posbolsa;
 
 };
 

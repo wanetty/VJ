@@ -16,15 +16,14 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	
 	spritesheet.loadFromFile("images/mapbolas.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = tileMap;
-	posbolsa = 0;
 	bub = b;
 	shaderProgrambola = shaderProgram;
 	tileMapDispl = tileMapPos;
-	set_color(map->get_bola(posbolsa));
-	++posbolsa;
+	set_color(map->get_bola());
 	lanzada = false;
 	direccion.x = 0;
 	direccion.y = 0;
+	numlanzadas = 0;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
 }
@@ -38,12 +37,20 @@ void Bola::update(int deltaTime)
 		direcciony = sin(angulo);
 	}
 	if (lanzada) {
+		if (lanzada && posBola.y <= 0) {
+			lanzada = false;
+			bub->setLanzada(lanzada);
+			map->set_bola(posBola, color);
+			map->comprueba_bolas(posBola, color);
+			this->reincio_bola();
+		}
 		glm::vec2 derecha = map->comprueba_derecha(posBola);
 		if (derecha.x != -1 && derecha.y != -1 && !elegido) {
 			lanzada = false;
 			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(derecha, color);
+			map->comprueba_bolas(derecha,color);
 			this->reincio_bola();
 		}
 		glm::vec2 izquierda = map->comprueba_izquierda(posBola);
@@ -52,6 +59,7 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(izquierda, color);
+			map->comprueba_bolas(izquierda, color);
 			this->reincio_bola();
 		}
 		glm::vec2 arriba_iz = map->comprueba_arriba_izquierda(posBola);
@@ -60,6 +68,7 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(arriba_iz, color);
+			map->comprueba_bolas(arriba_iz, color);
 			this->reincio_bola();
 		}
 		glm::vec2 arriba_der = map->comprueba_arriba_derecha(posBola);
@@ -68,6 +77,7 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(arriba_der, color);
+			map->comprueba_bolas(arriba_der, color);
 			this->reincio_bola();
 		}
 		
@@ -77,22 +87,13 @@ void Bola::update(int deltaTime)
 		posBola.x -= direccionx *10.f;
 		posBola.y -= direcciony *10.f;
 	}
-	if (lanzada && posBola.y <= 0 ) {
-		lanzada = false;
-		bub->setLanzada(lanzada);
-		map->set_bola(posBola, color);
-		this->reincio_bola();
-
-	}
 	
 	elegido = false;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 
 }
 void Bola::reincio_bola() {
-	set_color(map->get_bola(posbolsa));
-	++posbolsa;
-	if (map->get_sizebolsa() <= posbolsa) posbolsa = 0;
+	set_color(map->get_bola());
 	posBola.x = Bola_inipos_x;
 	posBola.y = Bola_inipos_y;
 	direccionx = 0;

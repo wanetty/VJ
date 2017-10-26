@@ -1,12 +1,13 @@
 TILEMAP
-8 10							-- Size of tile map in tiles
+8 11							-- Size of tile map in tiles
 32 32 							-- Tile size & block size
 images/mapbolas.png 					-- Tilesheet
 3 3							-- Number of tiles in tilesheet
-11122233
-11122333
-44455566
-44556664
+11  3  4
+21111 2 
+225   74
+  3     
+  1     
         
         
         
@@ -14,4 +15,4 @@ images/mapbolas.png 					-- Tilesheet
         
         
 9                                                       --numero de array
-1122344565
+12345678
