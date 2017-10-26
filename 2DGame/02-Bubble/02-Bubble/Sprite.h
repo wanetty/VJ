@@ -22,7 +22,7 @@ public:
 
 	Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program);
 
-	void update(int deltaTime);
+	void update(int deltaTime, bool loop);
 	void render() const;
 	void free();
 	void render_flecha(float angulo) const;
@@ -42,7 +42,7 @@ private:
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
 	glm::vec2 position;
-	int currentAnimation, currentKeyframe;
+	int currentAnimation, currentKeyframe,nanim;
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;

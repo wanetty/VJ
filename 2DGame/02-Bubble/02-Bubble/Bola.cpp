@@ -5,17 +5,19 @@
 #include <GL/glut.h>
 #include "Flecha.h"
 #include "Game.h"
+#include "Bub.h"
 
 # define M_PI 3.14159265358979323846
 # define Bola_inipos_x 112
 # define Bola_inipos_y 334
 
-void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap)
+void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *b)
 {
 	
 	spritesheet.loadFromFile("images/mapbolas.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = tileMap;
 	posbolsa = 0;
+	bub = b;
 	shaderProgrambola = shaderProgram;
 	tileMapDispl = tileMapPos;
 	set_color(map->get_bola(posbolsa));
@@ -31,6 +33,7 @@ void Bola::update(int deltaTime)
 	sprite->update(deltaTime);
 	if (Game::instance().getKey(32) && !lanzada) {
 		lanzada = true;
+		bub->setLanzada(lanzada);
 		direccionx = cos(angulo);
 		direcciony = sin(angulo);
 	}
@@ -38,6 +41,7 @@ void Bola::update(int deltaTime)
 		glm::vec2 derecha = map->comprueba_derecha(posBola);
 		if (derecha.x != -1 && derecha.y != -1 && !elegido) {
 			lanzada = false;
+			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(derecha, color);
 			map->comprueba_bolas(derecha,color);
@@ -46,6 +50,7 @@ void Bola::update(int deltaTime)
 		glm::vec2 izquierda = map->comprueba_izquierda(posBola);
 		if (izquierda.x != -1 && izquierda.y != -1 && !elegido) {
 			lanzada = false;
+			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(izquierda, color);
 			map->comprueba_bolas(izquierda, color);
@@ -54,6 +59,7 @@ void Bola::update(int deltaTime)
 		glm::vec2 arriba_iz = map->comprueba_arriba_izquierda(posBola);
 		if (arriba_iz.x != -1 && arriba_iz.y != -1 && !elegido) {
 			lanzada = false;
+			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(arriba_iz, color);
 			map->comprueba_bolas(arriba_iz, color);
@@ -62,6 +68,7 @@ void Bola::update(int deltaTime)
 		glm::vec2 arriba_der = map->comprueba_arriba_derecha(posBola);
 		if (arriba_der.x != -1 && arriba_der.y != -1 && !elegido) {
 			lanzada = false;
+			bub->setLanzada(lanzada);
 			elegido = true;
 			map->set_bola(arriba_der, color);
 			map->comprueba_bolas(arriba_der, color);
@@ -76,6 +83,7 @@ void Bola::update(int deltaTime)
 	}
 	if (lanzada && posBola.y <= 0 ) {
 		lanzada = false;
+		bub->setLanzada(lanzada);
 		map->set_bola(posBola, color);
 		this->reincio_bola();
 

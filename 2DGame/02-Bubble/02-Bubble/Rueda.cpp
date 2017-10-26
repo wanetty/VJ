@@ -20,7 +20,7 @@ void Rueda::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Rueda::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,false);
 	if (Game::instance().getKey(32)) {
 		//hacer que salga una bola
 	}

@@ -22,7 +22,7 @@ void Flecha::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Flecha::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,true);
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (angulo > (grados * 20))
