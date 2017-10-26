@@ -23,6 +23,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	lanzada = false;
 	direccion.x = 0;
 	direccion.y = 0;
+	numlanzadas = 0;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
 }
@@ -36,6 +37,13 @@ void Bola::update(int deltaTime)
 		direcciony = sin(angulo);
 	}
 	if (lanzada) {
+		if (lanzada && posBola.y <= 0) {
+			lanzada = false;
+			bub->setLanzada(lanzada);
+			map->set_bola(posBola, color);
+			map->comprueba_bolas(posBola, color);
+			this->reincio_bola();
+		}
 		glm::vec2 derecha = map->comprueba_derecha(posBola);
 		if (derecha.x != -1 && derecha.y != -1 && !elegido) {
 			lanzada = false;
@@ -78,13 +86,6 @@ void Bola::update(int deltaTime)
 		}
 		posBola.x -= direccionx *10.f;
 		posBola.y -= direcciony *10.f;
-	}
-	if (lanzada && posBola.y <= 0 ) {
-		lanzada = false;
-		bub->setLanzada(lanzada);
-		map->set_bola(posBola, color);
-		this->reincio_bola();
-
 	}
 	
 	elegido = false;

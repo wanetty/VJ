@@ -45,6 +45,7 @@ private:
 	bool pos_correcta(glm::ivec2 pos);
 	void borrar(list<glm::ivec2> lista);
 	bool comprueba_bolsa();
+	bool comprueba_bolas_flotantes(glm::ivec2 posi, int *visitados);
 
 private:
 	GLuint vao;
