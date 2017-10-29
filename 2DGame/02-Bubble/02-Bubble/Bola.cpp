@@ -24,17 +24,20 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	direccion.x = 0;
 	direccion.y = 0;
 	numlanzadas = 0;
+	tiempo = 0;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
 }
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	if (Game::instance().getKey(32) && !lanzada) {
+	tiempo += deltaTime;
+	if ((Game::instance().getKey(32) || tiempo > 5500) && !lanzada) {
 		lanzada = true;
 		bub->setLanzada(lanzada);
 		direccionx = cos(angulo);
 		direcciony = sin(angulo);
+		tiempo = 0;
 	}
 	if (lanzada) {
 		if (lanzada && posBola.y <= 0) {
@@ -84,8 +87,8 @@ void Bola::update(int deltaTime)
 		if (posBola.x <= 0 || posBola.x > (8 * 32)-32) {
 			direccionx *= -1;
 		}
-		posBola.x -= direccionx *10.f;
-		posBola.y -= direcciony *10.f;
+		posBola.x -= direccionx *15.f;
+		posBola.y -= direcciony *15.f;
 	}
 	
 	elegido = false;

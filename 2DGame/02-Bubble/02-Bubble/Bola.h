@@ -31,6 +31,7 @@ private:
 	bool lanzada, elegido;
 	int color, numlanzadas;
 	Bub *bub;
+	int tiempo;
 };
 #endif // _BOLA_INCLUDE
 
