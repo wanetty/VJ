@@ -30,6 +30,7 @@ Scene::Scene()
 	flecha = NULL;
 	bolsa = NULL;
 	base = NULL;
+	techo = NULL;
 }
 
 Scene::~Scene()
@@ -55,6 +56,7 @@ void Scene::init()
 	rueda = new Rueda();
 	arco = new Arco();
 	bub = new Bub();
+	techo = new Techo();
 	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo->setPosition(glm::vec2(0,0));
 	fondo->setTileMap(map);
@@ -79,6 +81,7 @@ void Scene::init()
 	bub->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	bub->setPosition(glm::vec2(bubx, buby));
 	bub->setTileMap(map);
+	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 	nivel_techo = 0;
@@ -94,6 +97,8 @@ void Scene::update(int deltaTime)
 		bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
 		bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
 		bola->set_pos_ini(glm::ivec2(0, -32));
+		int actualtura = techo->get_altura();
+		techo->set_altura(++actualtura);
 		/*bolsa->setPosition(glm::vec2(bolsax, bolsay - nivel_techo * 32));
 		base->setPosition(glm::vec2(basex, basey - nivel_techo * 32));
 		rueda->setPosition(glm::vec2(ruedax, rueday - nivel_techo * 32));
@@ -108,6 +113,7 @@ void Scene::update(int deltaTime)
 	//bolsa->update(deltaTime);
 	rueda->update(deltaTime,flecha->getAngulo());
 	bub->update(deltaTime);
+	techo->update(deltaTime);
 }
 
 void Scene::render()
@@ -122,6 +128,7 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
 	map->render();
+	techo->render();
 	base->render();
 	arco->render();
 	flecha->render();

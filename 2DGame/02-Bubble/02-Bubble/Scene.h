@@ -14,6 +14,7 @@
 #include "Rueda.h"
 #include "Arco.h"
 #include "Bub.h"
+#include "Techo.h"
 
 
 // Scene contains all the entities of our game.
@@ -48,6 +49,7 @@ private:
 	Rueda *rueda;
 	Arco *arco;
 	Bub *bub;
+	Techo *techo;
 	int nivel_techo, limite;
 
 };
