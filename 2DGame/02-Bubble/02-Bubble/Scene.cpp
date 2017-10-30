@@ -9,7 +9,16 @@
 
 #define SCREEN_X 191
 #define SCREEN_Y 50
-
+#define bolsax 131
+#define bolsay 412
+#define basex 243
+#define basey 412
+#define ruedax 360
+#define rueday 420
+#define arcox 278
+#define arcoy 377
+#define bubx 251
+#define buby 419
 #define Pos_felcha_x 104
 #define Pos_felcha_y 302
 
@@ -56,31 +65,46 @@ void Scene::init()
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setDireccion(flecha->getAngulo());
 	bolsa->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	bolsa->setPosition(glm::vec2(191-60,385+27));
+	bolsa->setPosition(glm::vec2(bolsax, bolsay));
 	bolsa->setTileMap(map);
 	base->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	base->setPosition(glm::vec2(243, 385 + 27));
+	base->setPosition(glm::vec2(basex, basey));
 	base->setTileMap(map);
 	rueda->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	rueda->setPosition(glm::vec2(320+40, 385 + 35));
+	rueda->setPosition(glm::vec2(ruedax, rueday));
 	rueda->setTileMap(map);
 	arco->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	arco->setPosition(glm::vec2(278, 385-8));
+	arco->setPosition(glm::vec2(arcox, arcoy));
 	arco->setTileMap(map);
 	bub->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	bub->setPosition(glm::vec2(191+60, 385 + 34));
+	bub->setPosition(glm::vec2(bubx, buby));
 	bub->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+	nivel_techo = 0;
+	limite =8;
 }
 
 void Scene::update(int deltaTime)
 {
+	 
+	if (bola->get_lanzadas() == limite) {
+		++nivel_techo;
+		limite += 8;
+		bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+		bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
+		bola->set_pos_ini(glm::ivec2(0, -32));
+		/*bolsa->setPosition(glm::vec2(bolsax, bolsay - nivel_techo * 32));
+		base->setPosition(glm::vec2(basex, basey - nivel_techo * 32));
+		rueda->setPosition(glm::vec2(ruedax, rueday - nivel_techo * 32));
+		arco->setPosition(glm::vec2(arcox, arcox - nivel_techo * 32));
+		bub->setPosition(glm::vec2(bubx, buby - nivel_techo * 32));*/
+	}
 	currentTime += deltaTime;
 	flecha->update(deltaTime);
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
-	map->update(glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	map->update(glm::vec2(SCREEN_X, SCREEN_Y + nivel_techo * 32), texProgram);
 	//bolsa->update(deltaTime);
 	rueda->update(deltaTime,flecha->getAngulo());
 	bub->update(deltaTime);

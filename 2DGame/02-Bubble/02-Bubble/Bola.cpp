@@ -25,6 +25,8 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	direccion.y = 0;
 	numlanzadas = 0;
 	tiempo = 0;
+	posini.x = Bola_inipos_x;
+	posini.y = Bola_inipos_y;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
 }
@@ -38,6 +40,7 @@ void Bola::update(int deltaTime)
 		direccionx = cos(angulo);
 		direcciony = sin(angulo);
 		tiempo = 0;
+		++numlanzadas;
 	}
 	if (lanzada) {
 		if (lanzada && posBola.y <= 0) {
@@ -95,10 +98,12 @@ void Bola::update(int deltaTime)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 
 }
+void Bola::set_tilemapPos(const glm::ivec2 &tileMapPos) {
+	tileMapDispl = tileMapPos;
+}
 void Bola::reincio_bola() {
 	set_color(map->get_bola());
-	posBola.x = Bola_inipos_x;
-	posBola.y = Bola_inipos_y;
+	posBola = posini;
 	direccionx = 0;
 	direcciony = 0;
 }
@@ -126,5 +131,11 @@ void Bola::set_color(const int colour) {
 	nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
 	nbola[1] = nbola[0] + tileTexSize;
 	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
+}
+int Bola::get_lanzadas() {
+	return numlanzadas;
+}
+void Bola::set_pos_ini(const glm::ivec2 &suma) {
+	posini += suma;
 }
 

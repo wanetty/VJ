@@ -18,9 +18,12 @@ public:
 	void setDireccion(float x);
 	void reincio_bola();
 	void set_color(const int colour);
+	int get_lanzadas();
+	void set_tilemapPos(const glm::ivec2 &tileMapPos);
+	void set_pos_ini(const glm::ivec2 &suma);
 	
 private:
-	glm::ivec2 tileMapDispl,direccion;
+	glm::ivec2 tileMapDispl,direccion, posini;
 	glm::vec2 posBola;
 	ShaderProgram shaderProgrambola;
 	float direccionx,direcciony;
@@ -29,9 +32,8 @@ private:
 	TileMap *map;
 	float angulo;
 	bool lanzada, elegido;
-	int color, numlanzadas;
+	int color, numlanzadas, tiempo;
 	Bub *bub;
-	int tiempo;
 };
 #endif // _BOLA_INCLUDE
 

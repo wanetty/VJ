@@ -48,6 +48,7 @@ private:
 	Rueda *rueda;
 	Arco *arco;
 	Bub *bub;
+	int nivel_techo, limite;
 
 };
 
