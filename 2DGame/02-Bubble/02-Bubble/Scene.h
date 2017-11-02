@@ -50,7 +50,7 @@ private:
 	Arco *arco;
 	Bub *bub;
 	Techo *techo;
-	int nivel_techo, limite;
+	int nivel_techo, limite, temblor;
 
 };
 

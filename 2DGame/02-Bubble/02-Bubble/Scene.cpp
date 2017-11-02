@@ -86,6 +86,7 @@ void Scene::init()
 	currentTime = 0.0f;
 	nivel_techo = 0;
 	limite =8;
+	temblor = 0;
 }
 
 void Scene::update(int deltaTime)
@@ -99,17 +100,31 @@ void Scene::update(int deltaTime)
 		bola->set_pos_ini(glm::ivec2(0, -32));
 		int actualtura = techo->get_altura();
 		techo->set_altura(++actualtura);
-		/*bolsa->setPosition(glm::vec2(bolsax, bolsay - nivel_techo * 32));
-		base->setPosition(glm::vec2(basex, basey - nivel_techo * 32));
-		rueda->setPosition(glm::vec2(ruedax, rueday - nivel_techo * 32));
-		arco->setPosition(glm::vec2(arcox, arcox - nivel_techo * 32));
-		bub->setPosition(glm::vec2(bubx, buby - nivel_techo * 32));*/
+		temblor = 0;
+	}
+	if (bola->get_lanzadas() == (limite - 2)) {
+		if (temblor != 2) {
+			temblor =2;
+		}
+		else if (temblor != -2) {
+
+			temblor = -2;
+		}
+	}
+	if (bola->get_lanzadas() == (limite-1)) {
+		if (temblor != 3) {
+			temblor = 3;
+		}
+		else if (temblor != -3){
+
+			temblor = -3;
+		}
 	}
 	currentTime += deltaTime;
 	flecha->update(deltaTime);
 	bola->setDireccion(flecha->getAngulo());
 	bola->update(deltaTime);
-	map->update(glm::vec2(SCREEN_X, SCREEN_Y + nivel_techo * 32), texProgram);
+	map->update(glm::vec2(SCREEN_X+temblor, SCREEN_Y + nivel_techo * 32), texProgram);
 	//bolsa->update(deltaTime);
 	rueda->update(deltaTime,flecha->getAngulo());
 	bub->update(deltaTime);
