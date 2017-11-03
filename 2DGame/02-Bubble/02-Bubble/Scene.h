@@ -15,6 +15,7 @@
 #include "Arco.h"
 #include "Bub.h"
 #include "Techo.h"
+#include "vector"
 
 
 // Scene contains all the entities of our game.
@@ -44,7 +45,7 @@ private:
 	glm::mat4 projection;
 	Fondo *fondo;
 	Flecha *flecha;
-	Bola *bola;
+	Bola *bola, *auxBola;
 	Bolsas * bolsa;
 	Base *base;
 	Rueda *rueda;
@@ -52,7 +53,8 @@ private:
 	Bub *bub;
 	Techo *techo;
 	int nivel_techo, limite, temblor;
-	bool perdido;
+	bool perdido; 
+	int *bolas;
 
 };
 

@@ -51,6 +51,7 @@ void Scene::init()
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
+	auxBola = new Bola();
 	bolsa = new Bolsas();
 	base = new Base();
 	rueda = new Rueda();
@@ -66,6 +67,9 @@ void Scene::init()
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map,bub);
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setDireccion(flecha->getAngulo());
+	auxBola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map, bub);
+	auxBola->setPosition(glm::vec2(25, 389));
+	auxBola->setDireccion(flecha->getAngulo());
 	bolsa->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	bolsa->setPosition(glm::vec2(bolsax, bolsay));
 	bolsa->setTileMap(map);
@@ -88,10 +92,18 @@ void Scene::init()
 	limite =8;
 	temblor = 0;
 	perdido = false;
+	bola->reincio_bola(map->get_bola());
+	bolas = new int[2];
+	bolas[0] = map->get_bola();
+	auxBola->set_color(bolas[0]);
+	bolas[1] = map->get_bola();
+	
 }
 
 void Scene::update(int deltaTime)
 {
+	bool lanzada_bola = bola->get_lanzada();
+	bool reinicio_bola = bola->get_reinicio();
 	if (map->get_perdido() == true) {
 	
 		map->set_grises();
@@ -131,7 +143,16 @@ void Scene::update(int deltaTime)
 		currentTime += deltaTime;
 		flecha->update(deltaTime);
 		bola->setDireccion(flecha->getAngulo());
+		if (lanzada_bola) {
+			if (reinicio_bola) {
+				bola->reincio_bola(bolas[0]);
+				auxBola->set_color(bolas[1]);
+				bolas[0] = bolas[1];
+				bolas[1] = map->get_bola();
+			}
+		}
 		bola->update(deltaTime);
+		auxBola->update_aux(deltaTime);
 		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
 		//bolsa->update(deltaTime);
 		rueda->update(deltaTime, flecha->getAngulo());
@@ -158,6 +179,7 @@ void Scene::render()
 	flecha->render();
 	bola->render();
 	bolsa->render();
+	auxBola->render();
 	rueda->render();
 	bub->render();
 	
