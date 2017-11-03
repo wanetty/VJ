@@ -40,7 +40,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 }
 void Bola::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,false);
 	tiempo += deltaTime;
 	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada) {
 		lanzada = true;
@@ -152,7 +152,7 @@ bool Bola::get_reinicio() {
 	return reinicio;
 }
 void Bola::update_aux(int deltaTime) {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,false);
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
 

@@ -3,7 +3,8 @@ TILEMAP
 32 32 							-- Tile size & block size
 images/mapbolas.png 					-- Tilesheet
 3 3							-- Number of tiles in tilesheet
-       4
+12345678
+9       
         
         
         
@@ -13,6 +14,5 @@ images/mapbolas.png 					-- Tilesheet
         
         
         
-        
-7                                                       --numero de array
-7741253
+9                                                       --numero de array
+123456789

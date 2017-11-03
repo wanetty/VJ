@@ -36,7 +36,7 @@ Sprite_texture::Sprite_texture(glm::vec2 geom[2], glm::vec2 texCoords[2], Textur
 Sprite_texture::~Sprite_texture()
 {
 }
-void Sprite_texture::update(int deltaTime)
+void Sprite_texture::update(int deltaTime, bool loop)
 {
 	if (currentAnimation >= 0)
 	{
@@ -44,7 +44,12 @@ void Sprite_texture::update(int deltaTime)
 		while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
 		{
 			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			if (loop)
+				currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			else {
+
+				if (currentKeyframe < animations[currentAnimation].keyframeDispl.size() - 1)++currentKeyframe;
+			}
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 	}
@@ -69,4 +74,39 @@ void Sprite_texture::free()
 void Sprite_texture::setPosition(const glm::vec2 &pos)
 {
 	position = pos;
+}
+void Sprite_texture::setNumberAnimations(int nAnimations)
+{
+	animations.clear();
+	animations.resize(nAnimations);
+	nanim = nAnimations;
+
+}
+
+void Sprite_texture::setAnimationSpeed(int animId, int keyframesPerSec)
+{
+	if (animId < int(animations.size()))
+		animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
+}
+
+void Sprite_texture::addKeyframe(int animId, const glm::vec2 &displacement)
+{
+	if (animId < int(animations.size()))
+		animations[animId].keyframeDispl.push_back(displacement);
+}
+
+void Sprite_texture::changeAnimation(int animId)
+{
+	if (animId < int(animations.size()))
+	{
+		currentAnimation = animId;
+		currentKeyframe = 0;
+		timeAnimation = 0.f;
+		texCoordDispl = animations[animId].keyframeDispl[0];
+	}
+}
+
+int Sprite_texture::animation() const
+{
+	return currentAnimation;
 }
