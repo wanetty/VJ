@@ -15,6 +15,7 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
+<<<<<<< HEAD
 	
 	
 	if (estado == "JUGANDO") scene.update(deltaTime);

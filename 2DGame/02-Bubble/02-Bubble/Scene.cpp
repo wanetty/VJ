@@ -51,6 +51,7 @@ void Scene::init()
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
+	auxBola = new Bola();
 	bolsa = new Bolsas();
 	base = new Base();
 	rueda = new Rueda();
@@ -66,6 +67,9 @@ void Scene::init()
 	bola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map,bub);
 	bola->setPosition(glm::vec2(Pos_felcha_x+8, Pos_felcha_y+32));
 	bola->setDireccion(flecha->getAngulo());
+	auxBola->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, map, bub);
+	auxBola->setPosition(glm::vec2(25, 389));
+	auxBola->setDireccion(flecha->getAngulo());
 	bolsa->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	bolsa->setPosition(glm::vec2(bolsax, bolsay));
 	bolsa->setTileMap(map);
@@ -86,34 +90,75 @@ void Scene::init()
 	currentTime = 0.0f;
 	nivel_techo = 0;
 	limite =8;
+	temblor = 0;
+	perdido = false;
+	bola->reincio_bola(map->get_bola());
+	bolas = new int[2];
+	bolas[0] = map->get_bola();
+	auxBola->set_color(bolas[0]);
+	bolas[1] = map->get_bola();
+	
 }
 
 void Scene::update(int deltaTime)
 {
-	 
-	if (bola->get_lanzadas() == limite) {
-		++nivel_techo;
-		limite += 8;
-		bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
-		bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
-		bola->set_pos_ini(glm::ivec2(0, -32));
-		int actualtura = techo->get_altura();
-		techo->set_altura(++actualtura);
-		/*bolsa->setPosition(glm::vec2(bolsax, bolsay - nivel_techo * 32));
-		base->setPosition(glm::vec2(basex, basey - nivel_techo * 32));
-		rueda->setPosition(glm::vec2(ruedax, rueday - nivel_techo * 32));
-		arco->setPosition(glm::vec2(arcox, arcox - nivel_techo * 32));
-		bub->setPosition(glm::vec2(bubx, buby - nivel_techo * 32));*/
+	bool lanzada_bola = bola->get_lanzada();
+	bool reinicio_bola = bola->get_reinicio();
+	if (map->get_perdido() == true) {
+	
+		map->set_grises();
+		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		perdido = true;
 	}
-	currentTime += deltaTime;
-	flecha->update(deltaTime);
-	bola->setDireccion(flecha->getAngulo());
-	bola->update(deltaTime);
-	map->update(glm::vec2(SCREEN_X, SCREEN_Y + nivel_techo * 32), texProgram);
-	//bolsa->update(deltaTime);
-	rueda->update(deltaTime,flecha->getAngulo());
-	bub->update(deltaTime);
-	techo->update(deltaTime);
+	else {
+		if (bola->get_lanzadas() == limite) {
+			++nivel_techo;
+			limite += 8;
+			bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+			bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
+			bola->set_pos_ini(glm::ivec2(0, -32));
+			int actualtura = techo->get_altura();
+			techo->set_altura(++actualtura);
+			map->set_limite(techo->get_altura());
+			temblor = 0;
+		}
+		if (bola->get_lanzadas() == (limite - 2)) {
+			if (temblor != 2) {
+				temblor = 2;
+			}
+			else if (temblor != -2) {
+
+				temblor = -2;
+			}
+		}
+		if (bola->get_lanzadas() == (limite - 1)) {
+			if (temblor != 3) {
+				temblor = 3;
+			}
+			else if (temblor != -3) {
+
+				temblor = -3;
+			}
+		}
+		currentTime += deltaTime;
+		flecha->update(deltaTime);
+		bola->setDireccion(flecha->getAngulo());
+		if (lanzada_bola) {
+			if (reinicio_bola) {
+				bola->reincio_bola(bolas[0]);
+				auxBola->set_color(bolas[1]);
+				bolas[0] = bolas[1];
+				bolas[1] = map->get_bola();
+			}
+		}
+		bola->update(deltaTime);
+		auxBola->update_aux(deltaTime);
+		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		//bolsa->update(deltaTime);
+		rueda->update(deltaTime, flecha->getAngulo());
+		bub->update(deltaTime);
+		techo->update(deltaTime);
+	}
 }
 
 void Scene::render()
@@ -134,6 +179,7 @@ void Scene::render()
 	flecha->render();
 	bola->render();
 	bolsa->render();
+	auxBola->render();
 	rueda->render();
 	bub->render();
 	
@@ -168,6 +214,7 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
-
-
+bool Scene::get_perdido() {
+	return perdido;
+}
 

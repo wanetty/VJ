@@ -10,6 +10,7 @@
 # define M_PI 3.14159265358979323846
 # define Bola_inipos_x 112
 # define Bola_inipos_y 334
+# define Time_limite 84500
 
 void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *b)
 {
@@ -19,7 +20,13 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	bub = b;
 	shaderProgrambola = shaderProgram;
 	tileMapDispl = tileMapPos;
-	set_color(map->get_bola());
+	//set_color(map->get_bola());
+	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
+	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
+	glm::vec2 tileTexSize = glm::vec2(1.f / 3, 1.f / 3);
+	nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
+	nbola[1] = nbola[0] + tileTexSize;
+	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
 	lanzada = false;
 	direccion.x = 0;
 	direccion.y = 0;
@@ -29,12 +36,13 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	posini.y = Bola_inipos_y;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
+	reinicio = false;
 }
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	tiempo += deltaTime;
-	if ((Game::instance().getKey(32) || tiempo > 5500) && !lanzada) {
+	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada) {
 		lanzada = true;
 		bub->setLanzada(lanzada);
 		direccionx = cos(angulo);
@@ -44,47 +52,43 @@ void Bola::update(int deltaTime)
 	}
 	if (lanzada) {
 		if (lanzada && posBola.y <= 0) {
-			lanzada = false;
-			bub->setLanzada(lanzada);
+			bub->setLanzada(false);
+			elegido = true;
 			map->set_bola(posBola, color);
 			map->comprueba_bolas(posBola, color);
-			this->reincio_bola();
+			reinicio = true;
 		}
 		glm::vec2 derecha = map->comprueba_derecha(posBola);
 		if (derecha.x != -1 && derecha.y != -1 && !elegido) {
-			lanzada = false;
-			bub->setLanzada(lanzada);
+			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(derecha, color);
 			map->comprueba_bolas(derecha,color);
-			this->reincio_bola();
+			reinicio = true;
 		}
 		glm::vec2 izquierda = map->comprueba_izquierda(posBola);
 		if (izquierda.x != -1 && izquierda.y != -1 && !elegido) {
-			lanzada = false;
-			bub->setLanzada(lanzada);
+			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(izquierda, color);
 			map->comprueba_bolas(izquierda, color);
-			this->reincio_bola();
+			reinicio = true;
 		}
 		glm::vec2 arriba_iz = map->comprueba_arriba_izquierda(posBola);
 		if (arriba_iz.x != -1 && arriba_iz.y != -1 && !elegido) {
-			lanzada = false;
-			bub->setLanzada(lanzada);
+			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(arriba_iz, color);
 			map->comprueba_bolas(arriba_iz, color);
-			this->reincio_bola();
+			reinicio = true;
 		}
 		glm::vec2 arriba_der = map->comprueba_arriba_derecha(posBola);
 		if (arriba_der.x != -1 && arriba_der.y != -1 && !elegido) {
-			lanzada = false;
-			bub->setLanzada(lanzada);
+			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(arriba_der, color);
 			map->comprueba_bolas(arriba_der, color);
-			this->reincio_bola();
+			reinicio = true;
 		}
 		
 		if (posBola.x <= 0 || posBola.x > (8 * 32)-32) {
@@ -101,11 +105,14 @@ void Bola::update(int deltaTime)
 void Bola::set_tilemapPos(const glm::ivec2 &tileMapPos) {
 	tileMapDispl = tileMapPos;
 }
-void Bola::reincio_bola() {
-	set_color(map->get_bola());
+void Bola::reincio_bola(int new_color) {
+	set_color(new_color);
 	posBola = posini;
 	direccionx = 0;
 	direcciony = 0;
+	lanzada = false;
+	reinicio = false;
+	tiempo = 0;
 }
 void Bola::render()
 {
@@ -137,5 +144,15 @@ int Bola::get_lanzadas() {
 }
 void Bola::set_pos_ini(const glm::ivec2 &suma) {
 	posini += suma;
+}
+bool Bola::get_lanzada() {
+	return lanzada;
+}
+bool Bola::get_reinicio() {
+	return reinicio;
+}
+void Bola::update_aux(int deltaTime) {
+	sprite->update(deltaTime);
+	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
 
