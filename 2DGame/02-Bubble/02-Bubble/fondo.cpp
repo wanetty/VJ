@@ -5,9 +5,9 @@
 #include "fondo.h"
 #include "Game.h"
 
-void Fondo::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Fondo::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, string image)
 {
-	spritesheet.loadFromFile("images/fondocuatro.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile(image, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(640, 480), glm::vec2(1,1), &spritesheet, &shaderProgram);
 	
 
@@ -20,10 +20,7 @@ void Fondo::render()
 	sprite->render();
 }
 
-void Fondo::setTileMap(TileMap *tileMap)
-{
-	map = tileMap;
-}
+
 
 void Fondo::setPosition(const glm::vec2 &pos)
 {

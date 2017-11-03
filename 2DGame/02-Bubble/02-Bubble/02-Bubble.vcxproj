@@ -17,10 +17,12 @@
     <ClInclude Include="Bola.h" />
     <ClInclude Include="Bolsas.h" />
     <ClInclude Include="Bub.h" />
+    <ClInclude Include="BubIni.h" />
     <ClInclude Include="Flecha.h" />
     <ClInclude Include="fondo.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Mapa.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rueda.h" />
     <ClInclude Include="Scene.h" />
@@ -39,11 +41,13 @@
     <ClCompile Include="Bola.cpp" />
     <ClCompile Include="Bolsas.cpp" />
     <ClCompile Include="Bub.cpp" />
+    <ClCompile Include="BubIni.cpp" />
     <ClCompile Include="Flecha.cpp" />
     <ClCompile Include="fondo.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapa.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rueda.cpp" />
     <ClCompile Include="Scene.cpp" />

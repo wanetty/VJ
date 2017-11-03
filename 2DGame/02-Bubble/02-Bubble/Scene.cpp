@@ -57,9 +57,9 @@ void Scene::init()
 	arco = new Arco();
 	bub = new Bub();
 	techo = new Techo();
-	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram,"images/fondocuatro.png");
 	fondo->setPosition(glm::vec2(0,0));
-	fondo->setTileMap(map);
+
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
 	flecha->setTileMap(map);

@@ -3,24 +3,38 @@
 #include "Game.h"
 
 
+
+
 void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	scene.init();
+	menu.init();
+	estado = "MENU";
 }
 
 bool Game::update(int deltaTime)
 {
-	scene.update(deltaTime);
 	
+	
+	if (estado == "JUGANDO") scene.update(deltaTime);
+	else if (estado == "MENU") {
+		if (instance().getKey(32)) {
+			estado = "JUGANDO";
+			scene.init();
+		}
+		else {
+		menu.update(deltaTime);
+		}
+	}
 	return bPlay;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene.render();
+	if (estado == "JUGANDO")scene.render();
+	else if (estado == "MENU") menu.render();
 }
 
 void Game::keyPressed(int key)
