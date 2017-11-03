@@ -12,7 +12,7 @@ using namespace std;
 TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	TileMap *map = new TileMap(levelFile, minCoords, program);
-
+	
 	return map;
 }
 
@@ -22,6 +22,8 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
 	posbolsa = -1;
+	limit = 0;
+	perder = false;
 }
 
 TileMap::~TileMap()
@@ -187,6 +189,9 @@ void  TileMap::set_bola(glm::vec2 pos,const int color) {
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16 ) / tileSize;
 	 map[posMap.y * mapSize.x + posMap.x] = color;
+	 if (posMap.y == 10 - limit) {
+		 perder = true;
+	 }
 }
 glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
 	glm::ivec2 posMap;
@@ -435,6 +440,29 @@ bool TileMap::comprueba_bolas_flotantes(glm::ivec2 pos, int *visitados) {
 	}
 		return true;
 
+}
+
+void TileMap::set_limite(int new_limit) {
+	limit = new_limit;
+}
+bool TileMap::get_perdido() {
+	return perder;
+}
+void TileMap::set_grises() {
+	int limite;
+	for (int j = 0; j < mapSize.y ; j++)
+	{
+		if (j % 2 != 0) {
+			limite = mapSize.x - 1;
+		}
+		else {
+			limite = mapSize.x;
+		}
+		for (int i = 0; i < limite; i++)
+		{
+			 if(map[j * mapSize.x + i]!= 0)map[j * mapSize.x + i] = 9 ;
+		}
+	}
 }
 
 

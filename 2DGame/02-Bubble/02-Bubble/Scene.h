@@ -31,6 +31,7 @@ public:
 	void init();
 	void update(int deltaTime);
 	void render();
+	bool get_perdido();
 
 private:
 	void initShaders();
@@ -51,6 +52,7 @@ private:
 	Bub *bub;
 	Techo *techo;
 	int nivel_techo, limite, temblor;
+	bool perdido;
 
 };
 

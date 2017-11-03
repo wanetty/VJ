@@ -37,6 +37,9 @@ public:
 	glm::vec2 comprueba_arriba_derecha(glm::vec2 pos);
 	glm::vec2 comprueba_arriba_izquierda(glm::vec2 pos);
 	void  comprueba_bolas(glm::vec2 pos,int color);
+	void set_limite(int new_limit);
+	void set_grises();
+	bool get_perdido();
 
 
 private:
@@ -58,7 +61,8 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 	int *bolsa;
-	int posbolsa;
+	int posbolsa, limit;
+	bool perder;
 
 };
 

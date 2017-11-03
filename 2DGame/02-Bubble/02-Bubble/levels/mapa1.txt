@@ -14,5 +14,5 @@ images/mapbolas.png 					-- Tilesheet
         
         
         
-9                                                       --numero de array
-12345678
+7                                                       --numero de array
+7741253

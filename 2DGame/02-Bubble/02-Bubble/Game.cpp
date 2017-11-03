@@ -13,7 +13,9 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	scene.update(deltaTime);
-	
+	if (scene.get_perdido()) {
+		scene.init();
+	}
 	return bPlay;
 }
 
