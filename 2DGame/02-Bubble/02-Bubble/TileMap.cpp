@@ -21,7 +21,7 @@ TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoo
 TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	loadLevel(levelFile);
-	prepareArrays(minCoords, program);
+	//prepareArrays(minCoords, program);
 	posbolsa = -1;
 	limit = 0;
 	perder = false;

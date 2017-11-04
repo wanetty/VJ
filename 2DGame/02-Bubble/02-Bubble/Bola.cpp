@@ -20,7 +20,7 @@ enum PlayerAnims
 void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *b)
 {
 	
-	spritesheet.loadFromFile("images/brillos.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/brillos2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = tileMap;
 	bub = b;
 	shaderProgrambola = shaderProgram;
@@ -150,9 +150,9 @@ void Bola::set_color(const int colour) {
 	
 	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
 	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
-	glm::vec2 tileTexSize = glm::vec2(1.f / 6, 1.f / 9);
+	glm::vec2 tileTexSize = glm::vec2(1.f / 10, 1.f / 10);
 	//nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
-	nbola[0] = glm::vec2(0, float((color - 1)*0.11111111111111111111111111111111111));
+	nbola[0] = glm::vec2(0, float((color - 1)*0.1));
 	nbola[1] = nbola[0] + tileTexSize;
 	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
 }
@@ -173,20 +173,22 @@ void Bola::update_aux(int deltaTime) {
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
 void Bola::set_color_brillo(const int colour) {
+	//color = colour;
 	color = colour;
 	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
 	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
-	glm::vec2 tileTexSize = glm::vec2(1.f / 6, 1.f / 9);
-	nbola[0] = glm::vec2(0, float((color - 1) / 9) / 9);
+	glm::vec2 tileTexSize = glm::vec2(1.f / 10, 1.f / 10);
+	nbola[0] = glm::vec2(0, float((color - 1) * 0.1));
 	nbola[1] = nbola[0] + tileTexSize;
 	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
 	sprite->setNumberAnimations(1);
-	sprite->setAnimationSpeed(BRILLO, 8);
-	sprite->addKeyframe(BRILLO, glm::vec2(0.f, float((color-1)*0.11111111111)));
-	sprite->addKeyframe(BRILLO, glm::vec2(0.2f, float((color - 1)*0.11111111111)));
-	sprite->addKeyframe(BRILLO, glm::vec2(0.4f, float((color - 1)*0.11111111111)));
-	sprite->addKeyframe(BRILLO, glm::vec2(0.6f, float((color - 1)*0.11111111111)));
-	sprite->addKeyframe(BRILLO, glm::vec2(0.8f, float((color - 1)*0.11111111111)));
+	sprite->setAnimationSpeed(BRILLO, 20);
+	sprite->addKeyframe(BRILLO, glm::vec2(0.f, (color-1)/10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.1f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.2f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.3f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.4f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.5f, (color - 1) / 10));
 	sprite->changeAnimation(0);
 	sprite->changeAnimation(BRILLO);
 
