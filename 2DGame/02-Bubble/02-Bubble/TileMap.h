@@ -40,6 +40,7 @@ public:
 	void set_limite(int new_limit);
 	void set_grises();
 	bool get_perdido();
+	int* get_mapa() { return map; }
 
 
 private:

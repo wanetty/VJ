@@ -4,6 +4,7 @@
 #include <vector>
 #include "TileMap.h"
 #include "Game.h"
+#include "Bola.h"
 
 
 using namespace std;
