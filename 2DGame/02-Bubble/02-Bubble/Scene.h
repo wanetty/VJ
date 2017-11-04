@@ -15,7 +15,7 @@
 #include "Arco.h"
 #include "Bub.h"
 #include "Techo.h"
-#include "vector"
+#include "ConjuntoBolas.h"
 
 
 // Scene contains all the entities of our game.
@@ -55,6 +55,7 @@ private:
 	int nivel_techo, limite, temblor;
 	bool perdido; 
 	int *bolas;
+	ConjuntoBolas *matBolas;
 
 };
 

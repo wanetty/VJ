@@ -15,10 +15,15 @@ public:
 	~Sprite_texture();
 
 
-	void update(int deltaTime);
+	void update(int deltaTime, bool loop);
 	void render() const;
 	void free();
 	void setPosition(const glm::vec2 &pos);
+	void setNumberAnimations(int nAnimations);
+	void setAnimationSpeed(int animId, int keyframesPerSec);
+	void addKeyframe(int animId, const glm::vec2 &frame);
+	void changeAnimation(int animId);
+	int animation() const;
 
 private:
 	Texture *texture;
@@ -27,7 +32,7 @@ private:
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
 	glm::vec2 position;
-	int currentAnimation, currentKeyframe;
+	int currentAnimation, currentKeyframe, nanim;
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;

@@ -24,10 +24,12 @@ public:
 	void set_tilemapPos(const glm::ivec2 &tileMapPos);
 	void set_pos_ini(const glm::ivec2 &suma);
 	void update_aux(int deltaTime);
-	
+	void set_color_brillo(const int colour);
+	glm::vec2 get_lastput_bola() { return lastput_bola; }
+	int get_lastput_color(){return lastput_color;}
 private:
 	glm::ivec2 tileMapDispl,direccion, posini;
-	glm::vec2 posBola;
+	glm::vec2 posBola, lastput_bola;
 	ShaderProgram shaderProgrambola;
 	float direccionx,direcciony;
 	Texture spritesheet;
@@ -35,7 +37,7 @@ private:
 	TileMap *map;
 	float angulo;
 	bool lanzada, elegido, reinicio;
-	int color, numlanzadas, tiempo;
+	int color, numlanzadas, tiempo,lastput_color;
 	Bub *bub;
 };
 #endif // _BOLA_INCLUDE

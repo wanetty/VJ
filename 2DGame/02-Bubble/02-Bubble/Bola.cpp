@@ -12,10 +12,15 @@
 # define Bola_inipos_y 334
 # define Time_limite 84500
 
+enum PlayerAnims
+{
+	BRILLO
+};
+
 void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *b)
 {
 	
-	spritesheet.loadFromFile("images/mapbolas.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/brillos2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = tileMap;
 	bub = b;
 	shaderProgrambola = shaderProgram;
@@ -40,7 +45,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 }
 void Bola::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,false);
 	tiempo += deltaTime;
 	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada) {
 		lanzada = true;
@@ -55,6 +60,8 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(posBola, color);
+			lastput_bola = posBola;
+			lastput_color = color;
 			map->comprueba_bolas(posBola, color);
 			reinicio = true;
 		}
@@ -63,6 +70,8 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(derecha, color);
+			lastput_bola = derecha;
+			lastput_color = color;
 			map->comprueba_bolas(derecha,color);
 			reinicio = true;
 		}
@@ -71,6 +80,8 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(izquierda, color);
+			lastput_bola = izquierda;
+			lastput_color = color;
 			map->comprueba_bolas(izquierda, color);
 			reinicio = true;
 		}
@@ -79,6 +90,8 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(arriba_iz, color);
+			lastput_bola = arriba_iz;
+			lastput_color = color;
 			map->comprueba_bolas(arriba_iz, color);
 			reinicio = true;
 		}
@@ -87,6 +100,8 @@ void Bola::update(int deltaTime)
 			bub->setLanzada(false);
 			elegido = true;
 			map->set_bola(arriba_der, color);
+			lastput_bola = arriba_der;
+			lastput_color = color;
 			map->comprueba_bolas(arriba_der, color);
 			reinicio = true;
 		}
@@ -94,8 +109,8 @@ void Bola::update(int deltaTime)
 		if (posBola.x <= 0 || posBola.x > (8 * 32)-32) {
 			direccionx *= -1;
 		}
-		posBola.x -= direccionx *15.f;
-		posBola.y -= direcciony *15.f;
+		posBola.x -= direccionx *10.f;
+		posBola.y -= direcciony *10.f;
 	}
 	
 	elegido = false;
@@ -132,10 +147,12 @@ void Bola::setDireccion(float x) {
 }
 void Bola::set_color(const int colour) {
  	color = colour;
+	
 	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
 	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
-	glm::vec2 tileTexSize = glm::vec2(1.f / 3, 1.f / 3);
-	nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
+	glm::vec2 tileTexSize = glm::vec2(1.f / 10, 1.f / 10);
+	//nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
+	nbola[0] = glm::vec2(0, float((color - 1)*0.1));
 	nbola[1] = nbola[0] + tileTexSize;
 	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
 }
@@ -152,7 +169,27 @@ bool Bola::get_reinicio() {
 	return reinicio;
 }
 void Bola::update_aux(int deltaTime) {
-	sprite->update(deltaTime);
+	sprite->update(deltaTime,false);
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
+void Bola::set_color_brillo(const int colour) {
+	//color = colour;
+	color = colour;
+	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
+	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
+	glm::vec2 tileTexSize = glm::vec2(1.f / 10, 1.f / 10);
+	nbola[0] = glm::vec2(0, float((color - 1) * 0.1));
+	nbola[1] = nbola[0] + tileTexSize;
+	sprite = Sprite_texture::createSpriteTexture(tambola, nbola, &spritesheet, &shaderProgrambola);
+	sprite->setNumberAnimations(1);
+	sprite->setAnimationSpeed(BRILLO, 20);
+	sprite->addKeyframe(BRILLO, glm::vec2(0.f, (color-1)/10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.1f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.2f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.3f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.4f, (color - 1) / 10));
+	sprite->addKeyframe(BRILLO, glm::vec2(0.5f, (color - 1) / 10));
+	sprite->changeAnimation(0);
+	sprite->changeAnimation(BRILLO);
 
+}

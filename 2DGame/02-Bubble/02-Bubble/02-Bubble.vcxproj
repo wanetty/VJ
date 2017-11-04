@@ -21,6 +21,7 @@
     <ClInclude Include="Bolsas.h" />
     <ClInclude Include="Bub.h" />
     <ClInclude Include="BubIni.h" />
+    <ClInclude Include="ConjuntoBolas.h" />
     <ClInclude Include="Flecha.h" />
     <ClInclude Include="fondo.h" />
     <ClInclude Include="Game.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="Bolsas.cpp" />
     <ClCompile Include="Bub.cpp" />
     <ClCompile Include="BubIni.cpp" />
+    <ClCompile Include="ConjuntoBolas.cpp" />
     <ClCompile Include="Flecha.cpp" />
     <ClCompile Include="fondo.cpp" />
     <ClCompile Include="Game.cpp" />
