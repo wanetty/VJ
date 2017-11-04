@@ -44,7 +44,11 @@ void Menu::init()
 	bubi->setPosition(glm::vec2(bubix, bubiy));
 	bubd->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, 1);
 	bubd->setPosition(glm::vec2(bubdx, bubdy));
-	
+	// Select which font you want to use
+	if (!text.init("fonts/OpenSans-Regular.ttf"))
+		//if(!text.init("fonts/OpenSans-Bold.ttf"))
+		//if(!text.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
 }
 
 void Menu::update(int deltaTime)
@@ -71,6 +75,7 @@ void Menu::render()
 	fondo->render();
 	bubi->render();
 	bubd->render();
+	text.render("Videogames!!!", glm::vec2(10, 480 - 20), 32, glm::vec4(1, 1, 1, 1));
 
 }
 

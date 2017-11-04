@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "BubIni.h"
+#include "Text.h"
 
 
 
@@ -34,6 +35,7 @@ private:
 	Fondo *fondo;
 	bool play;
 	BubIni *bubi, *bubd;
+	Text text;
 
 };
 
