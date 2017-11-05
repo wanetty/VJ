@@ -202,10 +202,6 @@ void Scene::update(int deltaTime)
 		matBolas->update(deltaTime);
 		auxBola->update_aux(deltaTime);
 		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-<<<<<<< HEAD
-		matBolas->update(deltaTime);
-=======
->>>>>>> Locura_80_bolas
 		rueda->update(deltaTime, flecha->getAngulo());
 		bub->update(deltaTime);
 		techo->update(deltaTime);
