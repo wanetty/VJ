@@ -156,3 +156,5 @@ void ConjuntoBolas::brilla(glm::vec2 pos, int color) {
 ConjuntoBolas::~ConjuntoBolas()
 {
 }
+
+
