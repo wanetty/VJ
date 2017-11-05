@@ -62,6 +62,7 @@ Scene::~Scene()
 		delete matBolas;
 	if (spriteTexto != NULL)
 		delete spriteTexto;
+	aEngine.Shutdown();
 }
 
 
@@ -114,7 +115,7 @@ void Scene::init()
 	tubo->setTileMap(map);
 	aEngine.Init();
 	aEngine.LoadEvent("event:/ganar");
-	aEngine.LoadSound("audio/smb3_airship_clear.wav", false);
+	aEngine.LoadSound("audio/smb3_airship_clear.wav", false,true);
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
