@@ -32,7 +32,6 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprite_texture.h" />
-    <ClInclude Include="SpriteTexto.h" />
     <ClInclude Include="Techo.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
@@ -62,7 +61,6 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprite_texture.cpp" />
-    <ClCompile Include="SpriteTexto.cpp" />
     <ClCompile Include="Techo.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />

@@ -53,7 +53,6 @@ void Menu::init()
 
 void Menu::update(int deltaTime)
 {
-	tiempo += deltaTime;
 	currentTime += deltaTime;
 	bubi->update(deltaTime);
 	bubd->update(deltaTime);
@@ -76,11 +75,7 @@ void Menu::render()
 	fondo->render();
 	bubi->render();
 	bubd->render();
-	if (tiempo > 500) {
-		text.render("Pulsa enter para empezar!", glm::vec2(200, 400), 20, glm::vec4(1, 1, 1, 1));
-		
-	}
-	if (tiempo > 1000) tiempo = 0;
+	text.render("Videogames!!!", glm::vec2(10, 480 - 20), 32, glm::vec4(1, 1, 1, 1));
 
 }
 

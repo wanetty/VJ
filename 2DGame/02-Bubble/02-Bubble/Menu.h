@@ -36,7 +36,7 @@ private:
 	bool play;
 	BubIni *bubi, *bubd;
 	Text text;
-	float tiempo;
+
 };
 
 
