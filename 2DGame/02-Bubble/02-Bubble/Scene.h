@@ -62,7 +62,6 @@ private:
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto;
 	Text replay;
-	Text puntos;
 
 
 };
