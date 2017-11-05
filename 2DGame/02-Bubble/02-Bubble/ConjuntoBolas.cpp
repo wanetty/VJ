@@ -69,7 +69,7 @@ void ConjuntoBolas::render(int *map) {
 		}
 		for (int i = 0; i < limite; i++)
 		{
-			if (mapa[j * SizeMapa.x + i] != 0) {
+			if (mapa[j * SizeMapa.x + i] != 0 ) {
 				matbolas[j * SizeMapa.x + i].render();
 			}
 		}

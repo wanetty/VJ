@@ -177,6 +177,7 @@ void Bola::update_aux(int deltaTime) {
 		posBola.y += 10;
 		if (posBola.y > 320) {
 			posBola = posiniAux;
+			map->reset_pos(posiniAux);
 			cayendo = false;
 		}
 	}

@@ -21,7 +21,7 @@ TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoo
 TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	loadLevel(levelFile);
-	//prepareArrays(minCoords, program);
+	prepareArrays(minCoords, program);
 	posbolsa = -1;
 	limit = 0;
 	perder = false;
@@ -141,7 +141,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 		for(int i=0; i<limite; i++)
 		{
 			tile = map[j * mapSize.x + i];
-			if(tile != 0)
+			if(tile != 0 && tile != 11)
 			{
 				// Non-empty tile
  				nTiles++;
@@ -465,22 +465,14 @@ void TileMap::set_grises() {
 		}
 	}
 }
-void TileMap::del_asteriso() {
-	int limite;
-	for (int j = 0; j < mapSize.y; j++)
-	{
-		if (j % 2 != 0) {
-			limite = mapSize.x - 1;
-		}
-		else {
-			limite = mapSize.x;
-		}
-		for (int i = 0; i < limite; i++)
-		{
-			if (map[j * mapSize.x + i] == 11) {
-				map[j * mapSize.x + i] = 0;
-			}
-		}
+void TileMap::reset_pos(glm::vec2 pos) {
+	glm::ivec2 posMap;
+	glm::vec2 centro = { 16,16 };
+	//pos += centro;
+	posMap.y = (pos.y) / tileSize;
+	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
+	if (map[posMap.y *mapSize.x + posMap.x] == 11) {
+		map[posMap.y *mapSize.x + posMap.x] = 0;
 	}
 }
 
