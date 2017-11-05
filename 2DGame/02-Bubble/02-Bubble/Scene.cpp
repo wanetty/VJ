@@ -268,7 +268,6 @@ void Scene::update(int deltaTime)
 				aEngine.LoadSound("audio/Game_Over.wav", false);
 				aEngine.PlaySounds("audio/Game_Over.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
 				test = true;
-
 			}
 			if (Game::instance().getKey(13)) {
 				this->~Scene();
@@ -291,11 +290,11 @@ void Scene::update(int deltaTime)
 				spriteTexto->update(deltaTime);
 				if (Game::instance().getKey(13)) {
 					this->~Scene();
-					if (nivel == 9) {
-						completado = true;
-					}
 					if (!completado) this->init(nivel + 1, points);
 					
+				}
+				if (nivel == 9) {
+					completado = true;
 				}
 			}
 

@@ -23,16 +23,16 @@ bool Game::update(int deltaTime)
 	if (estado == "JUGANDO") {
 		if(!primero)primero = true;
 		scene.update(deltaTime);
-		if (scene.get_perdido()) {
+		/*if (scene.get_perdido()) {
 			estado = "PERDIDO";
-		}
+		}*/
 		if (scene.get_completado()) {
-			estado = "COMLETADO";
-			if (instance().getKey(32))
-			creditos.init();
+			if (instance().getKey('s')) {
+				estado = "CREDITOS";
+				creditos.init();
+			}
 		}
 	}
-
 	else if (estado == "MENU") {
 		if (primero) {
 			aEngine.Init();
@@ -65,11 +65,13 @@ bool Game::update(int deltaTime)
 		else ins.update(deltaTime);
 	
 	}
-	else if (estado == "COMPLETADO") {
+	else if (estado == "CREDITOS") {
 		if (instance().getKey(13)) {
 			estado = "MENU";
+			if (!primero)primero = true;
 			menu.init();
 		}
+		else creditos.update(deltaTime);
 	}
 	return bPlay;
 }
