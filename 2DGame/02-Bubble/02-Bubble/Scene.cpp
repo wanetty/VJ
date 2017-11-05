@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
+#include "string"
 
 #define SCREEN_X 191
 #define SCREEN_Y 50
@@ -62,15 +63,20 @@ Scene::~Scene()
 		delete matBolas;
 	if (spriteTexto != NULL)
 		delete spriteTexto;
-	aEngine.Shutdown();
 }
 
 
-void Scene::init()
+void Scene::init(int nivel,int puntos)
 {
 	initShaders();
+	this->nivel = nivel;
 	tiempo = 0;
-	map = TileMap::createTileMap("levels/mapa1.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	points = puntos;
+	string mapa = "levels/mapa";
+	char c = nivel + '0';
+	mapa += c;
+	mapa += ".txt";
+	map = TileMap::createTileMap(mapa, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	fondo = new Fondo();
 	flecha = new Flecha();
 	bola = new Bola();
@@ -84,7 +90,10 @@ void Scene::init()
 	tubo = new Tubo();
 	matBolas = new ConjuntoBolas();
 	spriteTexto = new SpriteTexto();
-	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram,"images/mapa1.png");
+	string fon = "images/mapa";
+	fon += c;
+	fon += ".png";
+	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram,fon);
 	fondo->setPosition(glm::vec2(0,0));
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
@@ -114,14 +123,26 @@ void Scene::init()
 	tubo->setPosition(glm::vec2(tubox, tuboy));
 	tubo->setTileMap(map);
 	aEngine.Init();
-	aEngine.LoadEvent("event:/ganar");
-	aEngine.LoadSound("audio/smb3_airship_clear.wav", false,true);
+	aEngine.LoadSound("audio/original.wav", false,true);
+	aEngine.LoadSound("audio/BallBounce.wav", false, false);
+	aEngine.LoadSound("audio/BubbleShot.wav", false, false);
+	aEngine.LoadSound("audio/BallsElimination.wav", false, false);
+	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.3f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
 		//if(!text.init("fonts/OpenSans-Bold.ttf"))
 		//if(!text.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
+	if (!this->puntos.init("fonts/OpenSans-Bold.ttf"))
+		//if(!text.init("fonts/OpenSans-Regular.ttf"))
+		//if(!text.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
+	if (!this->lvl.init("fonts/OpenSans-Bold.ttf"))
+		//if(!text.init("fonts/OpenSans-Regular.ttf"))
+		//if(!text.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
+
 
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -130,6 +151,8 @@ void Scene::init()
 	limite =8;
 	temblor = 0;
 	perdido = false;
+	ganado = false;
+	lanzado = false;
 	bola->reincio_bola(map->get_bola());
 	bolas = new int[2];
 	bolas[0] = map->get_bola();
@@ -155,7 +178,7 @@ void Scene::update(int deltaTime)
 		tiempo = 0;
 		
 	}
-	else if (!perdido) {
+	else if (!perdido && !ganado) {
 		if (bola->get_lanzadas() == limite) {
 			++nivel_techo;
 			limite += 8;
@@ -186,8 +209,18 @@ void Scene::update(int deltaTime)
 				temblor = -3;
 			}
 		}
+		bool petado = map->get_petado();
 		if (lanzada_bola) {
+			if (!lanzado) {
+				aEngine.PlaySounds("audio/BubbleShot.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
+				lanzado = true;
+			}
+			if (petado) {
+				aEngine.PlaySounds("audio/BallsElimination.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
+			}
 			if (reinicio_bola) {
+				lanzado = false;
+				if(!petado)aEngine.PlaySounds("audio/BallBounce.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
 				glm::vec2 lasputpos = bola->get_lastput_bola();
 				int lastput_color = bola->get_lastput_color();
 				bola->reincio_bola(bolas[0]);
@@ -214,15 +247,34 @@ void Scene::update(int deltaTime)
 	if (perdido) {
 		spriteTexto->update(deltaTime);
 		if (!test) {
-			aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
+			aEngine.Shutdown();
+			aEngine.Init();
+			aEngine.LoadSound("audio/Game_Over.wav", false);
+			aEngine.PlaySounds("audio/Game_Over.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
 			test = true;
 		}
 		if (Game::instance().getKey(13)) {
 			this->~Scene();
-			this->init();
+			this->init(nivel,0);
 		}
 		
 	}
+	else if (map->get_ganado() && !ganado) {
+		ganado = true;
+		aEngine.Shutdown();
+		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
+	}
+
+	if (ganado)spriteTexto->update(deltaTime);
+	if (ganado) {
+		spriteTexto->update(deltaTime);
+		if (Game::instance().getKey(13)) {
+			this->~Scene();
+			this->init(nivel + 1, points);
+		}
+	}
+	
+	points += map->get_bolas_petadas();
 
 }
 
@@ -237,7 +289,6 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
-	//map->render();
 	matBolas->render(map->get_mapa());
 	techo->render();
 	base->render();
@@ -249,12 +300,21 @@ void Scene::render()
 	rueda->render();
 	bub->render();
 	tubo->render();
+	string aux = std::to_string(points * 10);
+	string s = "SCORE: ";
+	s += aux;
+	if (!ganado && !perdido)puntos.render(s, glm::vec2(200, 35), 20, glm::vec4(1, 1, 1, 1));
 	if (perdido) {
 		spriteTexto->render();
 		if (tiempo < 500) replay.render("Pulsa enter para empezar!", glm::vec2(200, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
 		else if (tiempo > 1000) tiempo = 0;
 	}
-	
+
+	if (ganado) {
+		spriteTexto->render();
+		puntos.render(s, glm::vec2(250, 285), 20, glm::vec4(1, 1, 1, 1));
+	}
+	lvl.render("Nivel: "+ std::to_string(nivel), glm::vec2(300, 480), 15, glm::vec4(1, 1, 1, 1));
 	
 }
 

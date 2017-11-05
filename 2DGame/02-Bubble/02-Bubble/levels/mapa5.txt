@@ -1,0 +1,18 @@
+TILEMAP
+8 11							-- Size of tile map in tiles
+32 32 							-- Tile size & block size
+images/mapbolas.png 					-- Tilesheet
+3 3							-- Number of tiles in tilesheet
+11433411
+2143417 
+88144166
+5214188 
+75211625
+6741342 
+        
+        
+        
+        
+        
+9                                                       --numero de array
+375645625
