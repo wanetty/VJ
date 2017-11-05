@@ -32,7 +32,7 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
+	void init(int nivel,int puntos);
 	void update(int deltaTime);
 	void render();
 	bool get_perdido();
@@ -62,6 +62,9 @@ private:
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto;
 	Text replay;
+	Text puntos;
+	int points,nivel;
+	Text lvl;
 
 
 };

@@ -10,7 +10,7 @@ void Game::init()
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	menu.init();
-	scene.init();
+	scene.init(1,0);
 	estado = "MENU";
 }
 
@@ -27,7 +27,7 @@ bool Game::update(int deltaTime)
 	else if (estado == "MENU") {
 		if (instance().getKey(13)) {
 			estado = "JUGANDO";
-			scene.init();
+			scene.init(1,0);
 			
 		}
 		else {
