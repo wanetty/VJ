@@ -36,9 +36,6 @@ TileMap::~TileMap()
 
 
 void TileMap::update(const glm::vec2 &minCoords, ShaderProgram &program) {
-	if (Game::instance().getKey('n')) {
-		map[1*mapSize.x + 1] = 2;
-	}
 	prepareArrays(minCoords, program);
 }
 
