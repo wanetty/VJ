@@ -71,6 +71,7 @@ void Scene::init(int nivel,int puntos)
 {
 	initShaders();
 	this->nivel = nivel;
+	completado = false;
 	tiempo = 0;
 	points = puntos;
 	string mapa = "levels/mapa";
@@ -290,7 +291,11 @@ void Scene::update(int deltaTime)
 				spriteTexto->update(deltaTime);
 				if (Game::instance().getKey(13)) {
 					this->~Scene();
-					this->init(nivel + 1, points);
+					if (nivel == 9) {
+						completado = true;
+					}
+					if (!completado) this->init(nivel + 1, points);
+					
 				}
 			}
 
@@ -335,6 +340,7 @@ void Scene::render()
 	if (ganado) {
 		spriteTexto->render();
 		puntos.render(s, glm::vec2(250, 285), 20, glm::vec4(1, 1, 1, 1));
+
 	}
 	lvl.render("Nivel: "+ std::to_string(nivel), glm::vec2(300, 480), 15, glm::vec4(1, 1, 1, 1));
 	
@@ -371,5 +377,8 @@ void Scene::initShaders()
 }
 bool Scene::get_perdido() {
 	return perdido;
+}
+bool Scene::get_completado() {
+	return completado;
 }
 

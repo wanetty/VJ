@@ -24,7 +24,12 @@ bool Game::update(int deltaTime)
 		if(!primero)primero = true;
 		scene.update(deltaTime);
 		if (scene.get_perdido()) {
-			estado == "PERDIDO";
+			estado = "PERDIDO";
+		}
+		if (scene.get_completado()) {
+			estado = "COMLETADO";
+			if (instance().getKey(32))
+			creditos.init();
 		}
 	}
 
@@ -38,20 +43,16 @@ bool Game::update(int deltaTime)
 		}
 		
 		if (instance().getKey(13)) {
+			aEngine.PlaySounds("audio/StartButton.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
 			estado = "JUGANDO";
-<<<<<<< HEAD
-			scene.init(1, 0);
+			scene.init(9, 0);
+			aEngine.Shutdown();
 		}
 		else if (instance().getKey(32)) {
 			estado = "INSTRUCCIONES";
 			ins.init();
-=======
-			aEngine.PlaySounds("audio/StartButton.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
-			scene.init(1,0);
-			aEngine.Shutdown();
-			
->>>>>>> origin/Sonidos_dos
 		}
+
 		else {
 			menu.update(deltaTime);
 		}
@@ -64,6 +65,12 @@ bool Game::update(int deltaTime)
 		else ins.update(deltaTime);
 	
 	}
+	else if (estado == "COMPLETADO") {
+		if (instance().getKey(13)) {
+			estado = "MENU";
+			menu.init();
+		}
+	}
 	return bPlay;
 }
 
@@ -73,6 +80,7 @@ void Game::render()
 	if (estado == "JUGANDO")scene.render();
 	else if (estado == "MENU") menu.render();
 	else if (estado == "INSTRUCCIONES") ins.render();
+	else if (estado == "CREDITOS") creditos.render();
 }
 
 void Game::keyPressed(int key)

@@ -22,6 +22,7 @@
 #include "AudioEngine.h"
 
 
+
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
 
@@ -37,6 +38,7 @@ public:
 	void update(int deltaTime);
 	void render();
 	bool get_perdido();
+	bool get_completado();
 
 private:
 	void initShaders();
@@ -58,7 +60,7 @@ private:
 	Techo *techo;
 	Tubo *tubo;
 	int nivel_techo, limite, temblor;
-	bool perdido,ganado,lanzado; 
+	bool perdido,ganado,lanzado,completado; 
 	int *bolas, channelprincipal;
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto,*round;
@@ -68,6 +70,7 @@ private:
 	Text puntos;
 	int points,nivel;
 	Text lvl;
+
 
 };
 

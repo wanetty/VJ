@@ -2,24 +2,25 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
-#include "Instrucciones.h"
+#include "Creditos.h"
 
 
 #define SCREEN_X 191
 #define SCREEN_Y 50
 
-#define bubix 30
-#define bubiy 410
+#define bubix 125
+#define bubiy 280
+#define bubdx 445
+#define bubdy 265
 
-
-Instrucciones::Instrucciones()
+Creditos::Creditos()
 {
 
 	fondo = NULL;
 
 }
 
-Instrucciones::~Instrucciones()
+Creditos::~Creditos()
 {
 
 	if (fondo != NULL)
@@ -28,39 +29,25 @@ Instrucciones::~Instrucciones()
 }
 
 
-void Instrucciones::init()
+void Creditos::init()
 {
 	initShaders();
 	fondo = new Fondo();
-	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, "images/instrucciones.png");
+	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, "images/creditos.png");
 	fondo->setPosition(glm::vec2(0, 0));
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
-	play = false;
-	bubi = new BubIni();
-	bubi->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, 0);
-	bubi->setPosition(glm::vec2(bubix, bubiy));
-
-	// Select which font you want to use
-	if (!text.init("fonts/OpenSans-Regular.ttf"))
-		//if(!text.init("fonts/OpenSans-Bold.ttf"))
-		//if(!text.init("fonts/DroidSerif.ttf"))
-		cout << "Could not load font!!!" << endl;
 }
 
-void Instrucciones::update(int deltaTime)
+void Creditos::update(int deltaTime)
 {
-	tiempo += deltaTime;
+	
 	currentTime += deltaTime;
-	bubi->update(deltaTime);
 
-	/*if (Game::instance().getSpecialKey(32)) {
-	play = true;
-	}*/
 
 }
 
-void Instrucciones::render()
+void Creditos::render()
 {
 	glm::mat4 modelview;
 
@@ -71,16 +58,10 @@ void Instrucciones::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
-	bubi->render();
-	if (tiempo > 500) {
-		text.render("Pulsa enter para volver", glm::vec2(450, 472), 15, glm::vec4(1, 1, 1, 1));
-
-	}
-	if (tiempo > 1000) tiempo = 0;
 
 }
 
-void Instrucciones::initShaders()
+void Creditos::initShaders()
 {
 	Shader vShader, fShader;
 
@@ -108,8 +89,4 @@ void Instrucciones::initShaders()
 	texProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
-}
-
-bool Instrucciones::getPlay() {
-	return play;
 }
