@@ -83,7 +83,7 @@ void Scene::init()
 	tubo = new Tubo();
 	matBolas = new ConjuntoBolas();
 	spriteTexto = new SpriteTexto();
-	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram,"images/fondocuatro.png");
+	fondo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram,"images/mapa1.png");
 	fondo->setPosition(glm::vec2(0,0));
 	flecha->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	flecha->setPosition(glm::vec2(Pos_felcha_x, Pos_felcha_y));
