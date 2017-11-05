@@ -27,7 +27,7 @@ bool Game::update(int deltaTime)
 	else if (estado == "MENU") {
 		if (instance().getKey(13)) {
 			estado = "JUGANDO";
-			scene.init(5,0);
+			scene.init(9,0);
 			
 		}
 		else {

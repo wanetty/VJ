@@ -15,4 +15,4 @@ images/mapbolas.png 					-- Tilesheet
         
         
 9                                                       --numero de array
-342676787
+332676787
