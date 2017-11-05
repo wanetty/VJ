@@ -126,6 +126,7 @@ void Scene::init()
 	limite =8;
 	temblor = 0;
 	perdido = false;
+	ganado = false;
 	bola->reincio_bola(map->get_bola());
 	bolas = new int[2];
 	bolas[0] = map->get_bola();
@@ -151,7 +152,7 @@ void Scene::update(int deltaTime)
 		tiempo = 0;
 		
 	}
-	else if (!perdido) {
+	else if (!perdido && !ganado) {
 		if (bola->get_lanzadas() == limite) {
 			++nivel_techo;
 			limite += 8;
@@ -215,6 +216,10 @@ void Scene::update(int deltaTime)
 		}
 		
 	}
+	else if (map->get_ganado()) {
+		ganado = true;
+		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
+	}
 
 }
 
@@ -229,7 +234,6 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
-	//map->render();
 	matBolas->render(map->get_mapa());
 	techo->render();
 	base->render();
@@ -246,6 +250,8 @@ void Scene::render()
 		if (tiempo < 500) replay.render("Pulsa enter para empezar!", glm::vec2(200, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
 		else if (tiempo > 1000) tiempo = 0;
 	}
+
+	if (ganado)spriteTexto->render();
 	
 	
 }

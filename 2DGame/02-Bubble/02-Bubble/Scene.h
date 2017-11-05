@@ -57,7 +57,7 @@ private:
 	Techo *techo;
 	Tubo *tubo;
 	int nivel_techo, limite, temblor;
-	bool perdido; 
+	bool perdido,ganado; 
 	int *bolas;
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto;

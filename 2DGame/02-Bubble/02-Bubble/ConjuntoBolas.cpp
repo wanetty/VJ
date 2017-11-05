@@ -153,4 +153,7 @@ void ConjuntoBolas::brilla(glm::vec2 pos, int color) {
 	matbolas[posMap.y * SizeMapa.x + posMap.x].set_color_brillo(color);
 	posBrillo = posMap;
 }
+ConjuntoBolas::~ConjuntoBolas()
+{
+}
 
