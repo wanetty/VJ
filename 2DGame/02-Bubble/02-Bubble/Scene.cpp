@@ -118,6 +118,10 @@ void Scene::init()
 		//if(!text.init("fonts/OpenSans-Bold.ttf"))
 		//if(!text.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
+	if (!puntos.init("fonts/OpenSans-Bold.ttf.ttf"))
+		//if(!text.init("fonts/OpenSans-Bold.ttf"))
+		//if(!text.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
 
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -216,9 +220,9 @@ void Scene::update(int deltaTime)
 		}
 		
 	}
-	else if (map->get_ganado()) {
+	else if (map->get_ganado() && !ganado) {
 		ganado = true;
-		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
+		spriteTexto->init("win.png", texProgram, 230, 133, 190, 108);
 	}
 
 }
@@ -245,6 +249,7 @@ void Scene::render()
 	rueda->render();
 	bub->render();
 	tubo->render();
+	replay.render("SCORE: ", glm::vec2(191, 30), 20, glm::vec4(1, 1, 1, 1));
 	if (perdido) {
 		spriteTexto->render();
 		if (tiempo < 500) replay.render("Pulsa enter para empezar!", glm::vec2(200, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
