@@ -40,7 +40,7 @@ bool Game::update(int deltaTime)
 		if (instance().getKey(13)) {
 			estado = "JUGANDO";
 			aEngine.PlaySounds("audio/StartButton.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
-			scene.init(9,0);
+			scene.init(1,0);
 			aEngine.Shutdown();
 			
 		}
