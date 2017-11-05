@@ -64,6 +64,7 @@ private:
 	SpriteTexto *spriteTexto;
 	Text replay;
 	CAudioEngine aEngine;
+	bool test;
 
 };
 
