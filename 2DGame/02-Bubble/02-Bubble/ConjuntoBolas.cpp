@@ -95,8 +95,9 @@ void ConjuntoBolas::set_tilemapPos(const glm::ivec2 &tileMapPos) {
 		}
 	}
 }
-void ConjuntoBolas::set_grises() {
+void ConjuntoBolas::set_grises(int *map) {
 	int limite;
+	mapa = map;
 	for (int j = 0; j < SizeMapa.y; j++)
 	{
 		if (j % 2 != 0) {
@@ -108,8 +109,42 @@ void ConjuntoBolas::set_grises() {
 		for (int i = 0; i < limite; i++)
 		{
 			if (mapa[j * SizeMapa.x + i] != 0) matbolas[j * SizeMapa.x + i].set_color(9);
+
 		}
 	}
+}
+void ConjuntoBolas::set_caer(int *map) {
+	int limite;
+	mapa = map;
+	bolas_cayendo.clear();
+	for (int j = 0; j < SizeMapa.y; j++)
+	{
+		if (j % 2 != 0) {
+			limite = SizeMapa.x - 1;
+		}
+		else {
+			limite = SizeMapa.x;
+		}
+		for (int i = 0; i < limite; i++)
+		{
+			if (mapa[j * SizeMapa.x + i] == 11) {
+				matbolas[j * SizeMapa.x + i].set_cayendo(true);
+				bolas_cayendo.push_back({ i,j });
+			}
+		}
+	}
+}
+bool ConjuntoBolas::get_cayendo() {
+	list <glm::ivec2> bolas_caer = bolas_cayendo;
+	while (!bolas_caer.empty()){
+		if (!matbolas[bolas_caer.front().y * SizeMapa.x + bolas_caer.front().x].get_cayendo()) {
+			bolas_cayendo.clear();
+			return false;
+		}
+		bolas_caer.pop_front();
+	}
+	
+	return true;
 }
 void ConjuntoBolas::brilla(glm::vec2 pos, int color) {
 	glm::ivec2 posMap;

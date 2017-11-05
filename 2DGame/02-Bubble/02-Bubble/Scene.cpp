@@ -107,8 +107,9 @@ void Scene::update(int deltaTime)
 	if (map->get_perdido() == true) {
 	
 		map->set_grises();
-		matBolas->update(deltaTime);
 		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		matBolas->set_grises(map->get_mapa());
+		matBolas->update(deltaTime);
 		perdido = true;
 	}
 	else {
@@ -145,6 +146,8 @@ void Scene::update(int deltaTime)
 		currentTime += deltaTime;
 		flecha->update(deltaTime);
 		bola->setDireccion(flecha->getAngulo());
+		bola->update(deltaTime);
+		
 		if (lanzada_bola) {
 			if (reinicio_bola) {
 				glm::vec2 lasputpos = bola->get_lastput_bola();
@@ -152,15 +155,19 @@ void Scene::update(int deltaTime)
 				matBolas->brilla(lasputpos, lastput_color);
 				bola->reincio_bola(bolas[0]);
 				auxBola->set_color(bolas[1]);
+				
 				bolas[0] = bolas[1];
 				bolas[1] = map->get_bola();
 			}
 		}
-		bola->update(deltaTime);
 		auxBola->update_aux(deltaTime);
 		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		matBolas->set_tilemapPos(glm::ivec2(SCREEN_X+temblor, SCREEN_Y + nivel_techo * 32));
+		if (!matBolas->get_cayendo()) {
+			map->del_asteriso();
+		}
+		matBolas->set_caer(map->get_mapa());
 		matBolas->update(deltaTime);
-		//bolsa->update(deltaTime);
 		rueda->update(deltaTime, flecha->getAngulo());
 		bub->update(deltaTime);
 		techo->update(deltaTime);

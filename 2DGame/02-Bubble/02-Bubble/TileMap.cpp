@@ -204,7 +204,7 @@ glm::vec2 TileMap::comprueba_izquierda(glm::vec2 pos) {
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
 	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y%2 == 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))) {
-		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+		if (map[posMap.y * mapSize.x + posMap.x] != 0 && map[posMap.y * mapSize.x + posMap.x] != 11) {
 			return actual;
 		}
 	}
@@ -220,7 +220,7 @@ glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
 	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))) {
-		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+		if (map[posMap.y * mapSize.x + posMap.x] != 0 && map[posMap.y * mapSize.x + posMap.x] != 11) {
 			return actual;
 		}
 	}
@@ -238,7 +238,7 @@ glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x - 16) / tileSize;
 	if ((posActual.y % 2 == 0 && posActual.x != 7) || posActual.y % 2 != 0) {
 		if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
-			if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+			if (map[posMap.y * mapSize.x + posMap.x] != 0 && map[posMap.y * mapSize.x + posMap.x] != 11) {
 				return actual;
 			}
 		}
@@ -257,7 +257,7 @@ glm::vec2 TileMap::comprueba_arriba_izquierda(glm::vec2 pos) {
 	posMap.y = (pos.y) / tileSize;
 	(posMap.y % 2 == 0) ? posMap.x = (pos.x) / tileSize : posMap.x = (pos.x -16) / tileSize;
 	if (posMap.y <= 9 && posMap.x >= 0 && ((posMap.y % 2 != 0 && posMap.x <= 6) || (posMap.y % 2 == 0 && posMap.x <= 7))){
-		if (map[posMap.y * mapSize.x + posMap.x] != 0) {
+		if (map[posMap.y * mapSize.x + posMap.x] != 0 && map[posMap.y * mapSize.x + posMap.x] != 11) {
 			return actual;
 		}
 	}
@@ -373,8 +373,8 @@ void TileMap::borrar(list<glm::ivec2> lista) {
 			int *visitados = new int[mapSize.x * mapSize.y];
 			glm::ivec2 actual = {i,j};
 			
-			if (map[j *mapSize.x + i] != 0 && comprueba_bolas_flotantes(actual, visitados)) {
-				map[j *mapSize.x + i] = 0;
+			if (map[j *mapSize.x + i] != 0 && map[j *mapSize.x + i] != 11 && comprueba_bolas_flotantes(actual, visitados)) {
+				map[j *mapSize.x + i] = 11;
 			}
 		}
 	}
@@ -414,27 +414,27 @@ bool TileMap::comprueba_bolas_flotantes(glm::ivec2 pos, int *visitados) {
 	glm::ivec2 iz = { actu.x - 1,actu.y };
 	glm::ivec2 abajoder = { actu.x - ((actu.y + 1) % 2) + 1,actu.y + 1 };
 	glm::ivec2 abajoiz = { actu.x - (actu.y + 1) % 2,actu.y + 1 };
-	if (pos_correcta(arribader) && visitados[arribader.y *mapSize.x + arribader.x] != 1 && map[arribader.y *mapSize.x + arribader.x] != 0) {
+	if (pos_correcta(arribader) && visitados[arribader.y *mapSize.x + arribader.x] != 1 && map[arribader.y *mapSize.x + arribader.x] != 0 && map[arribader.y *mapSize.x + arribader.x] != 11) {
 		if (!comprueba_bolas_flotantes(arribader, visitados)) return false;
 	}
-	if (pos_correcta(arribaiz) && visitados[arribaiz.y *mapSize.x + arribaiz.x] != 1 && map[arribaiz.y *mapSize.x + arribaiz.x] != 0) {
+	if (pos_correcta(arribaiz) && visitados[arribaiz.y *mapSize.x + arribaiz.x] != 1 && map[arribaiz.y *mapSize.x + arribaiz.x] != 0 && map[arribaiz.y *mapSize.x + arribaiz.x] != 11) {
 		if (!comprueba_bolas_flotantes(arribader, visitados)) return false;
 
 	}
-	if (pos_correcta(iz) && visitados[iz.y *mapSize.x + iz.x] != 1 && map[iz.y *mapSize.x + iz.x] != 0) {
+	if (pos_correcta(iz) && visitados[iz.y *mapSize.x + iz.x] != 1 && map[iz.y *mapSize.x + iz.x] != 0 && map[iz.y *mapSize.x + iz.x] != 11) {
 
 		if (!comprueba_bolas_flotantes(iz, visitados)) return false;
 
 	}
-	if (pos_correcta(der) && visitados[der.y *mapSize.x + der.x] != 1 && map[der.y *mapSize.x + der.x] != 0) {
+	if (pos_correcta(der) && visitados[der.y *mapSize.x + der.x] != 1 && map[der.y *mapSize.x + der.x] != 0 && map[der.y *mapSize.x + der.x] != 11) {
 
 		if (!comprueba_bolas_flotantes(der, visitados)) return false;
 
 	}
-	if (pos_correcta(abajoder) && visitados[abajoder.y *mapSize.x + abajoder.x] != 1 && map[abajoder.y *mapSize.x + abajoder.x] != 0) {
+	if (pos_correcta(abajoder) && visitados[abajoder.y *mapSize.x + abajoder.x] != 1 && map[abajoder.y *mapSize.x + abajoder.x] != 0 && map[abajoder.y *mapSize.x + abajoder.x] != 11) {
 		if (!comprueba_bolas_flotantes(abajoder, visitados)) return false;
 	}
-	if (pos_correcta(abajoiz) && visitados[abajoiz.y *mapSize.x + abajoiz.x] != 1 && map[abajoiz.y *mapSize.x + abajoiz.x] != 0) {
+	if (pos_correcta(abajoiz) && visitados[abajoiz.y *mapSize.x + abajoiz.x] != 1 && map[abajoiz.y *mapSize.x + abajoiz.x] != 0 && map[abajoiz.y *mapSize.x + abajoiz.x] != 11) {
 
 		if (!comprueba_bolas_flotantes(abajoiz, visitados)) return false;
 
@@ -461,7 +461,25 @@ void TileMap::set_grises() {
 		}
 		for (int i = 0; i < limite; i++)
 		{
-			 if(map[j * mapSize.x + i]!= 0)map[j * mapSize.x + i] = 9 ;
+			 if(map[j * mapSize.x + i] != 0 && map[j *mapSize.x + i] != 11)map[j * mapSize.x + i] = 9 ;
+		}
+	}
+}
+void TileMap::del_asteriso() {
+	int limite;
+	for (int j = 0; j < mapSize.y; j++)
+	{
+		if (j % 2 != 0) {
+			limite = mapSize.x - 1;
+		}
+		else {
+			limite = mapSize.x;
+		}
+		for (int i = 0; i < limite; i++)
+		{
+			if (map[j * mapSize.x + i] == 11) {
+				map[j * mapSize.x + i] = 0;
+			}
 		}
 	}
 }

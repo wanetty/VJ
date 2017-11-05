@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "ShaderProgram.h"
 #include "Bola.h"
+#include "list"
 
 class ConjuntoBolas
 {
@@ -15,7 +16,9 @@ public:
 	void update(int deltaTime);
 	void render(int *map) ;
 	void set_tilemapPos(const glm::ivec2 &tileMapPos);
-	void set_grises();
+	void set_grises(int *map);
+	void set_caer(int *map);
+	bool get_cayendo();
 	void brilla(glm::vec2 pos, int color);
 	~ConjuntoBolas();
 private:
@@ -24,6 +27,7 @@ private:
 	glm::ivec2 SizeMapa, posBrillo;
 	int *mapa;
 	glm::ivec2 tileMapDispl;
+	list <glm::ivec2> bolas_cayendo;
 
 };
 #endif // _CONJUNTOBOLAS_INCLUDE
