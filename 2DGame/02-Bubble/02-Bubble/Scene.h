@@ -33,7 +33,7 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
+	void init(int nivel,int puntos);
 	void update(int deltaTime);
 	void render();
 	bool get_perdido();
@@ -58,13 +58,16 @@ private:
 	Techo *techo;
 	Tubo *tubo;
 	int nivel_techo, limite, temblor;
-	bool perdido; 
+	bool perdido,ganado; 
 	int *bolas;
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto;
 	Text replay;
 	CAudioEngine aEngine;
 	bool test;
+	Text puntos;
+	int points,nivel;
+	Text lvl;
 
 };
 

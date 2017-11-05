@@ -26,6 +26,7 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	limit = 0;
 	perder = false;
 	ganado = false;
+	bolaspetadas = 0;
 }
 
 TileMap::~TileMap()
@@ -351,6 +352,7 @@ bool TileMap::pos_correcta(glm::ivec2 pos) {
 	return true;
 }
 void TileMap::borrar(list<glm::ivec2> lista) {
+	bolaspetadas += lista.size();
 	while (!lista.empty()) {
 		glm::ivec2 actu = lista.front();
 		map[actu.y *mapSize.x + actu.x] = 0;
@@ -490,6 +492,11 @@ bool TileMap::get_ganado() {
 		}
 	}
 	return true;
+}
+int TileMap::get_bolas_petadas() {
+	int bolas_petadas_actu = bolaspetadas;	
+	bolaspetadas = 0;
+	return bolas_petadas_actu;
 }
 
 
