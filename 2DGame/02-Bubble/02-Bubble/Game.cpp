@@ -10,17 +10,25 @@ void Game::init()
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	menu.init();
-	estado = "MENU";
+	scene.init();
+	estado = "JUGANDO";
 }
 
 bool Game::update(int deltaTime)
 {
 
-	if (estado == "JUGANDO") scene.update(deltaTime);
+	if (estado == "JUGANDO") {
+		scene.update(deltaTime);
+		if (scene.get_perdido()) {
+			estado == "PERDIDO";
+		}
+	}
+
 	else if (estado == "MENU") {
-		if (instance().getKey(32)) {
+		if (instance().getKey(13)) {
 			estado = "JUGANDO";
 			scene.init();
+			
 		}
 		else {
 		menu.update(deltaTime);

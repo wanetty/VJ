@@ -16,6 +16,9 @@
 #include "Bub.h"
 #include "Techo.h"
 #include "ConjuntoBolas.h"
+#include "Tubo.h"
+#include "SpriteTexto.h"
+#include "Text.h"
 
 
 // Scene contains all the entities of our game.
@@ -41,7 +44,7 @@ private:
 	TileMap *map;
 	Player *player;
 	ShaderProgram texProgram;
-	float currentTime;
+	float currentTime,tiempo;
 	glm::mat4 projection;
 	Fondo *fondo;
 	Flecha *flecha;
@@ -52,10 +55,14 @@ private:
 	Arco *arco;
 	Bub *bub;
 	Techo *techo;
+	Tubo *tubo;
 	int nivel_techo, limite, temblor;
 	bool perdido; 
 	int *bolas;
 	ConjuntoBolas *matBolas;
+	SpriteTexto *spriteTexto;
+	Text replay;
+
 
 };
 
