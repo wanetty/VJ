@@ -10,7 +10,7 @@ void Game::init()
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	menu.init();
-	scene.init(1,0);
+	//scene.init(1,0);
 	estado = "MENU";
 }
 

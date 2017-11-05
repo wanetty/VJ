@@ -43,13 +43,14 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	elegido = false;
 	reinicio = false;
 	cayendo = false;
-	
+
 }
 void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime,false);
 	tiempo += deltaTime;
 	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada) {
+
 		lanzada = true;
 		bub->setLanzada(lanzada);
 		direccionx = cos(angulo);

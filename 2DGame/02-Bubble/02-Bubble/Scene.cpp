@@ -61,9 +61,8 @@ Scene::~Scene()
 		delete tubo;
 	if (matBolas != NULL)
 		delete matBolas;
-	if (round != NULL)
-		delete round;
-
+	if (spriteTexto != NULL)
+		delete spriteTexto;
 }
 
 
@@ -91,7 +90,6 @@ void Scene::init(int nivel,int puntos)
 	tubo = new Tubo();
 	matBolas = new ConjuntoBolas();
 	spriteTexto = new SpriteTexto();
-	round = new SpriteTexto();
 	string fon = "images/mapa";
 	fon += c;
 	fon += ".png";
@@ -124,13 +122,12 @@ void Scene::init(int nivel,int puntos)
 	tubo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	tubo->setPosition(glm::vec2(tubox, tuboy));
 	tubo->setTileMap(map);
-	string aux = "run";
-	aux += c;
-	aux += ".png";
-	round->init(aux, texProgram, 226, 133, 190, 108);
 	aEngine.Init();
-	aEngine.LoadEvent("event:/ganar");
-	aEngine.LoadSound("audio/smb3_airship_clear.wav", false);
+	aEngine.LoadSound("audio/original.wav", false,true);
+	aEngine.LoadSound("audio/BallBounce.wav", false, false);
+	aEngine.LoadSound("audio/BubbleShot.wav", false, false);
+	aEngine.LoadSound("audio/BallsElimination.wav", false, false);
+	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.3f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
@@ -155,6 +152,7 @@ void Scene::init(int nivel,int puntos)
 	temblor = 0;
 	perdido = false;
 	ganado = false;
+	lanzado = false;
 	bola->reincio_bola(map->get_bola());
 	bolas = new int[2];
 	bolas[0] = map->get_bola();
@@ -166,106 +164,117 @@ void Scene::init(int nivel,int puntos)
 
 void Scene::update(int deltaTime)
 {
-	currentTime += deltaTime;
-	if (currentTime > 5000) {
-		tiempo += deltaTime;
-		bool lanzada_bola = bola->get_lanzada();
-		bool reinicio_bola = bola->get_reinicio();
-		if (map->get_perdido() == true && !perdido) {
-
-			map->set_grises();
-			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-			matBolas->set_grises(map->get_mapa());
-			matBolas->update(deltaTime);
-			perdido = true;
-			spriteTexto->init("lost.png", texProgram, 200, 160, 240, 108);
-			tiempo = 0;
-
-		}
-		else if (!perdido && !ganado) {
-			if (bola->get_lanzadas() == limite) {
-				++nivel_techo;
-				limite += 8;
-				bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
-				bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
-				bola->set_pos_ini(glm::ivec2(0, -32));
-				matBolas->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
-				int actualtura = techo->get_altura();
-				techo->set_altura(++actualtura);
-				map->set_limite(techo->get_altura());
-				temblor = 0;
-			}
-			if (bola->get_lanzadas() == (limite - 2)) {
-				if (temblor != 2) {
-					temblor = 2;
-				}
-				else if (temblor != -2) {
-
-					temblor = -2;
-				}
-			}
-			if (bola->get_lanzadas() == (limite - 1)) {
-				if (temblor != 3) {
-					temblor = 3;
-				}
-				else if (temblor != -3) {
-
-					temblor = -3;
-				}
-			}
-			if (lanzada_bola) {
-				if (reinicio_bola) {
-					glm::vec2 lasputpos = bola->get_lastput_bola();
-					int lastput_color = bola->get_lastput_color();
-					bola->reincio_bola(bolas[0]);
-					auxBola->set_color(bolas[1]);
-					matBolas->brilla(lasputpos, lastput_color);
-					bolas[0] = bolas[1];
-					bolas[1] = map->get_bola();
-				}
-			}
-			
-			flecha->update(deltaTime);
-			bola->setDireccion(flecha->getAngulo());
-			bola->update(deltaTime);
-			matBolas->set_tilemapPos(glm::ivec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32));
-			matBolas->set_caer(map->get_mapa());
-			matBolas->update(deltaTime);
-			auxBola->update_aux(deltaTime);
-			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-			rueda->update(deltaTime, flecha->getAngulo());
-			bub->update(deltaTime);
-			techo->update(deltaTime);
-		}
-
-		if (perdido) {
-			spriteTexto->update(deltaTime);
-			if (!test) {
-				aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
-				test = true;
-			}
-			if (Game::instance().getKey(13)) {
-				this->~Scene();
-				this->init(nivel, 0);
-			}
-
-		}
-		else if (map->get_ganado() && !ganado) {
-			ganado = true;
-			spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
-		}
-
-		if (ganado)spriteTexto->update(deltaTime);
-		if (ganado) {
-			spriteTexto->update(deltaTime);
-			if (Game::instance().getKey(13)) {
-				this->~Scene();
-				this->init(nivel + 1, points);
-			}
-		}
-
-		points += map->get_bolas_petadas();
+	tiempo += deltaTime;
+	bool lanzada_bola = bola->get_lanzada();
+	bool reinicio_bola = bola->get_reinicio();
+	if (map->get_perdido() == true && !perdido) {
+	
+		map->set_grises();
+		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		matBolas->set_grises(map->get_mapa());
+		matBolas->update(deltaTime);
+		perdido = true;
+		spriteTexto->init("lost.png", texProgram, 200, 160,240,108);
+		tiempo = 0;
+		
 	}
+	else if (!perdido && !ganado) {
+		if (bola->get_lanzadas() == limite) {
+			++nivel_techo;
+			limite += 8;
+			bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+			bola->setPosition(glm::vec2(Pos_felcha_x +8, (Pos_felcha_y + 32) - nivel_techo * 32));
+			bola->set_pos_ini(glm::ivec2(0, -32));
+			matBolas->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+			int actualtura = techo->get_altura();
+			techo->set_altura(++actualtura);
+			map->set_limite(techo->get_altura());
+			temblor = 0;
+		}
+		if (bola->get_lanzadas() == (limite - 2)) {
+			if (temblor != 2) {
+				temblor = 2;
+			}
+			else if (temblor != -2) {
+
+				temblor = -2;
+			}
+		}
+		if (bola->get_lanzadas() == (limite - 1)) {
+			if (temblor != 3) {
+				temblor = 3;
+			}
+			else if (temblor != -3) {
+
+				temblor = -3;
+			}
+		}
+		bool petado = map->get_petado();
+		if (lanzada_bola) {
+			if (!lanzado) {
+				aEngine.PlaySounds("audio/BubbleShot.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
+				lanzado = true;
+			}
+			if (petado) {
+				aEngine.PlaySounds("audio/BallsElimination.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
+			}
+			if (reinicio_bola) {
+				lanzado = false;
+				if(!petado)aEngine.PlaySounds("audio/BallBounce.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
+				glm::vec2 lasputpos = bola->get_lastput_bola();
+				int lastput_color = bola->get_lastput_color();
+				bola->reincio_bola(bolas[0]);
+				auxBola->set_color(bolas[1]);
+				matBolas->brilla(lasputpos, lastput_color);
+				bolas[0] = bolas[1];
+				bolas[1] = map->get_bola();
+			}
+		}
+		currentTime += deltaTime;
+		flecha->update(deltaTime);
+		bola->setDireccion(flecha->getAngulo());
+		bola->update(deltaTime);
+		matBolas->set_tilemapPos(glm::ivec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32));
+		matBolas->set_caer(map->get_mapa());
+		matBolas->update(deltaTime);
+		auxBola->update_aux(deltaTime);
+		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+		rueda->update(deltaTime, flecha->getAngulo());
+		bub->update(deltaTime);
+		techo->update(deltaTime);
+	}
+	
+	if (perdido) {
+		spriteTexto->update(deltaTime);
+		if (!test) {
+			aEngine.Shutdown();
+			aEngine.Init();
+			aEngine.LoadSound("audio/Game_Over.wav", false);
+			aEngine.PlaySounds("audio/Game_Over.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
+			test = true;
+		}
+		if (Game::instance().getKey(13)) {
+			this->~Scene();
+			this->init(nivel,0);
+		}
+		
+	}
+	else if (map->get_ganado() && !ganado) {
+		ganado = true;
+		aEngine.Shutdown();
+		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
+	}
+
+	if (ganado)spriteTexto->update(deltaTime);
+	if (ganado) {
+		spriteTexto->update(deltaTime);
+		if (Game::instance().getKey(13)) {
+			this->~Scene();
+			this->init(nivel + 1, points);
+		}
+	}
+	
+	points += map->get_bolas_petadas();
 
 }
 
@@ -291,7 +300,6 @@ void Scene::render()
 	rueda->render();
 	bub->render();
 	tubo->render();
-	if (currentTime < 5000) round->render();
 	string aux = std::to_string(points * 10);
 	string s = "SCORE: ";
 	s += aux;
