@@ -19,6 +19,7 @@
 #include "Tubo.h"
 #include "SpriteTexto.h"
 #include "Text.h"
+#include "AudioEngine.h"
 
 
 // Scene contains all the entities of our game.
@@ -62,7 +63,7 @@ private:
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto;
 	Text replay;
-
+	CAudioEngine aEngine;
 
 };
 

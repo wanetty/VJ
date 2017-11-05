@@ -112,6 +112,9 @@ void Scene::init()
 	tubo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	tubo->setPosition(glm::vec2(tubox, tuboy));
 	tubo->setTileMap(map);
+	aEngine.Init();
+	aEngine.LoadEvent("event:/ganar");
+	aEngine.LoadSound("audio/smb3_airship_clear.wav", false);
 	
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
@@ -209,6 +212,7 @@ void Scene::update(int deltaTime)
 	
 	if (perdido) {
 		spriteTexto->update(deltaTime);
+		aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
 		if (Game::instance().getKey(13)) {
 			this->~Scene();
 			this->init();

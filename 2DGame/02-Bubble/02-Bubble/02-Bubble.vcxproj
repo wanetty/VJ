@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\..\OpenGL\06-text\06-text\Quad.h" />
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Arco.h" />
+    <ClInclude Include="AudioEngine.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Bola.h" />
     <ClInclude Include="Bolsas.h" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\OpenGL\06-text\06-text\Quad.cpp" />
     <ClCompile Include="Arco.cpp" />
+    <ClCompile Include="AudioEngine.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Bola.cpp" />
     <ClCompile Include="Bolsas.cpp" />
@@ -113,13 +115,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\libs\freetype-2.3.5-1-bin\include\freetype2;..\..\..\libs\freetype-2.3.5-1-bin\include;..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\libs\FMOD Studio API Windows\api\studio\inc;..\..\..\libs\FMOD Studio API Windows\api\lowlevel\inc;..\..\..\libs\freetype-2.3.5-1-bin\include\freetype2;..\..\..\libs\freetype-2.3.5-1-bin\include;..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\WORKSPACE\Universidad\VJ\libs\freetype-2.3.5-1-bin\lib;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\libs\FMOD Studio API Windows\api\studio\lib;..\..\..\libs\FMOD Studio API Windows\api\lowlevel\lib;..\..\..\libs\freetype-2.3.5-1-bin\lib;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodL_vc.lib;fmodstudioL_vc.lib;freetype.lib;SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
