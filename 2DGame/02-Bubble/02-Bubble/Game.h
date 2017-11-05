@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "Menu.h"
+#include "Instrucciones.h"
 
 
 #define SCREEN_WIDTH 640
@@ -50,7 +51,8 @@ private:
 	Scene scene;                      // Scene to render
 	bool keys[256], specialKeys[256];// Store key states so that 
 	Menu menu;
-	string estado;                                  // we can have access at any time
+	string estado;      
+	Instrucciones ins;// we can have access at any time
 
 };
 

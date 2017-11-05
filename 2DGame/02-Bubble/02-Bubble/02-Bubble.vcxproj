@@ -24,6 +24,7 @@
     <ClInclude Include="Flecha.h" />
     <ClInclude Include="fondo.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Instrucciones.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
@@ -54,6 +55,7 @@
     <ClCompile Include="Flecha.cpp" />
     <ClCompile Include="fondo.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Instrucciones.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Menu.cpp" />

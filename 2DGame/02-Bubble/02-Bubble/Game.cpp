@@ -27,12 +27,23 @@ bool Game::update(int deltaTime)
 	else if (estado == "MENU") {
 		if (instance().getKey(13)) {
 			estado = "JUGANDO";
-			scene.init(1,0);
-			
+			scene.init(1, 0);
+		}
+		else if (instance().getKey(32)) {
+			estado = "INSTRUCCIONES";
+			ins.init();
 		}
 		else {
-		menu.update(deltaTime);
+			menu.update(deltaTime);
 		}
+	}
+	else if (estado == "INSTRUCCIONES") {
+		if (instance().getKey(13)) {
+			estado = "MENU";
+			menu.init();
+		}
+		else ins.update(deltaTime);
+	
 	}
 	return bPlay;
 }
@@ -42,6 +53,7 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (estado == "JUGANDO")scene.render();
 	else if (estado == "MENU") menu.render();
+	else if (estado == "INSTRUCCIONES") ins.render();
 }
 
 void Game::keyPressed(int key)

@@ -1,24 +1,25 @@
-#ifndef _MENU_INCLUDE
-#define _MENU_INCLUDE
+#ifndef _INSTRUCCIONES_INCLUDE
+#define _INSTRUCCIONES_INCLUDE
 
 
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "BubIni.h"
 #include "Text.h"
+#include"fondo.h"
 
 
 
-// Menu contains all the entities of our game.
+// Instrucciones contains all the entities of our game.
 // It is responsible for updating and render them.
 
 
-class Menu
+class Instrucciones
 {
 
 public:
-	Menu();
-	~Menu();
+	Instrucciones();
+	~Instrucciones();
 
 	void init();
 	void update(int deltaTime);
@@ -34,10 +35,10 @@ private:
 	glm::mat4 projection;
 	Fondo *fondo;
 	bool play;
-	BubIni *bubi, *bubd;
-	Text text,text2;
+	BubIni *bubi;
+	Text text;
 	float tiempo;
 };
 
 
-#endif // _MENU_INCLUDE
+#endif // _INSTRUCCIONES_INCLUDE
