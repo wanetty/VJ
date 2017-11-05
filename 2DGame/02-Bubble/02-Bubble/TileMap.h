@@ -43,6 +43,7 @@ public:
 	int* get_mapa() { return map; }
 	void reset_pos(glm::vec2 pos);
 	bool get_ganado();
+	int get_bolas_petadas();
 
 
 private:
@@ -64,7 +65,7 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 	int *bolsa;
-	int posbolsa, limit;
+	int posbolsa, limit,bolaspetadas;
 	bool perder,ganado;
 
 };

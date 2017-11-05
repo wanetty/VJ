@@ -157,3 +157,6 @@ ConjuntoBolas::~ConjuntoBolas()
 {
 }
 
+ConjuntoBolas::~ConjuntoBolas()
+{
+}
