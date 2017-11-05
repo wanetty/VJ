@@ -26,7 +26,9 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	limit = 0;
 	perder = false;
 	ganado = false;
+	petado = false;
 	bolaspetadas = 0;
+
 }
 
 TileMap::~TileMap()
@@ -358,6 +360,7 @@ void TileMap::borrar(list<glm::ivec2> lista) {
 		map[actu.y *mapSize.x + actu.x] = 0;
 		lista.pop_front();
 	}
+	petado = true;
 	int *visitados = new int[mapSize.x * mapSize.y];
 	int limite ;
 	for (int j = 0; j < mapSize.y; j++)
@@ -497,6 +500,11 @@ int TileMap::get_bolas_petadas() {
 	int bolas_petadas_actu = bolaspetadas;	
 	bolaspetadas = 0;
 	return bolas_petadas_actu;
+}
+bool TileMap::get_petado() {
+	bool aux = petado;
+	petado = false;
+	return aux;
 }
 
 

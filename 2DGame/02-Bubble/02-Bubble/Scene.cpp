@@ -123,8 +123,11 @@ void Scene::init(int nivel,int puntos)
 	tubo->setPosition(glm::vec2(tubox, tuboy));
 	tubo->setTileMap(map);
 	aEngine.Init();
-	aEngine.LoadEvent("event:/ganar");
-	aEngine.LoadSound("audio/smb3_airship_clear.wav", false);
+	aEngine.LoadSound("audio/original.wav", false,true);
+	aEngine.LoadSound("audio/BallBounce.wav", false, false);
+	aEngine.LoadSound("audio/BubbleShot.wav", false, false);
+	aEngine.LoadSound("audio/BallsElimination.wav", false, false);
+	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.3f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
@@ -149,6 +152,7 @@ void Scene::init(int nivel,int puntos)
 	temblor = 0;
 	perdido = false;
 	ganado = false;
+	lanzado = false;
 	bola->reincio_bola(map->get_bola());
 	bolas = new int[2];
 	bolas[0] = map->get_bola();
@@ -205,8 +209,18 @@ void Scene::update(int deltaTime)
 				temblor = -3;
 			}
 		}
+		bool petado = map->get_petado();
 		if (lanzada_bola) {
+			if (!lanzado) {
+				aEngine.PlaySounds("audio/BubbleShot.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
+				lanzado = true;
+			}
+			if (petado) {
+				aEngine.PlaySounds("audio/BallsElimination.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
+			}
 			if (reinicio_bola) {
+				lanzado = false;
+				if(!petado)aEngine.PlaySounds("audio/BallBounce.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(.6f));
 				glm::vec2 lasputpos = bola->get_lastput_bola();
 				int lastput_color = bola->get_lastput_color();
 				bola->reincio_bola(bolas[0]);
@@ -233,7 +247,10 @@ void Scene::update(int deltaTime)
 	if (perdido) {
 		spriteTexto->update(deltaTime);
 		if (!test) {
-			aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
+			aEngine.Shutdown();
+			aEngine.Init();
+			aEngine.LoadSound("audio/Game_Over.wav", false);
+			aEngine.PlaySounds("audio/Game_Over.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
 			test = true;
 		}
 		if (Game::instance().getKey(13)) {
@@ -244,6 +261,7 @@ void Scene::update(int deltaTime)
 	}
 	else if (map->get_ganado() && !ganado) {
 		ganado = true;
+		aEngine.Shutdown();
 		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
 	}
 
