@@ -9,6 +9,7 @@
 class Bola
 {
 public:
+	
 	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, TileMap *tileMap, Bub *bub);
 	void update(int deltaTime);
 	void render();

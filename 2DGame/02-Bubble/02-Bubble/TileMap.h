@@ -43,7 +43,10 @@ public:
 	int* get_mapa() { return map; }
 	void reset_pos(glm::vec2 pos);
 	bool get_ganado();
+	bool get_petado();
 	int get_bolas_petadas();
+
+	
 
 
 private:
@@ -66,7 +69,7 @@ private:
 	int *map;
 	int *bolsa;
 	int posbolsa, limit,bolaspetadas;
-	bool perder,ganado;
+	bool perder,ganado, petado;
 
 };
 

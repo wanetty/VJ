@@ -58,8 +58,8 @@ private:
 	Techo *techo;
 	Tubo *tubo;
 	int nivel_techo, limite, temblor;
-	bool perdido,ganado; 
-	int *bolas;
+	bool perdido,ganado,lanzado; 
+	int *bolas, channelprincipal;
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto,*round;
 	Text replay;
