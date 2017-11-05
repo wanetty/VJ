@@ -61,7 +61,7 @@ private:
 	bool perdido,ganado; 
 	int *bolas;
 	ConjuntoBolas *matBolas;
-	SpriteTexto *spriteTexto;
+	SpriteTexto *spriteTexto,*round;
 	Text replay;
 	CAudioEngine aEngine;
 	bool test;

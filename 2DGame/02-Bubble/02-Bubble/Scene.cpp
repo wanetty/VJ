@@ -61,8 +61,9 @@ Scene::~Scene()
 		delete tubo;
 	if (matBolas != NULL)
 		delete matBolas;
-	if (spriteTexto != NULL)
-		delete spriteTexto;
+	if (round != NULL)
+		delete round;
+
 }
 
 
@@ -90,6 +91,7 @@ void Scene::init(int nivel,int puntos)
 	tubo = new Tubo();
 	matBolas = new ConjuntoBolas();
 	spriteTexto = new SpriteTexto();
+	round = new SpriteTexto();
 	string fon = "images/mapa";
 	fon += c;
 	fon += ".png";
@@ -122,6 +124,10 @@ void Scene::init(int nivel,int puntos)
 	tubo->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	tubo->setPosition(glm::vec2(tubox, tuboy));
 	tubo->setTileMap(map);
+	string aux = "run";
+	aux += c;
+	aux += ".png";
+	round->init(aux, texProgram, 226, 133, 190, 108);
 	aEngine.Init();
 	aEngine.LoadEvent("event:/ganar");
 	aEngine.LoadSound("audio/smb3_airship_clear.wav", false);
@@ -160,103 +166,106 @@ void Scene::init(int nivel,int puntos)
 
 void Scene::update(int deltaTime)
 {
-	tiempo += deltaTime;
-	bool lanzada_bola = bola->get_lanzada();
-	bool reinicio_bola = bola->get_reinicio();
-	if (map->get_perdido() == true && !perdido) {
-	
-		map->set_grises();
-		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-		matBolas->set_grises(map->get_mapa());
-		matBolas->update(deltaTime);
-		perdido = true;
-		spriteTexto->init("lost.png", texProgram, 200, 160,240,108);
-		tiempo = 0;
-		
-	}
-	else if (!perdido && !ganado) {
-		if (bola->get_lanzadas() == limite) {
-			++nivel_techo;
-			limite += 8;
-			bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
-			bola->setPosition(glm::vec2(Pos_felcha_x +8, (Pos_felcha_y + 32) - nivel_techo * 32));
-			bola->set_pos_ini(glm::ivec2(0, -32));
-			matBolas->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
-			int actualtura = techo->get_altura();
-			techo->set_altura(++actualtura);
-			map->set_limite(techo->get_altura());
-			temblor = 0;
-		}
-		if (bola->get_lanzadas() == (limite - 2)) {
-			if (temblor != 2) {
-				temblor = 2;
-			}
-			else if (temblor != -2) {
+	currentTime += deltaTime;
+	if (currentTime > 5000) {
+		tiempo += deltaTime;
+		bool lanzada_bola = bola->get_lanzada();
+		bool reinicio_bola = bola->get_reinicio();
+		if (map->get_perdido() == true && !perdido) {
 
-				temblor = -2;
-			}
-		}
-		if (bola->get_lanzadas() == (limite - 1)) {
-			if (temblor != 3) {
-				temblor = 3;
-			}
-			else if (temblor != -3) {
+			map->set_grises();
+			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+			matBolas->set_grises(map->get_mapa());
+			matBolas->update(deltaTime);
+			perdido = true;
+			spriteTexto->init("lost.png", texProgram, 200, 160, 240, 108);
+			tiempo = 0;
 
-				temblor = -3;
+		}
+		else if (!perdido && !ganado) {
+			if (bola->get_lanzadas() == limite) {
+				++nivel_techo;
+				limite += 8;
+				bola->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+				bola->setPosition(glm::vec2(Pos_felcha_x + 8, (Pos_felcha_y + 32) - nivel_techo * 32));
+				bola->set_pos_ini(glm::ivec2(0, -32));
+				matBolas->set_tilemapPos(glm::ivec2(SCREEN_X, SCREEN_Y + nivel_techo * 32));
+				int actualtura = techo->get_altura();
+				techo->set_altura(++actualtura);
+				map->set_limite(techo->get_altura());
+				temblor = 0;
 			}
-		}
-		if (lanzada_bola) {
-			if (reinicio_bola) {
-				glm::vec2 lasputpos = bola->get_lastput_bola();
-				int lastput_color = bola->get_lastput_color();
-				bola->reincio_bola(bolas[0]);
-				auxBola->set_color(bolas[1]);
-				matBolas->brilla(lasputpos, lastput_color);
-				bolas[0] = bolas[1];
-				bolas[1] = map->get_bola();
-			}
-		}
-		currentTime += deltaTime;
-		flecha->update(deltaTime);
-		bola->setDireccion(flecha->getAngulo());
-		bola->update(deltaTime);
-		matBolas->set_tilemapPos(glm::ivec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32));
-		matBolas->set_caer(map->get_mapa());
-		matBolas->update(deltaTime);
-		auxBola->update_aux(deltaTime);
-		map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-		rueda->update(deltaTime, flecha->getAngulo());
-		bub->update(deltaTime);
-		techo->update(deltaTime);
-	}
-	
-	if (perdido) {
-		spriteTexto->update(deltaTime);
-		if (!test) {
-			aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
-			test = true;
-		}
-		if (Game::instance().getKey(13)) {
-			this->~Scene();
-			this->init(nivel,0);
-		}
-		
-	}
-	else if (map->get_ganado() && !ganado) {
-		ganado = true;
-		spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
-	}
+			if (bola->get_lanzadas() == (limite - 2)) {
+				if (temblor != 2) {
+					temblor = 2;
+				}
+				else if (temblor != -2) {
 
-	if (ganado)spriteTexto->update(deltaTime);
-	if (ganado) {
-		spriteTexto->update(deltaTime);
-		if (Game::instance().getKey(13)) {
-			this->~Scene();
-			this->init(nivel + 1, points);
+					temblor = -2;
+				}
+			}
+			if (bola->get_lanzadas() == (limite - 1)) {
+				if (temblor != 3) {
+					temblor = 3;
+				}
+				else if (temblor != -3) {
+
+					temblor = -3;
+				}
+			}
+			if (lanzada_bola) {
+				if (reinicio_bola) {
+					glm::vec2 lasputpos = bola->get_lastput_bola();
+					int lastput_color = bola->get_lastput_color();
+					bola->reincio_bola(bolas[0]);
+					auxBola->set_color(bolas[1]);
+					matBolas->brilla(lasputpos, lastput_color);
+					bolas[0] = bolas[1];
+					bolas[1] = map->get_bola();
+				}
+			}
+			
+			flecha->update(deltaTime);
+			bola->setDireccion(flecha->getAngulo());
+			bola->update(deltaTime);
+			matBolas->set_tilemapPos(glm::ivec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32));
+			matBolas->set_caer(map->get_mapa());
+			matBolas->update(deltaTime);
+			auxBola->update_aux(deltaTime);
+			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+			rueda->update(deltaTime, flecha->getAngulo());
+			bub->update(deltaTime);
+			techo->update(deltaTime);
 		}
+
+		if (perdido) {
+			spriteTexto->update(deltaTime);
+			if (!test) {
+				aEngine.PlaySounds("audio/smb3_airship_clear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
+				test = true;
+			}
+			if (Game::instance().getKey(13)) {
+				this->~Scene();
+				this->init(nivel, 0);
+			}
+
+		}
+		else if (map->get_ganado() && !ganado) {
+			ganado = true;
+			spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
+		}
+
+		if (ganado)spriteTexto->update(deltaTime);
+		if (ganado) {
+			spriteTexto->update(deltaTime);
+			if (Game::instance().getKey(13)) {
+				this->~Scene();
+				this->init(nivel + 1, points);
+			}
+		}
+
+		points += map->get_bolas_petadas();
 	}
-	
-	points += map->get_bolas_petadas();
 
 }
 
@@ -282,6 +291,7 @@ void Scene::render()
 	rueda->render();
 	bub->render();
 	tubo->render();
+	if (currentTime < 5000) round->render();
 	string aux = std::to_string(points * 10);
 	string s = "SCORE: ";
 	s += aux;
