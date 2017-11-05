@@ -1,10 +1,11 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
-
+#include "AudioEngineGame.h"
 #include "Scene.h"
 #include "Menu.h"
 #include "Instrucciones.h"
+
 
 
 #define SCREEN_WIDTH 640
@@ -51,8 +52,14 @@ private:
 	Scene scene;                      // Scene to render
 	bool keys[256], specialKeys[256];// Store key states so that 
 	Menu menu;
+<<<<<<< HEAD
 	string estado;      
 	Instrucciones ins;// we can have access at any time
+=======
+	string estado;                                  // we can have access at any time
+	CAudioEngine_Game aEngine;
+	bool primero;
+>>>>>>> origin/Sonidos_dos
 
 };
 

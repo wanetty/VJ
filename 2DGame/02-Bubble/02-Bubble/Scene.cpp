@@ -133,7 +133,7 @@ void Scene::init(int nivel,int puntos)
 	aEngine.LoadSound("audio/BallBounce.wav", false, false);
 	aEngine.LoadSound("audio/BubbleShot.wav", false, false);
 	aEngine.LoadSound("audio/BallsElimination.wav", false, false);
-	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.3f));
+	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.2f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
 	if (!replay.init("fonts/OpenSans-Regular.ttf"))
@@ -278,6 +278,9 @@ void Scene::update(int deltaTime)
 			else if (map->get_ganado() && !ganado) {
 				ganado = true;
 				aEngine.Shutdown();
+				aEngine.Init();
+				aEngine.LoadSound("audio/StageClear.wav", false);
+				aEngine.PlaySounds("audio/StageClear.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.5f));
 				spriteTexto->init("win.png", texProgram, 226, 133, 190, 108);
 			}
 

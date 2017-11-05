@@ -10,7 +10,7 @@
 # define M_PI 3.14159265358979323846
 # define Bola_inipos_x 112
 # define Bola_inipos_y 334
-# define Time_limite 84500
+# define Time_limite 10000
 
 enum PlayerAnims
 {
