@@ -12,12 +12,16 @@ void Game::init()
 	menu.init();
 	//scene.init(1,0);
 	estado = "MENU";
+	primero = true;
+	
 }
 
 bool Game::update(int deltaTime)
 {
 
+
 	if (estado == "JUGANDO") {
+		if(!primero)primero = true;
 		scene.update(deltaTime);
 		if (scene.get_perdido()) {
 			estado == "PERDIDO";
@@ -25,9 +29,19 @@ bool Game::update(int deltaTime)
 	}
 
 	else if (estado == "MENU") {
+		if (primero) {
+			aEngine.Init();
+			aEngine.LoadSound("audio/StartGame.wav", false, true);
+			aEngine.LoadSound("audio/StartButton.wav", false, true);
+			aEngine.PlaySounds("audio/StartGame.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(0.7f));
+			primero = false;
+		}
+		
 		if (instance().getKey(13)) {
 			estado = "JUGANDO";
-			scene.init(1,0);
+			aEngine.PlaySounds("audio/StartButton.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
+			scene.init(9,0);
+			aEngine.Shutdown();
 			
 		}
 		else {

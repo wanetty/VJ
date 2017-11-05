@@ -15,6 +15,7 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Arco.h" />
     <ClInclude Include="AudioEngine.h" />
+    <ClInclude Include="AudioEngineGame.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Bola.h" />
     <ClInclude Include="Bolsas.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="..\..\..\OpenGL\06-text\06-text\Quad.cpp" />
     <ClCompile Include="Arco.cpp" />
     <ClCompile Include="AudioEngine.cpp" />
+    <ClCompile Include="AudioEngineGame.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Bola.cpp" />
     <ClCompile Include="Bolsas.cpp" />
