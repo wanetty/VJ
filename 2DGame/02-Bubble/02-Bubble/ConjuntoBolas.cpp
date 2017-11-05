@@ -154,3 +154,6 @@ void ConjuntoBolas::brilla(glm::vec2 pos, int color) {
 	posBrillo = posMap;
 }
 
+ConjuntoBolas::~ConjuntoBolas()
+{
+}
