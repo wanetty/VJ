@@ -41,6 +41,7 @@ public:
 	void set_grises();
 	bool get_perdido();
 	int* get_mapa() { return map; }
+	void reset_pos(glm::vec2 pos);
 
 
 private:

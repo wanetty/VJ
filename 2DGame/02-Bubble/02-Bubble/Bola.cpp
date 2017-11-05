@@ -27,7 +27,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	tileMapDispl = tileMapPos;
 	//set_color(map->get_bola());
 	glm::vec2 tambola[2] = { glm::vec2(0, 0), glm::vec2(32, 32) };
-	glm::vec2 nbola[2]; //= { glm::vec2(0.3333, 0), glm::vec2(0.67, 0.3333) };
+	glm::vec2 nbola[2];
 	glm::vec2 tileTexSize = glm::vec2(1.f / 3, 1.f / 3);
 	nbola[0] = glm::vec2(float((color - 1) % 3) / 3, float((color - 1) / 3) / 3);
 	nbola[1] = nbola[0] + tileTexSize;
@@ -42,6 +42,8 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 	elegido = false;
 	reinicio = false;
+	cayendo = false;
+	
 }
 void Bola::update(int deltaTime)
 {
@@ -140,6 +142,7 @@ void Bola::setTileMap(TileMap *tileMap)
 void Bola::setPosition(const glm::vec2 &pos)
 {
 	posBola = pos;
+	posiniAux = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
 void Bola::setDireccion(float x) {
@@ -170,6 +173,14 @@ bool Bola::get_reinicio() {
 }
 void Bola::update_aux(int deltaTime) {
 	sprite->update(deltaTime,false);
+	if (cayendo) {
+		posBola.y += 10;
+		if (posBola.y > 320) {
+			posBola = posiniAux;
+			map->reset_pos(posiniAux);
+			cayendo = false;
+		}
+	}
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
 }
 void Bola::set_color_brillo(const int colour) {
