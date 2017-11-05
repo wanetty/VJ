@@ -449,7 +449,19 @@ void TileMap::set_limite(int new_limit) {
 	limit = new_limit;
 }
 bool TileMap::get_perdido() {
-	return perder;
+int Max = 10 - limit;
+int limite;
+		if (Max % 2 != 0) {
+			limite = mapSize.x - 1;
+		}
+		else {
+			limite = mapSize.x;
+		}
+	
+		for (int i = 0; i < limite; ++i) {
+			if (map[Max * mapSize.x + i] != 0)return true;
+		}
+		return false;
 }
 void TileMap::set_grises() {
 	int limite;
