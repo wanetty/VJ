@@ -25,6 +25,7 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	posbolsa = -1;
 	limit = 0;
 	perder = false;
+	ganado = false;
 }
 
 TileMap::~TileMap()
@@ -375,7 +376,7 @@ void TileMap::borrar(list<glm::ivec2> lista) {
 			}
 		}
 	}
-	
+	ganado = this->get_ganado();
 }
 bool TileMap::comprueba_bolsa() {
 	if (posbolsa >= this->get_sizebolsa())posbolsa = 0;
@@ -439,7 +440,6 @@ bool TileMap::comprueba_bolas_flotantes(glm::ivec2 pos, int *visitados) {
 		return true;
 
 }
-
 void TileMap::set_limite(int new_limit) {
 	limit = new_limit;
 }
@@ -472,7 +472,25 @@ void TileMap::reset_pos(glm::vec2 pos) {
 		map[posMap.y *mapSize.x + posMap.x] = 0;
 	}
 }
-
+bool TileMap::get_ganado() {
+	int limite;
+	for (int j = 0; j < mapSize.y; j++)
+	{
+		if (j % 2 != 0) {
+			limite = mapSize.x - 1;
+		}
+		else {
+			limite = mapSize.x;
+		}
+		for (int i = 0; i < limite; i++)
+		{
+			if (map[j * mapSize.x + i] != 11 && map[j * mapSize.x + i] != 0) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 
 
