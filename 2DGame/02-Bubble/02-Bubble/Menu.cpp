@@ -61,9 +61,8 @@ void Menu::update(int deltaTime)
 	currentTime += deltaTime;
 	bubi->update(deltaTime);
 	bubd->update(deltaTime);
-	/*if (Game::instance().getSpecialKey(32)) {
-		play = true;
-	}*/
+	
+	
 
 }
 
@@ -80,12 +79,13 @@ void Menu::render()
 	fondo->render();
 	bubi->render();
 	bubd->render();
-	if (tiempo > 500) {
+	if (tiempo > 500 && !play) {
 		text.render("Pulsa enter para empezar!", glm::vec2(200, 400), 20, glm::vec4(1, 1, 1, 1));
 		text.render("Pulsa espacio para ver las instrucciones!", glm::vec2(135, 430), 20, glm::vec4(1, 1, 1, 1));
 		
 	}
 	if (tiempo > 1500) tiempo = 0;
+
 
 }
 

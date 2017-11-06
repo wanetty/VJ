@@ -39,6 +39,8 @@ public:
 	void render();
 	bool get_perdido();
 	bool get_completado();
+	bool get_ganado() { return ganado; }
+	bool get_creditos() { return creditos; }
 
 private:
 	void initShaders();
@@ -60,16 +62,17 @@ private:
 	Techo *techo;
 	Tubo *tubo;
 	int nivel_techo, limite, temblor, empezado;
-	bool perdido,ganado,lanzado,completado; 
+	bool perdido,ganado,lanzado,completado;
 	int *bolas, channelprincipal;
 	ConjuntoBolas *matBolas;
 	SpriteTexto *spriteTexto,*round;
 	Text replay;
 	CAudioEngine aEngine;
-	bool test;
-	Text puntos;
+	bool test,creditos;
+	Text puntos,abandonar;
 	int points,nivel,delay;
 	Text lvl;
+	
 
 
 };

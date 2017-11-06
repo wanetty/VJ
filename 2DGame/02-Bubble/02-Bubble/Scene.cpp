@@ -63,6 +63,7 @@ Scene::~Scene()
 		delete matBolas;
 	if (round != NULL)
 		delete round;
+	aEngine.Shutdown();
 
 }
 
@@ -128,7 +129,7 @@ void Scene::init(int nivel,int puntos)
 	string aux = "run";
 	aux += c;
 	aux += ".png";
-	round->init(aux, texProgram, 226, 133, 190, 108);
+	round->init(aux, texProgram, 230, 133, 190, 108);
 	aEngine.Init();
 	aEngine.LoadSound("audio/original.wav", false,true);
 	aEngine.LoadSound("audio/BallBounce.wav", false, false);
@@ -138,7 +139,7 @@ void Scene::init(int nivel,int puntos)
 	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.2f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
-	if (!replay.init("fonts/OpenSans-Regular.ttf"))
+	if (!replay.init("fonts/OpenSans-Bold.ttf"))
 		//if(!text.init("fonts/OpenSans-Bold.ttf"))
 		//if(!text.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
@@ -147,6 +148,10 @@ void Scene::init(int nivel,int puntos)
 		//if(!text.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 	if (!this->lvl.init("fonts/OpenSans-Bold.ttf"))
+		//if(!text.init("fonts/OpenSans-Regular.ttf"))
+		//if(!text.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
+	if (!this->abandonar.init("fonts/OpenSans-Bold.ttf"))
 		//if(!text.init("fonts/OpenSans-Regular.ttf"))
 		//if(!text.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
@@ -325,34 +330,62 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
 	if (empezado) matBolas->render(map->get_mapa());
+
 	techo->render();
 	base->render();
 	arco->render();
 	flecha->render();
 	if(!perdido && !ganado && empezado)bola->render();
 	bolsa->render();
-	auxBola->render();
+	if (empezado) auxBola->render();
 	rueda->render();
 	bub->render();
 	tubo->render();
-	if (currentTime < 5000) round->render();
+	if (currentTime < 5000) {
+		round->render();
+		if (nivel == 1) {
+			replay.render("Consejo: utiliza la tecla x,", glm::vec2(193, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
+			abandonar.render("para cambiar de bola", glm::vec2(205, 345), 20, glm::vec4(0.9, 1, 0.0, 1));
+			
+		}
+	}
 	string aux = std::to_string(points * 10);
 	string s = "SCORE: ";
 	s += aux;
 	if (!ganado && !perdido)puntos.render(s, glm::vec2(200, 35), 20, glm::vec4(1, 1, 1, 1));
 	if (perdido) {
 		spriteTexto->render();
-		if (tiempo < 500) replay.render("Pulsa enter para reintentar!", glm::vec2(200, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
-		else if (tiempo > 1000) tiempo = 0;
+		string aux2 = std::to_string(points);
+		replay.render("TU PUNTUACION HA SIDO: " + aux2, glm::vec2(185,35 ), 20, glm::vec4(1, 1, 1, 1));
+		if (tiempo < 1000) {
+			replay.render("Pulsa enter para reintentar!", glm::vec2(195, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
+			abandonar.render("Pulsa M para ir al menu!", glm::vec2(205, 345), 20, glm::vec4(0.9, 1, 0.0, 1));
+		}
+		else if (tiempo > 1500) tiempo = 0;
 	}
 
 	if (ganado) {
 		spriteTexto->render();
-		puntos.render(s, glm::vec2(250, 285), 20, glm::vec4(1, 1, 1, 1));
-
+		
+		if (nivel < 9) {
+			puntos.render(s, glm::vec2(250, 285), 20, glm::vec4(1, 1, 1, 1));
+			if (tiempo < 1000) {
+				replay.render("Pulsa enter para continuar!", glm::vec2(190, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
+				abandonar.render("Pulsa M para ir al menu!", glm::vec2(205, 345), 20, glm::vec4(0.9, 1, 0.0, 1));
+			}
+			else if (tiempo > 1500) tiempo = 0;
+		}
+		else {
+			replay.render("ENHORABUENA", glm::vec2(240, 290), 20, glm::vec4(0.9, 1, 0.0, 1));
+			replay.render("HAS COMPLETADO EL JUEGO", glm::vec2(192, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
+			string aux2 = std::to_string(points);
+			replay.render("TU PUNTUACION HA SIDO: " + aux2, glm::vec2(190, 340), 20, glm::vec4(0.9, 1, 0.0, 1));
+			if (tiempo > 5000) creditos = true;
+		}
 	}
 	lvl.render("Nivel: "+ std::to_string(nivel), glm::vec2(300, 480), 15, glm::vec4(1, 1, 1, 1));
 	
+
 }
 
 void Scene::initShaders()

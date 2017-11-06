@@ -10,7 +10,6 @@ void Game::init()
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	menu.init();
-	//scene.init(1,0);
 	estado = "MENU";
 	primero = true;
 	
@@ -23,14 +22,29 @@ bool Game::update(int deltaTime)
 	if (estado == "JUGANDO") {
 		if(!primero)primero = true;
 		scene.update(deltaTime);
-		/*if (scene.get_perdido()) {
-			estado = "PERDIDO";
-		}*/
+		if (scene.get_perdido()) {
+			if (instance().getKey('m')) {
+				scene.~Scene();
+				menu.init();
+				estado = "MENU";
+				if (!primero) primero = true;
+			}
+		}
 		if (scene.get_completado()) {
+			if (scene.get_creditos()) {
 				estado = "CREDITOS";
 				if (!first_creditos)first_creditos = true;
 				creditos.init();
+				}
 			}
+		if (scene.get_ganado()) {
+			if (instance().getKey('m')) {
+				scene.~Scene();
+				menu.init();
+				estado = "MENU";
+				if (!primero) primero = true;
+			}
+		}
 	}
 	else if (estado == "MENU") {
 		if (primero) {
