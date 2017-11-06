@@ -27,15 +27,15 @@ bool Game::update(int deltaTime)
 			estado = "PERDIDO";
 		}*/
 		if (scene.get_completado()) {
-			if (instance().getKey('s')) {
 				estado = "CREDITOS";
+				if (!first_creditos)first_creditos = true;
 				creditos.init();
 			}
-		}
 	}
 	else if (estado == "MENU") {
 		if (primero) {
 			aEngine.Init();
+			aEngine.LoadEvent("event:/StartGame");
 			aEngine.LoadSound("audio/StartGame.wav", false, true);
 			aEngine.LoadSound("audio/StartButton.wav", false, true);
 			aEngine.PlaySounds("audio/StartGame.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(0.7f));
@@ -45,7 +45,7 @@ bool Game::update(int deltaTime)
 		if (instance().getKey(13)) {
 			aEngine.PlaySounds("audio/StartButton.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
 			estado = "JUGANDO";
-			scene.init(9, 0);
+			scene.init(1, 0);
 			aEngine.Shutdown();
 		}
 		else if (instance().getKey(32)) {
@@ -55,9 +55,11 @@ bool Game::update(int deltaTime)
 
 		else {
 			menu.update(deltaTime);
+			aEngine.Update();
 		}
 	}
 	else if (estado == "INSTRUCCIONES") {
+		
 		if (instance().getKey(13)) {
 			estado = "MENU";
 			menu.init();
@@ -66,12 +68,22 @@ bool Game::update(int deltaTime)
 	
 	}
 	else if (estado == "CREDITOS") {
+		if (first_creditos) {
+			aCreditos.Init();
+			aCreditos.LoadSound("audio/creditos.wav", false, true);
+			aCreditos.PlaySounds("audio/creditos.wav", Vector3_game{ 0, 0, 0 }, aEngine.VolumeTodB(.7f));
+			first_creditos = false;
+		}
 		if (instance().getKey(13)) {
+			aCreditos.Shutdown();
 			estado = "MENU";
 			if (!primero)primero = true;
 			menu.init();
 		}
-		else creditos.update(deltaTime);
+		else {
+			aCreditos.Update();
+			creditos.update(deltaTime);
+		}
 	}
 	return bPlay;
 }

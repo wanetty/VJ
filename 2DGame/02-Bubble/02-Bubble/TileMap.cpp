@@ -230,7 +230,7 @@ glm::vec2 TileMap::comprueba_derecha(glm::vec2 pos) {
 glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
 	glm::ivec2 posMap, posActual;
 	glm::vec2 centro = { 16,16 };
-	glm::vec2 derecha_arriba = { 15,-15 };
+	glm::vec2 derecha_arriba = { 13,-13 };
 	pos += centro;
 	glm::vec2 actual = pos;
 	posActual = { actual.x / tileSize, actual.x / tileSize };
@@ -250,7 +250,7 @@ glm::vec2 TileMap::comprueba_arriba_derecha(glm::vec2 pos) {
 glm::vec2 TileMap::comprueba_arriba_izquierda(glm::vec2 pos) {
 	glm::ivec2 posMap, posActual;
 	glm::vec2 centro = { 16,16 };
-	glm::vec2 izquierda_arriba = { -15,-15 };
+	glm::vec2 izquierda_arriba = { -13,-13 };
 	pos += centro;
 	glm::vec2 actual = pos;
 	posActual = { actual.x / tileSize, actual.x / tileSize };

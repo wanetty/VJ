@@ -56,8 +56,8 @@ private:
 
 	string estado;      
 	Instrucciones ins;// we can have access at any time
-	CAudioEngine_Game aEngine;
-	bool primero;
+	CAudioEngine_Game aEngine,aCreditos;
+	bool primero, first_creditos;
 	Creditos creditos;
 
 

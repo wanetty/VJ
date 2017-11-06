@@ -134,6 +134,7 @@ void Scene::init(int nivel,int puntos)
 	aEngine.LoadSound("audio/BallBounce.wav", false, false);
 	aEngine.LoadSound("audio/BubbleShot.wav", false, false);
 	aEngine.LoadSound("audio/BallsElimination.wav", false, false);
+	aEngine.LoadSound("audio/cambiobola.mp3", false, false);
 	channelprincipal = aEngine.PlaySounds("audio/original.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.2f));
 	test = false;
 	techo->init(glm::ivec2(SCREEN_X, -270), texProgram, map);
@@ -158,13 +159,14 @@ void Scene::init(int nivel,int puntos)
 	limite =8;
 	temblor = 0;
 	perdido = false;
+	empezado = false;
 	ganado = false;
 	lanzado = false;
 	bola->reincio_bola(map->get_bola());
 	bolas = new int[2];
 	bolas[0] = map->get_bola();
 	auxBola->set_color(bolas[0]);
-	bolas[1] = map->get_bola();
+
 	
 	
 }
@@ -173,21 +175,12 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (currentTime > 5000) {
+		empezado = true;
+		delay += deltaTime;
 		tiempo += deltaTime;
 		bool lanzada_bola = bola->get_lanzada();
 		bool reinicio_bola = bola->get_reinicio();
-		if (map->get_perdido() == true && !perdido) {
-
-			map->set_grises();
-			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
-			matBolas->set_grises(map->get_mapa());
-			matBolas->update(deltaTime);
-			perdido = true;
-			spriteTexto->init("lost.png", texProgram, 200, 160, 240, 108);
-			tiempo = 0;
-
-		}
-		else if (!perdido && !ganado) {
+		if (!perdido && !ganado) {
 			if (bola->get_lanzadas() == limite) {
 				++nivel_techo;
 				limite += 8;
@@ -227,7 +220,7 @@ void Scene::update(int deltaTime)
 				}
 				if (petado) {
 					aEngine.PlaySounds("audio/BallsElimination.wav", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(1.0f));
-				}				
+				}	
 				
 			if (reinicio_bola) {
 				lanzado = false;
@@ -235,16 +228,22 @@ void Scene::update(int deltaTime)
 					glm::vec2 lasputpos = bola->get_lastput_bola();
 					int lastput_color = bola->get_lastput_color();
 					bola->reincio_bola(bolas[0]);
-					auxBola->set_color(bolas[1]);
+					bolas[0] = map->get_bola();
+					auxBola->set_color(bolas[0]);
 					matBolas->brilla(lasputpos, lastput_color);
-					bolas[0] = bolas[1];
-					bolas[1] = map->get_bola();
+	
 
 				}
 
 			}
-			
-				
+			if (!lanzada_bola && Game::instance().getKey('x') &&  delay > 500) {
+				aEngine.PlaySounds("audio/cambiobola.mp3", Vector3{ 0, 0, 0 }, aEngine.VolumeTodB(0.6f));
+				bolas[0] = bola->get_color();
+				bola->set_color(auxBola->get_color());
+				auxBola->set_color(bolas[0]);
+				delay = 0;
+
+			}
 
 				flecha->update(deltaTime);
 				bola->setDireccion(flecha->getAngulo());
@@ -258,6 +257,17 @@ void Scene::update(int deltaTime)
 				bub->update(deltaTime);
 				techo->update(deltaTime);
 			}
+		if (map->get_perdido() == true && !perdido) {
+
+			map->set_grises();
+			map->update(glm::vec2(SCREEN_X + temblor, SCREEN_Y + nivel_techo * 32), texProgram);
+			matBolas->set_grises(map->get_mapa());
+			matBolas->update(deltaTime);
+			perdido = true;
+			spriteTexto->init("lost.png", texProgram, 200, 160, 240, 108);
+			tiempo = 0;
+
+		}
 
 
 		if (perdido) {
@@ -314,12 +324,12 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	fondo->render();
-	matBolas->render(map->get_mapa());
+	if (empezado) matBolas->render(map->get_mapa());
 	techo->render();
 	base->render();
 	arco->render();
 	flecha->render();
-	bola->render();
+	if(!perdido && !ganado && empezado)bola->render();
 	bolsa->render();
 	auxBola->render();
 	rueda->render();

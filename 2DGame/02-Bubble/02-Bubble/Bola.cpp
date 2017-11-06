@@ -37,6 +37,7 @@ void Bola::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, Tile
 	direccion.y = 0;
 	numlanzadas = 0;
 	tiempo = 0;
+	delay = 0;
 	posini.x = Bola_inipos_x;
 	posini.y = Bola_inipos_y;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBola.x), float(tileMapDispl.y + posBola.y)));
@@ -49,7 +50,8 @@ void Bola::update(int deltaTime)
 {
 	sprite->update(deltaTime,false);
 	tiempo += deltaTime;
-	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada) {
+	delay += deltaTime;
+	if ((Game::instance().getKey(32) || tiempo > Time_limite) && !lanzada && delay > 500) {
 
 		lanzada = true;
 		bub->setLanzada(lanzada);
@@ -57,6 +59,7 @@ void Bola::update(int deltaTime)
 		direcciony = sin(angulo);
 		tiempo = 0;
 		++numlanzadas;
+		delay = 0;
 	}
 	if (lanzada) {
 		if (lanzada && posBola.y <= 0) {

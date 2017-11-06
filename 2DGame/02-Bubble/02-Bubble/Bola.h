@@ -21,6 +21,7 @@ public:
 	void set_color(const int colour);
 	int get_lanzadas();
 	bool get_lanzada();
+	int get_color() { return color; }
 	bool get_reinicio();
 	bool get_cayendo() { return cayendo; }
 	void set_cayendo(bool estado) { cayendo = estado; }
@@ -40,7 +41,7 @@ private:
 	TileMap *map;
 	float angulo;
 	bool lanzada, elegido, reinicio, cayendo;
-	int color, numlanzadas, tiempo,lastput_color;
+	int color, numlanzadas, tiempo,lastput_color, delay;
 	Bub *bub;
 };
 #endif // _BOLA_INCLUDE

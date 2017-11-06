@@ -59,7 +59,7 @@ private:
 	Bub *bub;
 	Techo *techo;
 	Tubo *tubo;
-	int nivel_techo, limite, temblor;
+	int nivel_techo, limite, temblor, empezado;
 	bool perdido,ganado,lanzado,completado; 
 	int *bolas, channelprincipal;
 	ConjuntoBolas *matBolas;
@@ -68,7 +68,7 @@ private:
 	CAudioEngine aEngine;
 	bool test;
 	Text puntos;
-	int points,nivel;
+	int points,nivel,delay;
 	Text lvl;
 
 

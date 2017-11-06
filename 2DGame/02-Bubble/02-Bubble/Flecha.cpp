@@ -26,12 +26,12 @@ void Flecha::update(int deltaTime)
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (angulo > (grados * 20))
-			angulo -= (grados) * 1; //son 3 grados en radianes
+			angulo -= (grados) * 2; //son 2 grados en radianes
 	}
 	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 	{
 		if (angulo < M_PI - grados*20)
-			angulo += (grados) * 1;
+			angulo += (grados) * 2;
 	}
 
 }
