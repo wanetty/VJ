@@ -1,0 +1,35 @@
+Creadores del juego:
+---------------------
+González Moreno Eduard
+Guerrero López Miguel
+Reglas del juego:
+---------------------
+
+•El juego consiste en eliminar todas las bolas de nivel acumulando los máximos puntos posibles. 
+•Para eliminar las bolas hay que hacer grupos del mismo color, mínimo tiene que ser un grupo de 3 bolas. Se sumarán 10 pts por cada bola eliminada.
+•Hay que lanzar bolas desde la catapulta calculando la trayectoria para poder colocarlas donde deseemos.
+•Cuando hagamos un grupo de tres bolas del mismo color, todas las bolas que no estén en contacto con otras bolas, y que estas bolas estén enganchadas
+ en el techo, se caerán, pero no sumarán puntos.
+•Hay que lanzar una bola mínimo cada 10 segundos, si no, se lanzará automáticamente.
+•Cada 8 bolas lanzadas, el techo bajará un nivel.
+•En el caso que cualquier bola ya enganchada toque la línea delimitadora, que está encima de la catapulta, se perderá la partida.
+•Una vez la partida se haya perdido, se podrá continuar desde el mismo nivel, pero con la puntuación a 0.
+•Una vez se eliminen todas las bolas del nivel, o no quede ninguna enganchada al techo, se dará la partida por ganada, y se dará la posibilidad de
+ pasar al siguiente nivel.
+
+Funcionalidades implementadas:
+----------------------------------
+•Hay un menú al iniciar el juego que nos das escoger si queremos ver las instrucciones o jugar. En el caso de ver las instrucciones podemos volver al menú principal.
+•Cuando comenzamos un nivel, nos aparecerá en qué nivel estamos, y a continuación se iniciará la partida.
+•Se puede lanzar la bola presionando la tecla espacio. Esta rebotará hasta que choque con una bola ya posicionada en la partida.
+•[Funcionalidad Extra]La nueva funcionalidad implementada en el juego, consiste en que si presionamos la tecla x, podemos cambiar la bola que se lanzará por la siguiente,
+ y la siguiente bola será la actual. Se le ha añadido un efecto de sonido para confirmar el cambio.
+•Si se genera un grupo de tres o mas bolas del mismo color, estas desaparecerán, y nos darán 10 puntos por cada una, y las bolas no conectadas a nada caerán
+ hasta desaparecer por la línea delimitadora.
+•Cuando una bola toca la línea delimitadora todas se ponen de color gris y sale un mensaje de "Game Over", aquí damos la posibilidad de reintentar la partida, o de volver al menú
+ principal.
+•Si se consiguen eliminar todas las bolas del nivel, sale un mensaje de victoria, y cuando el jugador presione a enter pasará al siguiente nivel.
+•Después de 9 niveles, si el jugador consigue pasarse el último saltará a la pantalla de creditos. El jugador podrá volver al menú principal pulsando Enter.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Este juego es una representación de PUZZLE BUBBLE. Es un proyecto universitario de la UPC, concretamente de la asignatura Videojuegos.
