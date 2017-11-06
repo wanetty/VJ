@@ -1,9 +1,9 @@
-﻿  Scene.cpp
-LINK : warning C4743: 'class Game `static class Game & __cdecl Game::instance(void)'::`2'::G' tiene un tamaño diferente en 'c:\workspace\universidad\vj\2dgame\02-bubble\02-bubble\base.cpp' y 'c:\workspace\universidad\vj\2dgame\02-bubble\02-bubble\arco.cpp': 20028 y 20032 bytes
+﻿  Game.cpp
+LINK : warning C4743: 'class Game `static class Game & __cdecl Game::instance(void)'::`2'::G' tiene un tamaño diferente en 'c:\workspace\universidad\vj\2dgame\02-bubble\02-bubble\base.cpp' y 'c:\workspace\universidad\vj\2dgame\02-bubble\02-bubble\arco.cpp': 20028 y 23188 bytes
 SOIL.lib(SOIL.obj) : warning LNK4075: se omite '/EDITANDCONTINUE' debido a la especificación '/OPT:ICF'
 LINK : warning LNK4098: la biblioteca predeterminada'MSVCRTD' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   Generando código
-  2 of 1417 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 1420 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
