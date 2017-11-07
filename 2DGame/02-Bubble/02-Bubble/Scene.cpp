@@ -355,7 +355,7 @@ void Scene::render()
 	if (!ganado && !perdido)puntos.render(s, glm::vec2(200, 35), 20, glm::vec4(1, 1, 1, 1));
 	if (perdido) {
 		spriteTexto->render();
-		string aux2 = std::to_string(points);
+		string aux2 = std::to_string(points*10);
 		replay.render("TU PUNTUACION HA SIDO: " + aux2, glm::vec2(185,35 ), 20, glm::vec4(1, 1, 1, 1));
 		if (tiempo < 1000) {
 			replay.render("Pulsa enter para reintentar!", glm::vec2(195, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
@@ -378,7 +378,7 @@ void Scene::render()
 		else {
 			replay.render("ENHORABUENA", glm::vec2(240, 290), 20, glm::vec4(0.9, 1, 0.0, 1));
 			replay.render("HAS COMPLETADO EL JUEGO", glm::vec2(192, 315), 20, glm::vec4(0.9, 1, 0.0, 1));
-			string aux2 = std::to_string(points);
+			string aux2 = std::to_string(points*10);
 			replay.render("TU PUNTUACION HA SIDO: " + aux2, glm::vec2(190, 340), 20, glm::vec4(0.9, 1, 0.0, 1));
 			if (tiempo > 5000) creditos = true;
 		}
