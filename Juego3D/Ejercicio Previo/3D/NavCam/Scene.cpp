@@ -25,6 +25,7 @@ void Scene::init()
 	initShaders();
 	level = Level::createLevel(glm::vec3(16, 4, 32), texProgram, "images/floor.png", "images/wall.png");
 	projection = glm::perspective(45.f / 180.f * PI, float(CAMERA_WIDTH) / float(CAMERA_HEIGHT), 0.1f, 100.f);
+	camara = glm::lookAt(glm::vec3(0,60,0), glm::vec3(8,0,16), glm::vec3(0,0,1));
 	currentTime = 0.0f;
 }
 
@@ -40,7 +41,7 @@ void Scene::render()
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	modelview = glm::mat4(1.0f);
+	modelview = camara;//glm::mat4(10.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	level->render();
 }

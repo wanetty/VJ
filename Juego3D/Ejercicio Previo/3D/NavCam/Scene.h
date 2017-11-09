@@ -31,9 +31,9 @@ private:
 
 private:
 	Level *level;
-	ShaderProgram texProgram;
+	
 	float currentTime;
-	glm::mat4 projection;
+	glm::mat4 projection, camara;
 
 };
 
