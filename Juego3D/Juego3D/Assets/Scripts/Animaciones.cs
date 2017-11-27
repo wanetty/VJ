@@ -23,11 +23,11 @@ public class Animaciones: MonoBehaviour {
         }
         if (Input.GetButtonDown("izq"))
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+            gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         if (Input.GetButtonDown("der"))
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+            gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
         if (Input.GetButtonDown("arriba"))
         {

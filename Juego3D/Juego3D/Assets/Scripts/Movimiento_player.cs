@@ -30,11 +30,11 @@ public class Movimiento_player : MonoBehaviour {
             startPos = gameObject.transform.position;
             if (Input.GetButtonDown("izq") && gameObject.transform.position == endPos)
             {
-                endPos = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
             }
             if (Input.GetButtonDown("der") && gameObject.transform.position == endPos)
             {
-                endPos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
             if (Input.GetButtonDown("arriba") && gameObject.transform.position == endPos)
             {
