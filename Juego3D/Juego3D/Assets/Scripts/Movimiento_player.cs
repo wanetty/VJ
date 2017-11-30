@@ -56,7 +56,7 @@ public class Movimiento_player : MonoBehaviour
         {
             if (perc >= 1)
             {
-                animacion.Play("Salto");
+                animacion.Play("salto");
                 currentLerpTime = 0;
                 currentScaleTime = 0;
                 perc = 0;
@@ -70,19 +70,19 @@ public class Movimiento_player : MonoBehaviour
         startPos = gameObject.transform.position;
         if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos)
         {
-            endPos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+            endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
         }
         if (Input.GetButtonUp("der") && gameObject.transform.position == endPos)
         {
-            endPos = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+            endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
         }
         if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos)
         {
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
         }
         if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos)
         {
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 40);
         }
 
         if (firstinput)

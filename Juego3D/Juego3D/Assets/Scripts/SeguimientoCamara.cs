@@ -8,7 +8,7 @@ public class SeguimientoCamara : MonoBehaviour {
     Vector3 Posicion;
 	// Update is called once per frame
 	void Update () {
-        Posicion = Vector3.Lerp(gameObject.transform.position, Jugador.transform.position, Time.deltaTime);
-        gameObject.transform.position = new Vector3(Posicion.x, 1, Posicion.z);
+        Posicion = Vector3.Lerp(gameObject.transform.position , Jugador.transform.position, Time.deltaTime);
+        gameObject.transform.position = new Vector3(Posicion.x, 80, Posicion.z);
 	}
 }
