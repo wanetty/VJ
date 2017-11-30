@@ -22,7 +22,7 @@ public class GenLvl : MonoBehaviour {
                 segundo = Random.Range(1, 4);
                 for (int i = 0; i < segundo; ++i)
                 {
-                    intPos = new Vector3(0, 0, display);
+                    intPos = new Vector3(0, 0.4f, display);
                     display += 1;
                     GameObject HierbaIns = Instantiate(Hierba) as GameObject;
                     HierbaIns.transform.position = intPos;
