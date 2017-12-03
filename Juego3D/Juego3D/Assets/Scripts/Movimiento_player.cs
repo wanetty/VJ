@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movimiento_player : MonoBehaviour
 {
-    public bool saltando;
+    
     public float saltovelociad = 5;
     public float speedescala = 3;
     public Transform hijo;
@@ -68,11 +68,11 @@ public class Movimiento_player : MonoBehaviour
         }
 
         startPos = gameObject.transform.position;
-        if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos)
+        if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160)
         {
             endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
         }
-        if (Input.GetButtonUp("der") && gameObject.transform.position == endPos)
+        if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160)
         {
             endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
         }

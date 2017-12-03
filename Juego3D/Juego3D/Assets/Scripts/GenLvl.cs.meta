@@ -1,11 +1,17 @@
 fileFormatVersion: 2
 guid: 9c490214497e8424f9346655e424963f
-timeCreated: 1511810269
+timeCreated: 1512319236
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Agua: {instanceID: 0}
+  - Hierba: {instanceID: 0}
+  - Carretera: {instanceID: 0}
+  - CarreteraDoble: {fileID: 1152038359168050, guid: 2041a2872a7e3dd4cb8b30837d87e65e,
+      type: 2}
+  - CarreteraTriple: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
