@@ -17,8 +17,9 @@ public class Movimiento_player : MonoBehaviour
     float perc = 1;
     float scalePerc;
     bool firstinput;
+    bool colision;
 
-
+    Vector3 Posini;
     Vector3 startPos;
     Vector3 endPos;
 
@@ -33,6 +34,7 @@ public class Movimiento_player : MonoBehaviour
     {
         animacion = gameObject.transform.Find("default").GetComponent<Animation>();
         hijo = gameObject.transform.Find("default");
+        colision = false;
     }
 
     // Update is called once per frame
@@ -40,11 +42,13 @@ public class Movimiento_player : MonoBehaviour
     {
         if (Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq"))
         {
+            
             currentScaleTime = 0;
         }
         if (Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq") )
         {
             startScale = gameObject.transform.localScale;
+            Posini = gameObject.transform.position;
             if (transform.localScale.y - MovimientoEscala > 0.9f)
             {
                 endScale = new Vector3(transform.localScale.x + MovimientoEscala, transform.localScale.y - MovimientoEscala, transform.localScale.z);
@@ -68,19 +72,19 @@ public class Movimiento_player : MonoBehaviour
         }
 
         startPos = gameObject.transform.position;
-        if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160)
+        if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision)
         {
             endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
         }
-        if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160)
+        if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision)
         {
-            endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
+            endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z );
         }
-        if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos)
+        if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision)
         {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
         }
-        if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos)
+        if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos && !colision)
         {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 40);
         }
@@ -89,12 +93,24 @@ public class Movimiento_player : MonoBehaviour
         {
             currentLerpTime += Time.deltaTime * saltovelociad;
             perc = currentLerpTime;
+            if (colision) endPos = Posini; 
             gameObject.transform.position = Vector3.Lerp(startPos, endPos, ac.Evaluate(perc));
             currentScaleTime += Time.deltaTime * speedescala;
             scalePerc = currentScaleTime;
-            gameObject.transform.localScale =  Vector3.Lerp(startScale, endScale, ac.Evaluate(scalePerc));
+            gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, ac.Evaluate(scalePerc));
         }
     }
+    public void haycolision()
+    {
+        colision = true;    
+    }
+
+    public void notcolision()
+    {
+        colision = false;
+    }
+
+    
 
 }
 
