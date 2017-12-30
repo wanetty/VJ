@@ -44,11 +44,12 @@ public class Movimiento_player : MonoBehaviour
         {
             
             currentScaleTime = 0;
+            
         }
         if (Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq") )
         {
             startScale = gameObject.transform.localScale;
-            Posini = gameObject.transform.position;
+            
             if (transform.localScale.y - MovimientoEscala > 0.9f)
             {
                 endScale = new Vector3(transform.localScale.x + MovimientoEscala, transform.localScale.y - MovimientoEscala, transform.localScale.z);
@@ -60,6 +61,7 @@ public class Movimiento_player : MonoBehaviour
         {
             if (perc >= 1)
             {
+                Posini = gameObject.transform.position;
                 animacion.Play("salto");
                 currentLerpTime = 0;
                 currentScaleTime = 0;

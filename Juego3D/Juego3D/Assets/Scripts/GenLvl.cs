@@ -20,15 +20,19 @@ public class GenLvl : MonoBehaviour {
     int display = 12*40;
     bool carreterasimple = false;
     bool carreteradoble = false;
+    int posJugadorZ;
 
     Vector3 intPos = new Vector3(0, 0, 0);
     Vector3 intPosArbol = new Vector3(0, 0, 0);
+    Vector3 intPosArbolNoPisar1 = new Vector3(0, 0, 0);
+    Vector3 intPosArbolNoPisar2 = new Vector3(0, 0, 0);
 
 
     // Update is called once per frame
     void Update () {
+        GameObject jugador = GameObject.Find("gallina");
         GameObject[] Arboles = new GameObject[4] { Arbol2, Arbol3, Arbol4, Arbol5 };
-        if (Input.GetButtonDown("arriba")) {
+        if (Input.GetButtonDown("arriba") && (jugador.transform.position.z+560) > display ) {
             primero = Random.Range(1, 4);
             if (primero == 1) //pintamos tierra 
             {
@@ -39,19 +43,29 @@ public class GenLvl : MonoBehaviour {
                     intPos = new Vector3(0, 0.4f, display);
                     int numArboles = Random.Range(1, 4); // Se calcula cantidad de arboles máximos por hierba
                     int posArboles;
+                    GameObject ArbolInst;
                     for (int j = 0; j < numArboles; ++j) // Pone los arboles sobre la hierba.
                     { 
                         posArboles = Random.Range(-4, 5); // Se calcula la posicion de los arboles
                         intPosArbol = new Vector3(posArboles * 40, 25, display); 
                         tipoArbol = Random.Range(0, 4);
-                        GameObject ArbolInst = Instantiate(Arboles[tipoArbol]) as GameObject;
+                        ArbolInst = Instantiate(Arboles[tipoArbol]) as GameObject;
                         ArbolInst.transform.position = intPosArbol;
                     }//Arboles.
-                    display += 40;
+                    
                     GameObject HierbaIns = Instantiate(Hierba) as GameObject; //Instacia hierba que si se puede pisar 
                     GameObject NoHierbaIns = Instantiate(NoPisarHierba) as GameObject; //Instancia hierba que no se puede pisar
                     HierbaIns.transform.position = intPos;
                     NoHierbaIns.transform.position = intPos;
+                    //Agregamos arboles a la hierba que no se pisa.
+                    intPosArbolNoPisar1 = new Vector3(-200,25, display);
+                    intPosArbolNoPisar2 = new Vector3(200, 25, display);
+                    ArbolInst = Instantiate(Arboles[tipoArbol]) as GameObject;
+                    ArbolInst.transform.position = intPosArbolNoPisar1; //Posiciono primer Arbol.
+                    ArbolInst = Instantiate(Arboles[tipoArbol]) as GameObject;
+                    ArbolInst.transform.position = intPosArbolNoPisar2; //Posiciono segundo Arbol.
+                    display += 40; //El display le sumamos 40
+
 
                 }
             }
@@ -99,4 +113,9 @@ public class GenLvl : MonoBehaviour {
         }
             
 	}
+
+    private void genArboles()
+    {
+
+    }
 }
