@@ -6,6 +6,7 @@ Cosas pendientes a crear:
 - Monedas
 - Vía tren
 - Tren
+- Nenúfar para agua.
 <Añadir más cosas >
 
 Programación: 
@@ -14,6 +15,6 @@ Programación:
 - Añadir generación de coches al generar nivel.
 - Movimiento de cámara
 - Perder cuando te sales de la cámara
-- Caerte cuando tocas el agua
+- Caerte cuando tocas el agua HECHO
 - Partículas de agua.
 <Añadir más cosas>

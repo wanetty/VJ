@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Arbol
+  - Agua
   layers:
   - Default
   - TransparentFX

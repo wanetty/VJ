@@ -2,27 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Colisiones : MonoBehaviour {
+    bool tronco = false;
+    private Animation anim;
+    public AudioClip caeagua;
+    public AudioClip hojas;
+    AudioSource reproductor;
+
     void OnCollisionEnter(Collision col)
     {
-        GameObject Objeto = GameObject.Find("gallina");
-
+        reproductor = gameObject.GetComponent<AudioSource>();
+        GameObject Player = GameObject.Find("gallina");
+        anim = this.GetComponent<Animation>();
+        //tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
         if (col.gameObject.tag == "Arbol")
         {
-            Debug.Log("ParoMovimiento");
-            Objeto.GetComponent<Movimiento_player>().haycolision();
+            reproductor.PlayOneShot(hojas,0.5F);
+            Player.GetComponent<Movimiento_player>().haycolision();
+        }
+        if (col.gameObject.tag == "Agua")
+        {
+            if (!tronco)
+            {
+                reproductor.PlayOneShot(caeagua, 0.5F);
+                Debug.Log("Caigo Agua");
+                anim.Stop("salto");
+                anim.Play("caerse");
+                Player.GetComponent<Movimiento_player>().perder();
 
+            }
         }
         
     }
     void OnCollisionExit(Collision col)
     {
-        GameObject Objeto = GameObject.Find("gallina");
-        if (col.gameObject.tag == "Arbol")
-        {
-            Debug.Log("Renuevo movimiento");
-            Objeto.GetComponent<Movimiento_player>().notcolision();
-
-        }
+        GameObject Player = GameObject.Find("gallina");
+        if (col.gameObject.tag == "Arbol") Player.GetComponent<Movimiento_player>().notcolision();
     }
 }

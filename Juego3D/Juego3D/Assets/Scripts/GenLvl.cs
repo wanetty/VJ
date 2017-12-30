@@ -18,7 +18,6 @@ public class GenLvl : MonoBehaviour {
 
     int primero, segundo ,tipoArbol;
     int display = 12*40;
-    bool carreterasimple = false;
     bool carreteradoble = false;
     int posJugadorZ;
 
@@ -36,7 +35,7 @@ public class GenLvl : MonoBehaviour {
             primero = Random.Range(1, 4);
             if (primero == 1) //pintamos tierra 
             {
-                carreteradoble = carreterasimple = false; // Se pone a falso, ya que no es una carreta
+                carreteradoble  = false; // Se pone a falso, ya que no es una carreta
                 segundo = Random.Range(1, 4);
                 for (int i = 0; i < segundo; ++i)
                 {
@@ -71,20 +70,28 @@ public class GenLvl : MonoBehaviour {
             }
             if (primero == 2) //pintamos carrertera
             {
-                segundo = Random.Range(1, 3);
-                if(segundo == 1 && !carreterasimple && !carreteradoble)// nos evita poner una carretera si hay otra porque las letras no coinciden.
+                segundo = Random.Range(1, 4);
+                if(segundo == 1  && !carreteradoble)// nos evita poner una carretera si hay otra porque las lineas no coinciden.
                 {
-                    carreterasimple = true;
+                    carreteradoble = true;
                     intPos = new Vector3(0, 0.2f, display);
                     display += 40;
                     GameObject CarreteraIns = Instantiate(Carretera) as GameObject;
                     CarreteraIns.transform.position = intPos;
-                } else if(segundo == 2 && !carreterasimple && !carreteradoble)
+                } else if(segundo == 2 && !carreteradoble)
                 {
                     carreteradoble = true;
                     intPos = new Vector3(0, 0.2f, display+20);
                     display += 80;
                     GameObject CarreteraIns = Instantiate(CarreteraDoble) as GameObject;
+                    CarreteraIns.transform.position = intPos;
+                }
+                else if (segundo == 3 && !carreteradoble)
+                {
+                    carreteradoble = true;
+                    intPos = new Vector3(0, 0.2f, display + 40);
+                    display += 120;
+                    GameObject CarreteraIns = Instantiate(CarreteraTriple) as GameObject;
                     CarreteraIns.transform.position = intPos;
                 }
                 //Falta la carretera triple
@@ -99,7 +106,7 @@ public class GenLvl : MonoBehaviour {
             }
             if (primero == 3)
             {
-                carreteradoble = carreterasimple = false;
+                carreteradoble = false;
                 segundo = Random.Range(1, 4);
                 for (int i = 0; i < segundo; ++i)
                 {

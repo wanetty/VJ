@@ -262,9 +262,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4397798394176504}
+  - component: {fileID: 65687049075307064}
   m_Layer: 0
   m_Name: SueloWater
-  m_TagString: Untagged
+  m_TagString: Agua
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -948,3 +949,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1066860640650234}
   m_Mesh: {fileID: 4300000, guid: 0b2d6e903ea17ac4b839351140e1198a, type: 3}
+--- !u!65 &65687049075307064
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1800464738394126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 360, y: 35, z: 40}
+  m_Center: {x: 0, y: 10, z: 0}
