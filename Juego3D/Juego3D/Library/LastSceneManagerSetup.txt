@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Escenas/Scene1.unity
+- path: Assets/micky scene.unity
   isLoaded: 1
   isActive: 1

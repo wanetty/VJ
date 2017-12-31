@@ -16,7 +16,7 @@ public class Colisiones : MonoBehaviour {
         reproductor = gameObject.GetComponent<AudioSource>();
         GameObject Player = GameObject.Find("gallina");
         anim = this.GetComponent<Animation>();
-        //tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
+        tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
         if (col.gameObject.tag == "Arbol")
         {
             reproductor.PlayOneShot(hojas,0.5F);
