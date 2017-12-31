@@ -34,11 +34,17 @@ public class Colisiones : MonoBehaviour {
 
             }
         }
-        
+        if (col.gameObject.tag == "Tronco")
+        {
+            tronco = true;
+        }
+
+
     }
     void OnCollisionExit(Collision col)
     {
         GameObject Player = GameObject.Find("gallina");
         if (col.gameObject.tag == "Arbol") Player.GetComponent<Movimiento_player>().notcolision();
+        if (col.gameObject.tag == "Tronco") tronco = false;
     }
 }

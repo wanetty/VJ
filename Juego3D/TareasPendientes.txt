@@ -1,5 +1,5 @@
 Cosas pendientes a crear:
-- Carretera triple.(En Unity)
+- Carretera triple.(En Unity) HECHO
 - Agua mas oscura
 - Movimiento del agua(Vox)
 - Troncos.

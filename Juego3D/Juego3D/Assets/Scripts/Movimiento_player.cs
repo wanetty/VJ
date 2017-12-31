@@ -12,6 +12,8 @@ public class Movimiento_player : MonoBehaviour
     public AnimationCurve ac;
     public Animation animacion;
     public int puntos;
+    public AudioClip salto;
+    
 
     private float currentLerpTime;
     private float currentScaleTime;
@@ -27,6 +29,8 @@ public class Movimiento_player : MonoBehaviour
     Vector3 startScale;
     Vector3 endScale;
 
+    AudioSource reproductor;
+
 
     bool primero, perdido, colision;
 
@@ -38,6 +42,7 @@ public class Movimiento_player : MonoBehaviour
         colision = false;
         perdido = false;
         maxdisp = (int) this.transform.position.z/40;
+        reproductor = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -78,6 +83,7 @@ public class Movimiento_player : MonoBehaviour
                 {
                     Posini = gameObject.transform.position;
                     animacion.Play("salto");
+                    reproductor.PlayOneShot(salto, 0.7F);
                     currentLerpTime = 0;
                     currentScaleTime = 0;
                     perc = 0;
