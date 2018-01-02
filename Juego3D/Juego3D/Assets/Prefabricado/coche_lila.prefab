@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4152741785092650}
   - component: {fileID: 95358502391199680}
   - component: {fileID: 114260664204495526}
+  - component: {fileID: 65842563902957132}
   m_Layer: 0
   m_Name: coche_lila
   m_TagString: Untagged
@@ -124,6 +125,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 40, y: 32, z: 30}
   m_Center: {x: 0, y: 16, z: 0}
+--- !u!65 &65842563902957132
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103912001423888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95358502391199680
 Animator:
   serializedVersion: 3

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4892430515422774}
   - component: {fileID: 114848889554014558}
+  - component: {fileID: 65883153433373806}
   m_Layer: 0
   m_Name: camion
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139018702194788}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 25, z: 120}
+  m_LocalPosition: {x: 0, y: 20, z: 120}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4892556161872914}
@@ -123,6 +124,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 80, y: 52, z: 38}
   m_Center: {x: 0, y: 26, z: 0}
+--- !u!65 &65883153433373806
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139018702194788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114848889554014558
 MonoBehaviour:
   m_ObjectHideFlags: 1

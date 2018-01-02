@@ -34,6 +34,13 @@ public class Colisiones : MonoBehaviour {
 
             }
         }
+        if (col.gameObject.tag == "camion")
+        {
+            Debug.Log("choco camion");
+            anim.Stop("salto");
+            anim.Play("chafado");
+            Player.GetComponent<Movimiento_player>().perder();
+        }
         
     }
     void OnCollisionExit(Collision col)
