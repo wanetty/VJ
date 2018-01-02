@@ -9,6 +9,8 @@ TagManager:
   - camion
   - coche_azul
   - coche_lila
+  - Tronco
+  - Coche
   layers:
   - Default
   - TransparentFX

@@ -21,6 +21,7 @@ public class Movimiento_player : MonoBehaviour
     private float scalePerc;
     private bool firstinput;
     private int maxdisp;
+    private float arrastre;
 
     Vector3 Posini;
     Vector3 startPos;
@@ -43,6 +44,7 @@ public class Movimiento_player : MonoBehaviour
         perdido = false;
         maxdisp = (int) this.transform.position.z/40;
         reproductor = gameObject.GetComponent<AudioSource>();
+        arrastre = 0;
     }
 
     // Update is called once per frame
@@ -97,23 +99,24 @@ public class Movimiento_player : MonoBehaviour
             startPos = gameObject.transform.position;
             if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision)
             {
-                endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x + 40 , transform.position.y, transform.position.z);
             }
             if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision)
             {
-                endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x - 40 , transform.position.y, transform.position.z);
             }
             if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision)
             {
-                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
+                endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z + 40);
             }
             if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos && !colision)
             {
-                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 40);
+                endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
             }
 
             if (firstinput)
             {
+                endPos.x = endPos.x + arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
                 perc = currentLerpTime;
                 if (colision) endPos = Posini;
@@ -138,11 +141,16 @@ public class Movimiento_player : MonoBehaviour
     {
         perdido = true;
         animacion.Stop("salto");
+        gameObject.GetComponent<Animaciones>().setPerdido();
     }
 
     public int  getPuntos()
     {
         return puntos;
+    }
+    public void ArrastraTronco(float speed)
+    {
+        arrastre = speed;
     }
 
 
