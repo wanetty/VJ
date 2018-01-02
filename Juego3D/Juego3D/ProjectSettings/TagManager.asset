@@ -6,7 +6,9 @@ TagManager:
   tags:
   - Arbol
   - Agua
-  - Tronco
+  - camion
+  - coche_azul
+  - coche_lila
   layers:
   - Default
   - TransparentFX
