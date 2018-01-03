@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: f08ab936eb04d974abc7e9f9d141b870
-timeCreated: 1515014946
+guid: 24f5b54c8bc57e94c874387da0971570
+timeCreated: 1515016872
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: default
-    100002: //RootNode
-    400000: default
-    400002: //RootNode
+    100000: //RootNode
+    100002: default
+    400000: //RootNode
+    400002: default
     2300000: default
     3300000: default
     4300000: default

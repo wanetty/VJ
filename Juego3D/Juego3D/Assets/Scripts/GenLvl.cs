@@ -6,18 +6,23 @@ public class GenLvl : MonoBehaviour {
 
     public GameObject Agua;
     public GameObject Hierba;
-    public GameObject Carretera;
-    public GameObject CarreteraDoble;
-    public GameObject CarreteraTriple;
-    public GameObject NoPisarHierba;
+    public GameObject CarreteraF;
+    public GameObject CarreteraM;
+    public GameObject CarreteraD;
+    public GameObject CarreteraDF;
+    public GameObject CarreteraDM;
+    public GameObject CarreteraDD;
+    public GameObject CarreteraTF;
+    public GameObject CarreteraTM;
+    public GameObject CarreteraTD;
     public GameObject Arbol2;
     public GameObject Arbol3;
     public GameObject Arbol4;
     public GameObject Arbol5; 
-
+    
 
     int primero, segundo ,tipoArbol;
-    int display = 12*40;
+    public int display;
     bool carreteradoble = false;
     int posJugadorZ;
 
@@ -52,10 +57,8 @@ public class GenLvl : MonoBehaviour {
                         ArbolInst.transform.position = intPosArbol;
                     }//Arboles.
                     
-                    GameObject HierbaIns = Instantiate(Hierba) as GameObject; //Instacia hierba que si se puede pisar 
-                    GameObject NoHierbaIns = Instantiate(NoPisarHierba) as GameObject; //Instancia hierba que no se puede pisar
+                    GameObject HierbaIns = Instantiate(Hierba) as GameObject; //Instacia hierba que si se puede 
                     HierbaIns.transform.position = intPos;
-                    NoHierbaIns.transform.position = intPos;
                     //Agregamos arboles a la hierba que no se pisa.
                     intPosArbolNoPisar1 = new Vector3(-200,25, display);
                     intPosArbolNoPisar2 = new Vector3(200, 25, display);
@@ -76,14 +79,14 @@ public class GenLvl : MonoBehaviour {
                     carreteradoble = true;
                     intPos = new Vector3(0, 0.2f, display);
                     display += 40;
-                    GameObject CarreteraIns = Instantiate(Carretera) as GameObject;
+                    GameObject CarreteraIns = Instantiate(CarreteraF) as GameObject;
                     CarreteraIns.transform.position = intPos;
                 } else if(segundo == 2 && !carreteradoble)
                 {
                     carreteradoble = true;
                     intPos = new Vector3(0, 0.2f, display+20);
                     display += 80;
-                    GameObject CarreteraIns = Instantiate(CarreteraDoble) as GameObject;
+                    GameObject CarreteraIns = Instantiate(CarreteraDF) as GameObject;
                     CarreteraIns.transform.position = intPos;
                 }
                 else if (segundo == 3 && !carreteradoble)
@@ -91,10 +94,10 @@ public class GenLvl : MonoBehaviour {
                     carreteradoble = true;
                     intPos = new Vector3(0, 0.2f, display + 40);
                     display += 120;
-                    GameObject CarreteraIns = Instantiate(CarreteraTriple) as GameObject;
+                    GameObject CarreteraIns = Instantiate(CarreteraTF) as GameObject;
                     CarreteraIns.transform.position = intPos;
                 }
-                //Falta la carretera triple
+               
                 /*for (int i = 0; i < segundo; ++i)
                 {
 

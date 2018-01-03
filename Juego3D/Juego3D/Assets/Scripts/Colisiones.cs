@@ -20,7 +20,7 @@ public class Colisiones : MonoBehaviour {
             GameObject Player = GameObject.Find("gallina");
             anim = this.GetComponent<Animation>();
 
-            //tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
+           // tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
             if (col.gameObject.tag == "Arbol")
             {
                 reproductor.PlayOneShot(hojas, 0.5F);
@@ -32,10 +32,11 @@ public class Colisiones : MonoBehaviour {
                 {
                     reproductor.PlayOneShot(caeagua, 0.5F);
                     Debug.Log("Caigo Agua");
-                    anim.Stop("salto");
-                    anim.Play("caerse");
+                    
                     Player.GetComponent<Movimiento_player>().perder();
                     perdido = true;
+                    anim.Stop("salto");
+                    anim.Play("caerse");
 
                 }
             }
@@ -57,19 +58,24 @@ public class Colisiones : MonoBehaviour {
                 Debug.Log(speed.ToString());
 
             }
+            if(col.gameObject.tag == "cesped")
+            {
+                Debug.Log("Estoy en cesped");
+                Player.GetComponent<Movimiento_player>().CorregirPos();
+            }
 
         }
     }
 
     void OnCollisionStay(Collision col)
     {
-        
+        //tronco = true;
         if (!perdido)
         {
             reproductor = gameObject.GetComponent<AudioSource>();
             GameObject Player = GameObject.Find("gallina");
             anim = this.GetComponent<Animation>();
-            /*if (col.gameObject.tag == "Agua")
+           /* if (col.gameObject.tag == "Agua")
             {
                 if (!tronco)
                 {
@@ -79,17 +85,13 @@ public class Colisiones : MonoBehaviour {
                     anim.Play("caerse");
                     Player.GetComponent<Movimiento_player>().perder();
                     perdido = true;
-
-
                 }
             }*/
             if (col.gameObject.tag == "Tronco")
             {
-               
-                
-                
-                
-
+                tronco = true;
+                float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
             }
 
         }
@@ -102,10 +104,16 @@ public class Colisiones : MonoBehaviour {
             if (col.gameObject.tag == "Arbol") Player.GetComponent<Movimiento_player>().notcolision();
             if (col.gameObject.tag == "Tronco")
             {
+
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(0);
                 tronco = false;
                 Debug.Log("salgo tronco");
             }
+            if (col.gameObject.tag == "Agua")
+            {
+               
+            }
+
         }
 
     }

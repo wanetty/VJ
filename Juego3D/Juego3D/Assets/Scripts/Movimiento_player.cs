@@ -22,6 +22,7 @@ public class Movimiento_player : MonoBehaviour
     private bool firstinput;
     private int maxdisp;
     private float arrastre;
+    private bool corregirpos;
 
     Vector3 Posini;
     Vector3 startPos;
@@ -45,6 +46,7 @@ public class Movimiento_player : MonoBehaviour
         maxdisp = (int) this.transform.position.z/40;
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
+        corregirpos = false;
     }
 
     // Update is called once per frame
@@ -116,9 +118,13 @@ public class Movimiento_player : MonoBehaviour
 
             if (firstinput)
             {
-                endPos.x = endPos.x + arrastre;
+                endPos.x +=+ arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
                 perc = currentLerpTime;
+                if (corregirpos) {
+                   endPos.x =  ((int)(endPos.x / 40)*40);
+                    corregirpos = false;
+                }
                 if (colision) endPos = Posini;
                 gameObject.transform.position = Vector3.Lerp(startPos, endPos, ac.Evaluate(perc));
                 currentScaleTime += Time.deltaTime * speedescala;
@@ -151,6 +157,10 @@ public class Movimiento_player : MonoBehaviour
     public void ArrastraTronco(float speed)
     {
         arrastre = speed;
+    }
+    public void CorregirPos()
+    {
+        corregirpos = true;
     }
 
 
