@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Animaciones.cs" />
+    <Compile Include="Assets\Scripts\Cocheinverso.cs" />
     <Compile Include="Assets\Scripts\Colisiones.cs" />
     <Compile Include="Assets\Scripts\GenLvl.cs" />
     <Compile Include="Assets\Scripts\MovimientoCoche.cs" />
