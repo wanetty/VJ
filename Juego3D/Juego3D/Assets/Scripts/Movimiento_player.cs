@@ -14,6 +14,7 @@ public class Movimiento_player : MonoBehaviour
     public int puntos;
     public AudioClip salto;
     
+    
 
     private float currentLerpTime;
     private float currentScaleTime;
@@ -52,13 +53,26 @@ public class Movimiento_player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         if (perdido)
         {
             animacion.Stop("salto");
         }
         if (!perdido)
         {
+            if(gameObject.transform.position.x > 165 )
+            {
+                this.perder();
+                endPos.x += 250;
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
+                
+            }
+            else if(gameObject.transform.position.x < -165)
+            {
+                this.perder();
+                endPos.x -= 250;
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
+            }
             puntos = maxdisp;
             if(maxdisp < (int)this.transform.position.z / 40){
                 maxdisp = (int)this.transform.position.z / 40;
@@ -115,16 +129,17 @@ public class Movimiento_player : MonoBehaviour
             {
                 endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
             }
-
+            if (corregirpos)
+            {
+                endPos.x = ((int)(endPos.x / 40) * 40);
+                corregirpos = false;
+            }
             if (firstinput)
             {
-                endPos.x +=+ arrastre;
+                endPos.x += arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
                 perc = currentLerpTime;
-                if (corregirpos) {
-                   endPos.x =  ((int)(endPos.x / 40)*40);
-                    corregirpos = false;
-                }
+                
                 if (colision) endPos = Posini;
                 gameObject.transform.position = Vector3.Lerp(startPos, endPos, ac.Evaluate(perc));
                 currentScaleTime += Time.deltaTime * speedescala;
