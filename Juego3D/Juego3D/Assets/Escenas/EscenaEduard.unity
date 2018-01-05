@@ -5433,6 +5433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caeagua: {fileID: 8300000, guid: c5e1dd35ea31f644ab13a8b3c65e1d24, type: 3}
   hojas: {fileID: 8300000, guid: 6278dc9b320e3bf47b20d2de5f6191f5, type: 3}
+  crujidoTronco: {fileID: 8300000, guid: b9cc10f3555e1c342a166cbe859cca05, type: 3}
   Salpicar: {fileID: 1651958836834374, guid: 4a24d1cbf0d6b4046aa8776b5991af15, type: 2}
 --- !u!65 &1499656196
 BoxCollider:
@@ -7299,6 +7300,51 @@ Prefab:
     - target: {fileID: 1743986968609292, guid: 7d6e659b029ec614db4caac921880102, type: 2}
       propertyPath: m_Name
       value: AguaFacil (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114149984129385886, guid: 7d6e659b029ec614db4caac921880102,
+        type: 2}
+      propertyPath: inverso
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114408609653022500, guid: 7d6e659b029ec614db4caac921880102,
+        type: 2}
+      propertyPath: inverso
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114511045931310780, guid: 7d6e659b029ec614db4caac921880102,
+        type: 2}
+      propertyPath: inverso
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114030693927691526, guid: 7d6e659b029ec614db4caac921880102,
+        type: 2}
+      propertyPath: inverso
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114725944958451332, guid: 7d6e659b029ec614db4caac921880102,
+        type: 2}
+      propertyPath: inverso
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265664017824228, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 285
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678009084310032, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403921662355456, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080602861992852, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824467953565718, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 176
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d6e659b029ec614db4caac921880102, type: 2}

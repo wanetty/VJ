@@ -9,6 +9,7 @@ public class Colisiones : MonoBehaviour {
     private Animation anim;
     public AudioClip caeagua;
     public AudioClip hojas;
+    public AudioClip crujidoTronco;
     public GameObject Salpicar;
     AudioSource reproductor;
     bool perdido = false;
@@ -59,6 +60,7 @@ public class Colisiones : MonoBehaviour {
             {
                 tronco = true;
                 col.gameObject.GetComponent<Animation>().Play("apoyarse");
+                reproductor.PlayOneShot(crujidoTronco, 0.7F);
                 anim.Play("apoyarTronco");
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
