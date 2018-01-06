@@ -24,6 +24,7 @@ public class Movimiento_player : MonoBehaviour
     private int maxdisp;
     private float arrastre;
     private bool corregirpos;
+
     
 
     Vector3 Posini;
@@ -36,7 +37,7 @@ public class Movimiento_player : MonoBehaviour
     AudioSource reproductor;
 
 
-    bool primero, perdido, colision;
+    bool primero, perdido, colision, hundido;
 
     // Use this for initialization
     void Start()
@@ -45,6 +46,7 @@ public class Movimiento_player : MonoBehaviour
         hijo = gameObject.transform.Find("default");
         colision = false;
         perdido = false;
+        hundido = false;
         maxdisp = (int) this.transform.position.z/40;
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
@@ -58,7 +60,10 @@ public class Movimiento_player : MonoBehaviour
         
         if (perdido)
         {
+
             animacion.Stop("salto");
+            if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
+          
         }
 
             if(gameObject.transform.position.x > 165 && !perdido)
@@ -159,6 +164,12 @@ public class Movimiento_player : MonoBehaviour
     public void notcolision()
     {
         colision = false;
+    }
+    public void sethundido()
+    {
+        perdido = true; 
+        hundido = true;
+        gameObject.GetComponent<Animaciones>().setPerdido();
     }
     public void perder()
     {

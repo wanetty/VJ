@@ -38,7 +38,7 @@ public class Colisiones : MonoBehaviour {
                     Salpicar.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                     GameObject Salpicadura = Instantiate(Salpicar) as GameObject;
                     Salpicadura.GetComponent<ParticleSystem>().Play();
-                    Player.GetComponent<Movimiento_player>().perder();
+                    Player.GetComponent<Movimiento_player>().sethundido();
                     perdido = true;
                     anim.Stop("salto");
                     anim.Play("caerse");
