@@ -13,9 +13,6 @@ public class Movimiento_player : MonoBehaviour
     public Animation animacion;
     public int puntos;
     public AudioClip salto;
-    
-    
-
     private float currentLerpTime;
     private float currentScaleTime;
     private float perc = 1;

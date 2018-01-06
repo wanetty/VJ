@@ -14,6 +14,7 @@ TagManager:
   - cesped
   - Vehiculo
   - carretera
+  - Agua/corriente
   layers:
   - Default
   - TransparentFX

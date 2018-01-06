@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Movimiento_player.cs" />
      <Compile Include="Assets\Scripts\MovimientoCoche.cs" />
      <Compile Include="Assets\Scripts\MovimientoTronco.cs" />
+     <Compile Include="Assets\Scripts\PantallaPrin.cs" />
      <Compile Include="Assets\Scripts\PointsText.cs" />
      <Compile Include="Assets\Scripts\SeguimientoCamara.cs" />
      <Compile Include="Assets\Scripts\tren.cs" />

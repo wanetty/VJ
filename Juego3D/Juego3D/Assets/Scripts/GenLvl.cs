@@ -30,12 +30,16 @@ public class GenLvl : MonoBehaviour {
     Vector3 intPosArbol = new Vector3(0, 0, 0);
     Vector3 intPosArbolNoPisar1 = new Vector3(0, 0, 0);
     Vector3 intPosArbolNoPisar2 = new Vector3(0, 0, 0);
+    
 
 
     // Update is called once per frame
     void Update () {
         GameObject jugador = GameObject.Find("gallina");
         GameObject[] Arboles = new GameObject[4] { Arbol2, Arbol3, Arbol4, Arbol5 };
+
+        Animator animacion = GameObject.FindGameObjectWithTag("Agua/corriente").GetComponent<Animator>();
+        animacion.Play("MovAgua");
         if (Input.GetButtonDown("arriba") && (jugador.transform.position.z+560) > display ) {
             primero = Random.Range(1, 4);
             if (primero == 1) //pintamos tierra 
