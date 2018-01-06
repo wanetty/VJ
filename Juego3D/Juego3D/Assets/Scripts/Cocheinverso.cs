@@ -27,7 +27,7 @@ public class Cocheinverso : MonoBehaviour {
         {
             if (position.x > EndPosition)
             {
-                Debug.Log("salgo de la carretera vuelvo al inicio");
+                
                 position.x = StartPosition;
                 this.transform.position = position;
             }

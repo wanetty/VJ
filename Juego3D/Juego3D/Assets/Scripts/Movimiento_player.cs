@@ -24,6 +24,7 @@ public class Movimiento_player : MonoBehaviour
     private int maxdisp;
     private float arrastre;
     private bool corregirpos;
+    
 
     Vector3 Posini;
     Vector3 startPos;
@@ -48,6 +49,7 @@ public class Movimiento_player : MonoBehaviour
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
         corregirpos = false;
+        
     }
 
     // Update is called once per frame
@@ -58,33 +60,33 @@ public class Movimiento_player : MonoBehaviour
         {
             animacion.Stop("salto");
         }
-        if (!perdido)
-        {
-            if(gameObject.transform.position.x > 165 )
+
+            if(gameObject.transform.position.x > 165 && !perdido)
             {
                 this.perder();
                 endPos.x += 250;
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
                 
             }
-            else if(gameObject.transform.position.x < -165)
+            else if(gameObject.transform.position.x < -165 && !perdido)
             {
                 this.perder();
                 endPos.x -= 250;
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
             }
             puntos = maxdisp;
-            if(maxdisp < (int)this.transform.position.z / 40){
+            if(maxdisp < (int)this.transform.position.z / 40 && !perdido)
+        {
                 maxdisp = (int)this.transform.position.z / 40;
                 
             }
-            if (Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq"))
+            if (Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq") && !perdido)
             {
 
                 currentScaleTime = 0;
 
             }
-            if (Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq"))
+            if (Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq") && !perdido)
             {
                 startScale = gameObject.transform.localScale;
 
@@ -95,7 +97,7 @@ public class Movimiento_player : MonoBehaviour
                 firstinput = true;
 
             }
-            if (Input.GetButtonUp("arriba") || Input.GetButtonUp("abajo") || Input.GetButtonUp("der") || Input.GetButtonUp("izq"))
+            if (Input.GetButtonUp("arriba") || Input.GetButtonUp("abajo") || Input.GetButtonUp("der") || Input.GetButtonUp("izq") && !perdido)
             {
                 if (perc >= 1)
                 {
@@ -113,19 +115,19 @@ public class Movimiento_player : MonoBehaviour
             }
 
             startPos = gameObject.transform.position;
-            if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision)
+            if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision && !perdido)
             {
                 endPos = new Vector3(transform.position.x + 40 , transform.position.y, transform.position.z);
             }
-            if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision)
+            if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision && !perdido)
             {
-                endPos = new Vector3(transform.position.x - 40 , transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x - 40 , transform.position.y, transform.position.z );
             }
-            if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision)
+            if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision && !perdido)
             {
                 endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z + 40);
             }
-            if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos && !colision)
+            if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos && !colision && !perdido)
             {
                 endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
             }
@@ -134,19 +136,19 @@ public class Movimiento_player : MonoBehaviour
                 endPos.x = ((int)(endPos.x / 40) * 40);
                 corregirpos = false;
             }
+            
             if (firstinput)
             {
                 endPos.x += arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
                 perc = currentLerpTime;
-                
                 if (colision) endPos = Posini;
                 gameObject.transform.position = Vector3.Lerp(startPos, endPos, ac.Evaluate(perc));
                 currentScaleTime += Time.deltaTime * speedescala;
                 scalePerc = currentScaleTime;
                 gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, ac.Evaluate(scalePerc));
             }
-        }
+        
     }
 
     public void haycolision()
@@ -177,7 +179,7 @@ public class Movimiento_player : MonoBehaviour
     {
         corregirpos = true;
     }
-
+   
 
 
     

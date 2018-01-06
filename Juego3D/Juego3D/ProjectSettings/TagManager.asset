@@ -12,6 +12,8 @@ TagManager:
   - Tronco
   - Coche
   - cesped
+  - Vehiculo
+  - carretera
   layers:
   - Default
   - TransparentFX

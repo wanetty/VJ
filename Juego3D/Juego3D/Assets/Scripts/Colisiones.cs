@@ -48,13 +48,18 @@ public class Colisiones : MonoBehaviour {
 
                 }
             }
-            if (col.gameObject.tag == "Coche")
+            if (col.gameObject.tag == "carretera")
+            {
+            }
+            if (col.gameObject.tag == "Vehiculo")
             {
                 Debug.Log("choco camion");
                 anim.Stop("salto");
-                anim.Play("chafar");
+                anim.Play("estampa");
+                float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
                 Player.GetComponent<Movimiento_player>().perder();
-                perdido = true;
+               perdido = true;
             }
             if (col.gameObject.tag == "Tronco")
             {
@@ -69,6 +74,7 @@ public class Colisiones : MonoBehaviour {
             }
             if(col.gameObject.tag == "cesped")
             {
+            
                 Player.GetComponent<Movimiento_player>().CorregirPos();
             }
 
@@ -100,6 +106,12 @@ public class Colisiones : MonoBehaviour {
                 tronco = true;
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+            }
+            if (col.gameObject.tag == "Vehiculo")
+            {
+                float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
+                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                
             }
 
         }

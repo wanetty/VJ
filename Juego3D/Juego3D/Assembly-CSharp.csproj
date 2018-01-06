@@ -60,6 +60,8 @@
      <Compile Include="Assets\Scripts\MovimientoTronco.cs" />
      <Compile Include="Assets\Scripts\PointsText.cs" />
      <Compile Include="Assets\Scripts\SeguimientoCamara.cs" />
+     <Compile Include="Assets\Scripts\tren.cs" />
+     <Compile Include="Assets\Scripts\vagones.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

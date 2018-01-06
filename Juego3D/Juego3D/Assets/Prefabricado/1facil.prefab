@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 65911885500437516}
   m_Layer: 0
   m_Name: default
-  m_TagString: camion
+  m_TagString: Vehiculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 65727062155313964}
   m_Layer: 0
   m_Name: default
-  m_TagString: coche_azul
+  m_TagString: Vehiculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -424,9 +424,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4496269727785742}
+  - component: {fileID: 65275153086116518}
   m_Layer: 0
   m_Name: 1facil
-  m_TagString: Untagged
+  m_TagString: carretera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -611,7 +612,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4082490072720784}
   - component: {fileID: 114697720174659500}
-  - component: {fileID: 65355970666428096}
   m_Layer: 0
   m_Name: camion
   m_TagString: Untagged
@@ -675,7 +675,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4023537865392394}
   - component: {fileID: 114554921318576896}
-  - component: {fileID: 65584223426379852}
   m_Layer: 0
   m_Name: coche_azul
   m_TagString: Untagged
@@ -850,7 +849,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453762823411316}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 81, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4023537865392394}
@@ -863,7 +862,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743079315142774}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 108, y: 20, z: 0}
+  m_LocalPosition: {x: 170, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4019739893929252}
@@ -2498,29 +2497,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1192951083183476}
   m_Mesh: {fileID: 4300000, guid: 387f4d62acbbefa40be9160e98cab714, type: 3}
---- !u!65 &65355970666428096
+--- !u!65 &65275153086116518
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1651570552131252}
+  m_GameObject: {fileID: 1482792383149942}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65584223426379852
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1743079315142774}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 360, y: 50, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65727062155313964
 BoxCollider:
