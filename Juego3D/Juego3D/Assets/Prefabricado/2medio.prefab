@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 65921856174622742}
   m_Layer: 0
   m_Name: default
-  m_TagString: coche_lila
+  m_TagString: Vehiculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

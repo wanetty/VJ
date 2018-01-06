@@ -936,8 +936,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1153154475472820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -285, y: 18, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: -285, y: 18, z: 4}
+  m_LocalScale: {x: 2, y: 1, z: 1.3}
   m_Children:
   - {fileID: 4421220959262014}
   m_Father: {fileID: 4799544792298892}
@@ -1083,8 +1083,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172035911760974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 345, y: 18, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: 345, y: 18, z: 4}
+  m_LocalScale: {x: 2, y: 1, z: 1.3}
   m_Children:
   - {fileID: 4928532068037220}
   m_Father: {fileID: 4799544792298892}
@@ -1219,8 +1219,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1728460895576520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 52, y: 18, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: 52, y: 18, z: 4}
+  m_LocalScale: {x: 2, y: 1, z: 1.3}
   m_Children:
   - {fileID: 4919934946559748}
   m_Father: {fileID: 4799544792298892}
@@ -1341,8 +1341,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865932458434204}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -54, y: 18, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: -54, y: 18, z: 4}
+  m_LocalScale: {x: 2, y: 1, z: 1.3}
   m_Children:
   - {fileID: 4393920477368316}
   m_Father: {fileID: 4799544792298892}
@@ -1504,8 +1504,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982801387919244}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 236, y: 18, z: 0}
-  m_LocalScale: {x: 2.4448, y: 1, z: 1}
+  m_LocalPosition: {x: 236, y: 18, z: 4}
+  m_LocalScale: {x: 2.4448, y: 1, z: 1.3}
   m_Children:
   - {fileID: 4653975265076760}
   m_Father: {fileID: 4799544792298892}
@@ -2720,8 +2720,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 100, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 40, y: 100, z: 31}
+  m_Center: {x: 0, y: 0, z: -3}
 --- !u!65 &65303915205257822
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2732,8 +2732,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 100, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 40, y: 100, z: 31}
+  m_Center: {x: 0, y: 0, z: -3}
 --- !u!65 &65362407246026684
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2744,8 +2744,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 100, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 40, y: 100, z: 31}
+  m_Center: {x: 0, y: 0, z: -3}
 --- !u!65 &65368987369446354
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2756,8 +2756,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 100, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 40, y: 100, z: 31}
+  m_Center: {x: 0, y: 0, z: -3}
 --- !u!65 &65696403488475326
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2768,8 +2768,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 100, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 40, y: 100, z: 31}
+  m_Center: {x: 0, y: 0, z: -3}
 --- !u!65 &65706266426657490
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2871,6 +2871,7 @@ MonoBehaviour:
   speed: -100
   EndPosition: -500
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114149984129385886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2885,6 +2886,7 @@ MonoBehaviour:
   speed: -100
   EndPosition: -500
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114408609653022500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2899,6 +2901,7 @@ MonoBehaviour:
   speed: -100
   EndPosition: -500
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114511045931310780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2913,6 +2916,7 @@ MonoBehaviour:
   speed: -100
   EndPosition: -500
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114725944958451332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2927,3 +2931,4 @@ MonoBehaviour:
   speed: -100
   EndPosition: -500
   StartPosition: 400
+  inverso: 0

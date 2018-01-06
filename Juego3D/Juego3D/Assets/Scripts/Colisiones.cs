@@ -12,11 +12,20 @@ public class Colisiones : MonoBehaviour {
     public AudioClip crujidoTronco;
     public GameObject Salpicar;
     AudioSource reproductor;
-    bool perdido = false;
+    bool perdido, estampado= false;
+    private bool avanza;
 
+    void Update()
+    {
+        if (Input.GetButtonUp("arriba")) avanza = true;
+        else if (Input.GetButtonUp("abajo")) avanza = false;
+
+
+    }
 
     void OnCollisionEnter(Collision col)
     {
+
         if (!perdido)
         {
             reproductor = gameObject.GetComponent<AudioSource>();
@@ -29,7 +38,7 @@ public class Colisiones : MonoBehaviour {
                 reproductor.PlayOneShot(hojas, 0.5F);
                 Player.GetComponent<Movimiento_player>().haycolision();
             }
-            if (col.gameObject.tag == "Agua")
+            else if (col.gameObject.tag == "Agua")
             {
                 if (!tronco)
                 {
@@ -48,20 +57,33 @@ public class Colisiones : MonoBehaviour {
 
                 }
             }
-            if (col.gameObject.tag == "carretera")
+            else if (col.gameObject.tag == "carretera")
             {
             }
-            if (col.gameObject.tag == "Vehiculo")
+            else if (col.gameObject.tag == "Vehiculo")
             {
                 Debug.Log("choco camion");
                 anim.Stop("salto");
-                anim.Play("estampa");
-                float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
-                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
-                Player.GetComponent<Movimiento_player>().perder();
+               
+                if (Player.transform.position.z == col.transform.position.z)
+                {
+                    anim.Play("chafar");
+                    Player.GetComponent<Movimiento_player>().setchafado();
+
+                }
+                else
+                {
+                    float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    anim.Play("estampa");
+                    estampado = true;
+                     Player.GetComponent<Movimiento_player>().setestampado(avanza);
+
+                    Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                }
+               
                perdido = true;
             }
-            if (col.gameObject.tag == "Tronco")
+            else if (col.gameObject.tag == "Tronco")
             {
                 tronco = true;
                 col.gameObject.GetComponent<Animation>().Play("apoyarse");
@@ -69,10 +91,10 @@ public class Colisiones : MonoBehaviour {
                 anim.Play("apoyarTronco");
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
-                Debug.Log(speed.ToString());
+               
 
             }
-            if(col.gameObject.tag == "cesped")
+            else if(col.gameObject.tag == "cesped")
             {
             
                 Player.GetComponent<Movimiento_player>().CorregirPos();
@@ -84,11 +106,11 @@ public class Colisiones : MonoBehaviour {
     void OnCollisionStay(Collision col)
     {
         //tronco = true;
+        reproductor = gameObject.GetComponent<AudioSource>();
+        GameObject Player = GameObject.Find("gallina");
+        anim = this.GetComponent<Animation>();
         if (!perdido)
         {
-            reproductor = gameObject.GetComponent<AudioSource>();
-            GameObject Player = GameObject.Find("gallina");
-            anim = this.GetComponent<Animation>();
             /*if (col.gameObject.tag == "Agua")
             {
                 if (!tronco)
@@ -107,13 +129,15 @@ public class Colisiones : MonoBehaviour {
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
             }
+        }else{
             if (col.gameObject.tag == "Vehiculo")
             {
-                float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
-                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
-                
+                if (estampado)
+                {
+                    float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                }
             }
-
         }
     }
     void OnCollisionExit(Collision col)

@@ -24,6 +24,7 @@ public class Movimiento_player : MonoBehaviour
     private int maxdisp;
     private float arrastre;
     private bool corregirpos;
+    private int correctestampa;
 
     
 
@@ -37,7 +38,8 @@ public class Movimiento_player : MonoBehaviour
     AudioSource reproductor;
 
 
-    bool primero, perdido, colision, hundido;
+    bool primero, perdido, colision, hundido, estampado, chafado;
+
 
     // Use this for initialization
     void Start()
@@ -47,6 +49,8 @@ public class Movimiento_player : MonoBehaviour
         colision = false;
         perdido = false;
         hundido = false;
+        estampado = false;
+        chafado = false;
         maxdisp = (int) this.transform.position.z/40;
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
@@ -63,6 +67,8 @@ public class Movimiento_player : MonoBehaviour
 
             animacion.Stop("salto");
             if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
+            if (estampado) { endPos.z -= correctestampa; estampado = false; }
+            if (chafado) endPos.y -= 5; chafado = false;
           
         }
 
@@ -139,10 +145,13 @@ public class Movimiento_player : MonoBehaviour
             if (corregirpos)
             {
                 endPos.x = ((int)(endPos.x / 40) * 40);
-                corregirpos = false;
+            if (endPos.x > 160) endPos.x = 160;
+            else if (endPos.x < -160) endPos.x = -160;
+            corregirpos = false;
             }
-            
-            if (firstinput)
+           
+
+        if (firstinput)
             {
                 endPos.x += arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
@@ -171,12 +180,27 @@ public class Movimiento_player : MonoBehaviour
         hundido = true;
         gameObject.GetComponent<Animaciones>().setPerdido();
     }
+    public void setestampado(bool avanza)
+    {
+        if (avanza) correctestampa = 20;
+        else correctestampa = -20;
+        perdido = true;
+        estampado = true;
+        gameObject.GetComponent<Animaciones>().setPerdido();
+    }
+    public void setchafado()
+    {
+        perdido = true;
+        chafado = true;
+        gameObject.GetComponent<Animaciones>().setPerdido();
+    }
     public void perder()
     {
         perdido = true;
         animacion.Stop("salto");
         gameObject.GetComponent<Animaciones>().setPerdido();
     }
+    
 
     public int  getPuntos()
     {
@@ -190,6 +214,7 @@ public class Movimiento_player : MonoBehaviour
     {
         corregirpos = true;
     }
+   
    
 
 
