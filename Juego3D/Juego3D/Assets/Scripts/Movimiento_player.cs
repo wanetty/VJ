@@ -88,7 +88,7 @@ public class Movimiento_player : MonoBehaviour
                 maxdisp = (int)this.transform.position.z / 40;
                 
             }
-            if (Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq") && !perdido)
+            if ((Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq")) && !perdido)
             {
 
                 currentScaleTime = 0;
