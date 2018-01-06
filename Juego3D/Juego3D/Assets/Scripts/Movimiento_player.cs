@@ -24,6 +24,7 @@ public class Movimiento_player : MonoBehaviour
     private int maxdisp;
     private float arrastre;
     private bool corregirpos;
+    private bool atrapado;
 
     
 
@@ -51,6 +52,7 @@ public class Movimiento_player : MonoBehaviour
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
         corregirpos = false;
+        atrapado = false;
         
     }
 
@@ -63,6 +65,13 @@ public class Movimiento_player : MonoBehaviour
 
             animacion.Stop("salto");
             if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
+            if (atrapado)
+            {
+       
+                Vector3 position = this.transform.position;
+                position.z += -400 * Time.deltaTime;
+                this.transform.position = position;
+            }
           
         }
 
@@ -136,13 +145,13 @@ public class Movimiento_player : MonoBehaviour
             {
                 endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
             }
-            if (corregirpos)
+            if (corregirpos && !atrapado)
             {
                 endPos.x = ((int)(endPos.x / 40) * 40);
                 corregirpos = false;
             }
             
-            if (firstinput)
+            if (firstinput && !atrapado)
             {
                 endPos.x += arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
@@ -190,7 +199,14 @@ public class Movimiento_player : MonoBehaviour
     {
         corregirpos = true;
     }
-   
+    public void Atrapado()
+    {
+        atrapado = true;
+        perdido = true;
+        gameObject.GetComponent<Animaciones>().setPerdido();
+        GameObject.Find("Main Camera").GetComponent<SeguimientoCamara>().perdido();
+    }
+
 
 
     
