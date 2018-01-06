@@ -2824,7 +2824,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65172682790094040
 BoxCollider:
@@ -2836,7 +2836,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65614393100733492
 BoxCollider:
@@ -2860,7 +2860,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65809671223394426
 BoxCollider:
@@ -2872,7 +2872,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65901958757720402
 BoxCollider:
@@ -2884,7 +2884,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65941164163005714
 BoxCollider:
@@ -2896,7 +2896,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 25, z: 40}
+  m_Size: {x: 40, y: 100, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &111026594463630964
 Animation:
@@ -3002,6 +3002,7 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114153034703033268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3016,6 +3017,7 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114155646408821376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3030,6 +3032,7 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114494839996207832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3044,6 +3047,7 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114556388194188754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3058,6 +3062,7 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
 --- !u!114 &114921851518674770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3072,3 +3077,4 @@ MonoBehaviour:
   speed: -130
   EndPosition: -400
   StartPosition: 400
+  inverso: 0
