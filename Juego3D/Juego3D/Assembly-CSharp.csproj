@@ -56,12 +56,15 @@
      <Compile Include="Assets\Scripts\Cocheinverso.cs" />
      <Compile Include="Assets\Scripts\Colisiones.cs" />
      <Compile Include="Assets\Scripts\ControladorJuego.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GenLvl.cs" />
+     <Compile Include="Assets\Scripts\ManagerLvl.cs" />
      <Compile Include="Assets\Scripts\Movimiento_player.cs" />
      <Compile Include="Assets\Scripts\MovimientoCoche.cs" />
      <Compile Include="Assets\Scripts\MovimientoTronco.cs" />
      <Compile Include="Assets\Scripts\PantallaPrin.cs" />
      <Compile Include="Assets\Scripts\PointsText.cs" />
+     <Compile Include="Assets\Scripts\RotateEscenario.cs" />
      <Compile Include="Assets\Scripts\SeguimientoCamara.cs" />
      <Compile Include="Assets\Scripts\tren.cs" />
      <Compile Include="Assets\Scripts\vagones.cs" />

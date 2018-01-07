@@ -35,7 +35,7 @@ public class Colisiones : MonoBehaviour {
             GameObject Player = GameObject.Find("gallina");
             anim = this.GetComponent<Animation>();
 
-            // tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
+            
             if (col.gameObject.tag == "Arbol")
             {
                 Hojas.transform.position = new Vector3(col.transform.position.x, 50, col.transform.position.z);
@@ -204,11 +204,11 @@ public class Colisiones : MonoBehaviour {
             
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(0);
                 tronco = false;
-                    Debug.Log("SalgoTrocno");
+                    
             }
            if(col.gameObject.tag == "Planta") {
 
-                Debug.Log("SalgoPlanta");
+               
                 tronco = false;
             }
             
