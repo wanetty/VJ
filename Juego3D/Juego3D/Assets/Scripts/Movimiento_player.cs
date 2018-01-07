@@ -22,7 +22,7 @@ public class Movimiento_player : MonoBehaviour
     private float arrastre;
     private bool corregirpos;
     private int correctestampa;
-    private bool atrapado;
+    private bool atrapado, aguilalanzada;
 
 
     
@@ -55,7 +55,9 @@ public class Movimiento_player : MonoBehaviour
         arrastre = 0;
         corregirpos = false;
         atrapado = false;
-        
+        aguilalanzada = false;
+
+
     }
 
     // Update is called once per frame
@@ -64,7 +66,7 @@ public class Movimiento_player : MonoBehaviour
         
         if (perdido)
         {
-
+            if (!aguilalanzada) GameObject.Find("Nvel").GetComponent<ControladorJuego>().setlost();
             animacion.Stop("salto");
             if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
             if (estampado) { endPos.z -= correctestampa; estampado = false; }
@@ -228,11 +230,17 @@ public class Movimiento_player : MonoBehaviour
         gameObject.GetComponent<Animaciones>().setPerdido();
         GameObject.Find("Main Camera").GetComponent<SeguimientoCamara>().perdido();
     }
+    public  void AguilaLanzada()
+    {
+
+        aguilalanzada = true;
+        perdido = true;
+    }
 
 
 
 
-    
+
 
 }
 
