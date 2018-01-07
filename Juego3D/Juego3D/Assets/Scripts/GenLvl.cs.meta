@@ -1,17 +1,51 @@
 fileFormatVersion: 2
 guid: 9c490214497e8424f9346655e424963f
-timeCreated: 1512319236
+timeCreated: 1515359060
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - Agua: {instanceID: 0}
-  - Hierba: {instanceID: 0}
-  - Carretera: {instanceID: 0}
-  - CarreteraDoble: {fileID: 1152038359168050, guid: 2041a2872a7e3dd4cb8b30837d87e65e,
+  - RioF: {fileID: 1743986968609292, guid: 7d6e659b029ec614db4caac921880102, type: 2}
+  - RioM: {fileID: 1371908329898960, guid: 83b94e264951bd24bb050ded407ea5a3, type: 2}
+  - RioD: {fileID: 1342866736357556, guid: d2d1f27a459d4af49be92a9c41eb5dbd, type: 2}
+  - RioSeco: {fileID: 1534993769059554, guid: bb0ec0d5fc02a91478d8782e984a3501, type: 2}
+  - planta: {fileID: 1020240270481076, guid: f6933dcdc0aa87f45a1af0dfc2da4fdb, type: 2}
+  - Hierba: {fileID: 1963964199262590, guid: 5901bf6f5da371145ba41f53a1dbda02, type: 2}
+  - CarreteraF: {fileID: 1482792383149942, guid: 8b856afc2d797054383e2a771aca46cf,
       type: 2}
-  - CarreteraTriple: {instanceID: 0}
+  - CarreteraF2: {fileID: 1205617459836108, guid: b323303a4e8880e439754966cbaa1168,
+      type: 2}
+  - CarreteraM: {fileID: 1012284325808746, guid: f05c7296c09fe3e4e9233fd7c511092c,
+      type: 2}
+  - CarreteraD: {fileID: 1140420972794280, guid: f24d8f03632b03f458a8addad0d09131,
+      type: 2}
+  - CarreteraDF: {fileID: 1787471578617952, guid: df5f2d2d83c0e5746bc67ae95d0c7092,
+      type: 2}
+  - CarreteraDM: {fileID: 1397837343640876, guid: adbc37bfeb99b374986f06c827243584,
+      type: 2}
+  - CarreteraDM2: {fileID: 1844346010359662, guid: 9f820f931fe61b044980ed2b0bc43f31,
+      type: 2}
+  - CarreteraDD: {fileID: 1510443279024036, guid: 2c175a6172f0e744cbb2c73d7ad6ea63,
+      type: 2}
+  - CarreteraDD2: {fileID: 1628223698511046, guid: 3efb82d58a4770d4bbf38cfa266220e2,
+      type: 2}
+  - CarreteraTF: {fileID: 1392648489835554, guid: 93bff4ac2a5b25e4bb02a31d3180a594,
+      type: 2}
+  - CarreteraTM: {fileID: 1781357859073974, guid: 1f8cbc36751d89e4caf7d2f9311b914f,
+      type: 2}
+  - CarreteraTM2: {fileID: 1630831960064482, guid: ae693866b5993f740af83fffffe54e19,
+      type: 2}
+  - CarreteraTD: {fileID: 1222313336341104, guid: 58d2c26d0837a2243959e07965991d73,
+      type: 2}
+  - Tren: {fileID: 1992469685476890, guid: 23eb099b71f7ca949af76522878044a7, type: 2}
+  - Arbol2: {fileID: 1522352819812332, guid: 3f063e3b28e942a4b8efa170601a6443, type: 2}
+  - Arbol3: {fileID: 1530645684346690, guid: 9fa465ff1e296c6449241e8fd483d0d1, type: 2}
+  - Arbol4: {fileID: 1304456563733800, guid: eb8ccad7c70f29f458550a201f24c0d1, type: 2}
+  - Arbol5: {fileID: 1630994115085950, guid: b4da5af9f60530d4aa25b212f3577576, type: 2}
+  - Roca1: {fileID: 1259921668581828, guid: a4b96ae6e63db9e4985a36a4730d0564, type: 2}
+  - Roca2: {fileID: 1840815119894846, guid: 2f25abcc5ccc36f4ba18b88a672b39fd, type: 2}
+  - Moneda: {fileID: 1764086997236624, guid: af40a0223ebb9674fbc98ea0d28e036e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

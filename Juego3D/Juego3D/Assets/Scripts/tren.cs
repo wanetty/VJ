@@ -9,13 +9,17 @@ public class tren : MonoBehaviour {
     public float StartPosition;
      public float time;
    public bool pasando;
+    
     public float time2;
+    public AudioClip sirenas;
+    private AudioSource reproductor;
     GameObject sem;
     GameObject luzizquierda;
     GameObject luzderecha;
     Light luziz;
     Light luzde;
-    public Animation animacion;
+    private Animation animacion;
+    private GameObject Player;
 
     // Use this for initialization
     void Start()
@@ -29,6 +33,8 @@ public class tren : MonoBehaviour {
         luzde = luzderecha.GetComponent<Light>();
         time2 = 0;
         animacion = sem.transform.Find("default").GetComponent<Animation>();
+        reproductor = gameObject.GetComponent<AudioSource>();
+        Player = GameObject.Find("gallina");
         
 
     }
@@ -42,7 +48,7 @@ public class tren : MonoBehaviour {
         {
             animacion.Play("semaforo");
             time2 += Time.deltaTime;
-            
+           
         
             if((int)(time2 % 2) == 0)
             {
@@ -69,6 +75,7 @@ public class tren : MonoBehaviour {
             if (time >= 5)
             {
                 pasando = true;
+                if(Player.transform.position.z >= (gameObject.transform.position.z-240) && Player.transform.position.z <= (gameObject.transform.position.z + 240))    reproductor.PlayOneShot(sirenas);
                 luziz.intensity = 50;
                 luzde.intensity = 0;
                 gameObject.transform.Find("vagones").gameObject.GetComponent<vagones>().setPasando();

@@ -19,6 +19,7 @@ TagManager:
   - Planta
   - Roca
   - defMoneda
+  - tren
   layers:
   - Default
   - TransparentFX

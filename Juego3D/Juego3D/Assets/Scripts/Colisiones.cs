@@ -11,9 +11,12 @@ public class Colisiones : MonoBehaviour {
     public AudioClip hojas;
     public AudioClip coins;
     public AudioClip crujidoTronco;
+    public AudioClip estamparseAu;
+
     public GameObject Salpicar;
     public GameObject Plumas;
     public GameObject Hojas;
+    private GameObject PlumasVolando;
     AudioSource reproductor;
     bool perdido, estampado= false;
     private bool avanza;
@@ -35,7 +38,7 @@ public class Colisiones : MonoBehaviour {
             GameObject Player = GameObject.Find("gallina");
             anim = this.GetComponent<Animation>();
 
-            
+
             if (col.gameObject.tag == "Arbol")
             {
                 Hojas.transform.position = new Vector3(col.transform.position.x, 50, col.transform.position.z);
@@ -72,19 +75,33 @@ public class Colisiones : MonoBehaviour {
 
                 }
             }
-            else if (col.gameObject.tag == "carretera")
+            else if (col.gameObject.tag == "tren")
             {
+                anim.Stop("salto");
+               
+                    float speed;
+                    anim.Play("estampa");
+                reproductor.PlayOneShot(estamparseAu, 0.7f);
+                    Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
+                     PlumasVolando = Instantiate(Plumas) as GameObject;
+                    speed = col.gameObject.GetComponentInParent<vagones>().getSpeed();
+                    estampado = true;
+                    Player.GetComponent<Movimiento_player>().setestampado(avanza);
+
+                    Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                
             }
             else if (col.gameObject.tag == "Vehiculo")
             {
-                
+
                 anim.Stop("salto");
 
                 if (Player.transform.position.z == col.transform.position.z)
                 {
                     Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
-                    GameObject PlumasVolando = Instantiate(Plumas) as GameObject;
+                    PlumasVolando = Instantiate(Plumas) as GameObject;
                     anim.Play("chafar");
+                    reproductor.PlayOneShot(estamparseAu, 0.7f);
                     Player.GetComponent<Movimiento_player>().setchafado();
 
                 }
@@ -103,8 +120,9 @@ public class Colisiones : MonoBehaviour {
                     }
 
                     anim.Play("estampa");
+                    reproductor.PlayOneShot(estamparseAu, 0.7f);
                     Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
-                    GameObject PlumasVolando = Instantiate(Plumas) as GameObject;
+                     PlumasVolando = Instantiate(Plumas) as GameObject;
 
                     estampado = true;
                     Player.GetComponent<Movimiento_player>().setestampado(avanza);
@@ -149,19 +167,7 @@ public class Colisiones : MonoBehaviour {
         GameObject Player = GameObject.Find("gallina");
         anim = this.GetComponent<Animation>();
         if (!perdido)
-        {
-            /*if (col.gameObject.tag == "Agua")
-            {
-                if (!tronco)
-                {
-                    reproductor.PlayOneShot(caeagua, 0.5F);
-                    Debug.Log("Caigo Agua");
-                    anim.Stop("salto");
-                    anim.Play("caerse");
-                    Player.GetComponent<Movimiento_player>().perder();
-                    perdido = true;
-                }
-            }*/
+        { 
             if (col.gameObject.tag == "Tronco")
             {
                 tronco = true;
@@ -190,7 +196,14 @@ public class Colisiones : MonoBehaviour {
                         speed = col.gameObject.GetComponentInParent<Cocheinverso>().getSpeed();
                     }
                     Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                    PlumasVolando.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                 }
+            }
+            else if(col.gameObject.tag == "tren")
+            {
+                float speed = col.gameObject.GetComponentInParent<vagones>().getSpeed();
+                Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
+                PlumasVolando.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
             }
         }
     }

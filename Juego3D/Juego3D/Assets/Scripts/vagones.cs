@@ -8,6 +8,7 @@ public class vagones : MonoBehaviour {
     public float EndPosition;
     public float StartPosition;
     private bool pasando;
+    float speedaux;
 
     // Use this for initialization
     void Start()
@@ -23,7 +24,9 @@ public class vagones : MonoBehaviour {
             Vector3 position = this.transform.position;
 
             float oldPosition = position.x;
-            position.x += speed * Time.deltaTime;
+            speedaux = speed * Time.deltaTime; 
+            position.x += speedaux;
+                
             this.transform.position = position;
             if (oldPosition > position.x)
             {
@@ -45,5 +48,9 @@ public class vagones : MonoBehaviour {
     public bool getPasando()
     {
         return pasando;
+    }
+    public float getSpeed()
+    {
+        return speedaux;
     }
 }
