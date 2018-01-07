@@ -11,6 +11,7 @@ public class ControladorJuego : MonoBehaviour {
     public GameObject aguila;
     private GameObject aguilucha;
     public AudioClip ataca;
+    public int timepoEspera;
     AudioSource reproductor;
 
 
@@ -31,7 +32,7 @@ public class ControladorJuego : MonoBehaviour {
             GameObject jugador = GameObject.Find("gallina");
             float pos = jugador.transform.position.z;
             time += Time.deltaTime;
-            if (pos <= oldpos && time > 7 && !lost)
+            if (pos <= oldpos && time > timepoEspera && !lost)
             {
                 lost = true;
                 jugador.gameObject.GetComponent<Movimiento_player>().AguilaLanzada();

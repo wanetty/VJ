@@ -9,8 +9,11 @@ public class Colisiones : MonoBehaviour {
     private Animation anim;
     public AudioClip caeagua;
     public AudioClip hojas;
+    public AudioClip coins;
     public AudioClip crujidoTronco;
     public GameObject Salpicar;
+    public GameObject Plumas;
+    public GameObject Hojas;
     AudioSource reproductor;
     bool perdido, estampado= false;
     private bool avanza;
@@ -32,10 +35,23 @@ public class Colisiones : MonoBehaviour {
             GameObject Player = GameObject.Find("gallina");
             anim = this.GetComponent<Animation>();
 
-           // tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
+            // tronco = true;//Esto sobra, es para poder pasar sobre el agua sin troncos...
             if (col.gameObject.tag == "Arbol")
             {
+                Hojas.transform.position = new Vector3(col.transform.position.x, 50, col.transform.position.z);
+                GameObject HojasVolando = Instantiate(Hojas) as GameObject;
                 reproductor.PlayOneShot(hojas, 0.5F);
+                Player.GetComponent<Movimiento_player>().haycolision();
+            }
+            else if (col.gameObject.tag == "Moneda")
+            {
+                reproductor.PlayOneShot(coins, 0.5f);
+                Player.GetComponent<Movimiento_player>().MonedaEncontrada();
+                Destroy(col.gameObject);
+            }
+            else if (col.gameObject.tag == "Roca")
+            {
+
                 Player.GetComponent<Movimiento_player>().haycolision();
             }
             else if (col.gameObject.tag == "Agua")
@@ -43,7 +59,6 @@ public class Colisiones : MonoBehaviour {
                 if (!tronco)
                 {
                     reproductor.PlayOneShot(caeagua, 0.5F);
-                    Debug.Log("Caigo Agua");
                     Salpicar.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                     GameObject Salpicadura = Instantiate(Salpicar) as GameObject;
                     Salpicadura.GetComponent<ParticleSystem>().Play();
@@ -51,9 +66,9 @@ public class Colisiones : MonoBehaviour {
                     perdido = true;
                     anim.Stop("salto");
                     anim.Play("caerse");
-                    
-                    
-                    
+
+
+
 
                 }
             }
@@ -62,11 +77,13 @@ public class Colisiones : MonoBehaviour {
             }
             else if (col.gameObject.tag == "Vehiculo")
             {
-                Debug.Log("choco camion");
+                
                 anim.Stop("salto");
-               
+
                 if (Player.transform.position.z == col.transform.position.z)
                 {
+                    Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
+                    GameObject PlumasVolando = Instantiate(Plumas) as GameObject;
                     anim.Play("chafar");
                     Player.GetComponent<Movimiento_player>().setchafado();
 
@@ -74,24 +91,28 @@ public class Colisiones : MonoBehaviour {
                 else
                 {
                     Component[] Componentes = col.gameObject.GetComponentsInParent(typeof(Cocheinverso));
-                   
+
                     float speed;
-                    if(Componentes.Length == 0)
+                    if (Componentes.Length == 0)
                     {
-                         speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
-                    }else
-                    {
-                         speed = col.gameObject.GetComponentInParent<Cocheinverso>().getSpeed();
+                        speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
                     }
-                    
+                    else
+                    {
+                        speed = col.gameObject.GetComponentInParent<Cocheinverso>().getSpeed();
+                    }
+
                     anim.Play("estampa");
+                    Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
+                    GameObject PlumasVolando = Instantiate(Plumas) as GameObject;
+
                     estampado = true;
-                     Player.GetComponent<Movimiento_player>().setestampado(avanza);
+                    Player.GetComponent<Movimiento_player>().setestampado(avanza);
 
                     Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
                 }
-               
-               perdido = true;
+
+                perdido = true;
             }
             else if (col.gameObject.tag == "Tronco")
             {
@@ -101,20 +122,20 @@ public class Colisiones : MonoBehaviour {
                 anim.Play("apoyarTronco");
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
-               
+
 
             }
-            else if(col.gameObject.tag == "Planta")
+            else if (col.gameObject.tag == "Planta")
             {
                 tronco = true;
                 col.gameObject.GetComponent<Animation>().Play("apoyarse");
                 anim.Play("apoyarTronco");
-                
+
 
             }
-            else if(col.gameObject.tag == "cesped")
+            else if (col.gameObject.tag == "cesped")
             {
-            
+
                 Player.GetComponent<Movimiento_player>().CorregirPos();
             }
 
@@ -147,7 +168,12 @@ public class Colisiones : MonoBehaviour {
                 float speed = col.gameObject.GetComponentInParent<MovimientoTronco>().getSpeed();
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
             }
-        }else{
+            if (col.gameObject.tag == "Planta")
+            {
+                tronco = true;
+            }
+        }
+        else{
             if (col.gameObject.tag == "Vehiculo")
             {
                 if (estampado)
@@ -173,15 +199,16 @@ public class Colisiones : MonoBehaviour {
         if (!perdido)
         {
             GameObject Player = GameObject.Find("gallina");
-            if (col.gameObject.tag == "Arbol") Player.GetComponent<Movimiento_player>().notcolision();
-            else if (col.gameObject.tag == "Tronco") { 
+            if (col.gameObject.tag == "Arbol"  || col.gameObject.tag == "Roca") Player.GetComponent<Movimiento_player>().notcolision();
+            if (col.gameObject.tag == "Tronco") { 
             
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(0);
                 tronco = false;
+                    Debug.Log("SalgoTrocno");
             }
-            else if(col.gameObject.tag == "Planta") {
+           if(col.gameObject.tag == "Planta") {
 
-                
+                Debug.Log("SalgoPlanta");
                 tronco = false;
             }
             

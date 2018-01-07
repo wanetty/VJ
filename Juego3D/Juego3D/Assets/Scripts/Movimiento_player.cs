@@ -11,8 +11,9 @@ public class Movimiento_player : MonoBehaviour
     public float MovimientoEscala = 0.01f;
     public AnimationCurve ac;
     public Animation animacion;
-    public int puntos;
+    public int puntos, subidanvl;
     public AudioClip salto;
+    public int PuntosMoneda;
     private float currentLerpTime;
     private float currentScaleTime;
     private float perc = 1;
@@ -23,6 +24,8 @@ public class Movimiento_player : MonoBehaviour
     private bool corregirpos;
     private int correctestampa;
     private bool atrapado, aguilalanzada;
+    private float time;
+    
 
 
     
@@ -38,6 +41,7 @@ public class Movimiento_player : MonoBehaviour
 
 
     bool primero, perdido, colision, hundido, estampado, chafado;
+    
 
 
     // Use this for initialization
@@ -50,12 +54,16 @@ public class Movimiento_player : MonoBehaviour
         hundido = false;
         estampado = false;
         chafado = false;
+        subidanvl = 20;
         maxdisp = (int) this.transform.position.z/40;
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
         corregirpos = false;
         atrapado = false;
         aguilalanzada = false;
+        time = 1;
+        PuntosMoneda = 0;
+
 
 
     }
@@ -63,11 +71,11 @@ public class Movimiento_player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        time += Time.deltaTime;
         if (perdido)
         {
-            if (!aguilalanzada) GameObject.Find("Nvel").GetComponent<ControladorJuego>().setlost();
             animacion.Stop("salto");
+            if (!aguilalanzada) GameObject.Find("Nvel").GetComponent<ControladorJuego>().setlost();
             if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
             if (estampado) { endPos.z -= correctestampa; estampado = false; }
             if (chafado) endPos.y -= 5; chafado = false;
@@ -80,8 +88,14 @@ public class Movimiento_player : MonoBehaviour
             }
           
         }
-
-            if(gameObject.transform.position.x > 165 && !perdido)
+        if (corregirpos && !atrapado)
+        {
+            endPos.x = ((int)(endPos.x / 40) * 40);
+            if (endPos.x >= 160) endPos.x = 160;
+            else if (endPos.x <= -160) endPos.x = -160;
+            corregirpos = false;
+        }
+        if (gameObject.transform.position.x > 165 && !perdido)
             {
                 this.perder();
                 endPos.x += 250;
@@ -95,11 +109,19 @@ public class Movimiento_player : MonoBehaviour
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
             }
             puntos = maxdisp;
-            if(maxdisp < (int)this.transform.position.z / 40 && !perdido)
+            if (puntos > subidanvl)
+            {
+                GameObject.Find("Nvel").GetComponent<GenLvl>().subirnvl();
+            subidanvl += 20;
+            }
+            if (maxdisp < (int)this.transform.position.z / 40 && !perdido)
         {
                 maxdisp = (int)this.transform.position.z / 40;
                 
             }
+        if (time > 0.2)
+        {
+           
             if ((Input.GetButtonDown("arriba") || Input.GetButtonDown("abajo") || Input.GetButtonDown("der") || Input.GetButtonDown("izq")) && !perdido)
             {
 
@@ -119,6 +141,7 @@ public class Movimiento_player : MonoBehaviour
             }
             if ((Input.GetButtonUp("arriba") || Input.GetButtonUp("abajo") || Input.GetButtonUp("der") || Input.GetButtonUp("izq")) && !perdido)
             {
+                time = 0;
                 if (perc >= 1)
                 {
                     Posini = gameObject.transform.position;
@@ -137,27 +160,22 @@ public class Movimiento_player : MonoBehaviour
             startPos = gameObject.transform.position;
             if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision && !perdido)
             {
-                endPos = new Vector3(transform.position.x + 40 , transform.position.y, transform.position.z);
+                endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
             }
             if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision && !perdido)
             {
-                endPos = new Vector3(transform.position.x - 40 , transform.position.y, transform.position.z );
+                endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
             }
             if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision && !perdido)
             {
-                endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z + 40);
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
             }
             if (Input.GetButtonUp("abajo") && gameObject.transform.position == endPos && !colision && !perdido)
             {
-                endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 40);
             }
-            if (corregirpos && !atrapado)
-            {
-                endPos.x = ((int)(endPos.x / 40) * 40);
-            if (endPos.x > 160) endPos.x = 160;
-            else if (endPos.x < -160) endPos.x = -160;
-            corregirpos = false;
-            }
+        }
+           
 
             if (firstinput && !atrapado)
 
@@ -213,7 +231,7 @@ public class Movimiento_player : MonoBehaviour
 
     public int  getPuntos()
     {
-        return puntos;
+        return puntos + PuntosMoneda;
     }
     public void ArrastraTronco(float speed)
     {
@@ -235,6 +253,10 @@ public class Movimiento_player : MonoBehaviour
 
         aguilalanzada = true;
         perdido = true;
+    }
+    public void MonedaEncontrada()
+    {
+        PuntosMoneda += 10;
     }
 
 

@@ -17,6 +17,8 @@ TagManager:
   - Agua/corriente
   - Moneda
   - Planta
+  - Roca
+  - defMoneda
   layers:
   - Default
   - TransparentFX

@@ -81,4 +81,8 @@ public class MovimientoTronco : MonoBehaviour {
     {
         return speedaux;
     }
+    public void setInverso()
+    {
+        inverso = true;
+    }
 }
