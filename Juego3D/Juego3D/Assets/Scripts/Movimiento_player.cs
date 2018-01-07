@@ -104,7 +104,7 @@ public class Movimiento_player : MonoBehaviour
                 currentScaleTime = 0;
 
             }
-            if (Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq") && !perdido)
+            if ((Input.GetButton("arriba") || Input.GetButton("abajo") || Input.GetButton("der") || Input.GetButton("izq")) && !perdido)
             {
                 startScale = gameObject.transform.localScale;
 
@@ -115,7 +115,7 @@ public class Movimiento_player : MonoBehaviour
                 firstinput = true;
 
             }
-            if (Input.GetButtonUp("arriba") || Input.GetButtonUp("abajo") || Input.GetButtonUp("der") || Input.GetButtonUp("izq") && !perdido)
+            if ((Input.GetButtonUp("arriba") || Input.GetButtonUp("abajo") || Input.GetButtonUp("der") || Input.GetButtonUp("izq")) && !perdido)
             {
                 if (perc >= 1)
                 {

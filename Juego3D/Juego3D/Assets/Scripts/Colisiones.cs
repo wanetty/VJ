@@ -73,7 +73,17 @@ public class Colisiones : MonoBehaviour {
                 }
                 else
                 {
-                    float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    Component[] Componentes = col.gameObject.GetComponentsInParent(typeof(Cocheinverso));
+                   
+                    float speed;
+                    if(Componentes.Length == 0)
+                    {
+                         speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    }else
+                    {
+                         speed = col.gameObject.GetComponentInParent<Cocheinverso>().getSpeed();
+                    }
+                    
                     anim.Play("estampa");
                     estampado = true;
                      Player.GetComponent<Movimiento_player>().setestampado(avanza);
@@ -134,7 +144,17 @@ public class Colisiones : MonoBehaviour {
             {
                 if (estampado)
                 {
-                    float speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    Component[] Componentes = col.gameObject.GetComponentsInParent(typeof(Cocheinverso));
+                    
+                    float speed;
+                    if (Componentes.Length  == 0)
+                    {
+                        speed = col.gameObject.GetComponentInParent<MovimientoCoche>().getSpeed();
+                    }
+                    else
+                    {
+                        speed = col.gameObject.GetComponentInParent<Cocheinverso>().getSpeed();
+                    }
                     Player.GetComponent<Movimiento_player>().ArrastraTronco(speed);
                 }
             }
