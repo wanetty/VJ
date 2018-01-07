@@ -31,6 +31,7 @@ public class GenLvl : MonoBehaviour {
     private GameObject[] CTriples;
     private GameObject[] Rios;
     private Animator MovsAgua;
+    private Animation Animplanta;
     int tipoVia, numVias ,tipoArbol, tipoxDif;
     public int display;
     bool carretera = false;
@@ -50,6 +51,7 @@ public class GenLvl : MonoBehaviour {
         CTriples = new GameObject[3] { CarreteraTF,  CarreteraTM, CarreteraTD  };
         Rios = new GameObject[3] { RioF, RioM,RioD};
         MovsAgua = GameObject.FindGameObjectWithTag("Agua/corriente").GetComponent<Animator>();
+        Animplanta = GameObject.FindGameObjectWithTag("Planta").GetComponent<Animation>();
         difmax = 2;
         difmin = 1;
     }
@@ -58,6 +60,7 @@ public class GenLvl : MonoBehaviour {
     void Update () {
 
         MovsAgua.Play("MovAgua");
+        Animplanta.Play("girar");
         if (Input.GetButtonDown("arriba") && (jugador.transform.position.z+560) > display ) {
             tipoVia = Random.Range(1, 4);
             if (tipoVia == 1) //pintamos tierra 

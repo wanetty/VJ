@@ -104,6 +104,14 @@ public class Colisiones : MonoBehaviour {
                
 
             }
+            else if(col.gameObject.tag == "Planta")
+            {
+                tronco = true;
+                col.gameObject.GetComponent<Animation>().Play("apoyarse");
+                anim.Play("apoyarTronco");
+                
+
+            }
             else if(col.gameObject.tag == "cesped")
             {
             
@@ -166,15 +174,17 @@ public class Colisiones : MonoBehaviour {
         {
             GameObject Player = GameObject.Find("gallina");
             if (col.gameObject.tag == "Arbol") Player.GetComponent<Movimiento_player>().notcolision();
-            if (col.gameObject.tag == "Tronco") { 
+            else if (col.gameObject.tag == "Tronco") { 
             
                 Player.GetComponent<Movimiento_player>().ArrastraTronco(0);
                 tronco = false;
             }
-            if (col.gameObject.tag == "Agua")
-            {
-               
+            else if(col.gameObject.tag == "Planta") {
+
+                
+                tronco = false;
             }
+            
 
         }
 
