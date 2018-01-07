@@ -71,4 +71,9 @@ public class ControladorJuego : MonoBehaviour {
     {
         perdido = true;
     }
+
+    public bool getlost()
+    {
+        return lost;
+    }
 }

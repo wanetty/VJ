@@ -39,7 +39,7 @@ public class Movimiento_player : MonoBehaviour
 
     AudioSource reproductor;
 
-
+    
     bool primero, perdido, colision, hundido, estampado, chafado;
     
 
@@ -260,7 +260,10 @@ public class Movimiento_player : MonoBehaviour
     }
 
 
-
+    public bool getperdido()
+    {
+        return perdido;
+    }
 
 
 
