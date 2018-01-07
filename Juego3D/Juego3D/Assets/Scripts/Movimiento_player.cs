@@ -22,6 +22,8 @@ public class Movimiento_player : MonoBehaviour
     private float arrastre;
     private bool corregirpos;
     private int correctestampa;
+    private bool atrapado;
+
 
     
 
@@ -52,6 +54,7 @@ public class Movimiento_player : MonoBehaviour
         reproductor = gameObject.GetComponent<AudioSource>();
         arrastre = 0;
         corregirpos = false;
+        atrapado = false;
         
     }
 
@@ -66,6 +69,13 @@ public class Movimiento_player : MonoBehaviour
             if (hundido) gameObject.transform.localScale = new Vector3(0, 0, 0);
             if (estampado) { endPos.z -= correctestampa; estampado = false; }
             if (chafado) endPos.y -= 5; chafado = false;
+            if (atrapado)
+            {
+       
+                Vector3 position = this.transform.position;
+                position.z += -400 * Time.deltaTime;
+                this.transform.position = position;
+            }
           
         }
 
@@ -139,16 +149,16 @@ public class Movimiento_player : MonoBehaviour
             {
                 endPos = new Vector3(transform.position.x , transform.position.y, transform.position.z - 40);
             }
-            if (corregirpos)
+            if (corregirpos && !atrapado)
             {
                 endPos.x = ((int)(endPos.x / 40) * 40);
             if (endPos.x > 160) endPos.x = 160;
             else if (endPos.x < -160) endPos.x = -160;
             corregirpos = false;
             }
-           
 
-        if (firstinput)
+            if (firstinput && !atrapado)
+
             {
                 endPos.x += arrastre;
                 currentLerpTime += Time.deltaTime * saltovelociad;
@@ -211,8 +221,15 @@ public class Movimiento_player : MonoBehaviour
     {
         corregirpos = true;
     }
-   
-   
+    public void Atrapado()
+    {
+        atrapado = true;
+        perdido = true;
+        gameObject.GetComponent<Animaciones>().setPerdido();
+        GameObject.Find("Main Camera").GetComponent<SeguimientoCamara>().perdido();
+    }
+
+
 
 
     

@@ -15,6 +15,7 @@ public class tren : MonoBehaviour {
     GameObject luzderecha;
     Light luziz;
     Light luzde;
+    public Animation animacion;
 
     // Use this for initialization
     void Start()
@@ -27,7 +28,9 @@ public class tren : MonoBehaviour {
         luziz = luzizquierda.GetComponent<Light>();
         luzde = luzderecha.GetComponent<Light>();
         time2 = 0;
+        animacion = sem.transform.Find("default").GetComponent<Animation>();
         
+
     }
 
     // Update is called once per frame
@@ -36,8 +39,11 @@ public class tren : MonoBehaviour {
         
         pasando = gameObject.transform.Find("vagones").gameObject.GetComponent<vagones>().getPasando();
         if (pasando)
-            time2 += Time.deltaTime;
         {
+            animacion.Play("semaforo");
+            time2 += Time.deltaTime;
+            
+        
             if((int)(time2 % 2) == 0)
             {
                 luziz.intensity = 0;
