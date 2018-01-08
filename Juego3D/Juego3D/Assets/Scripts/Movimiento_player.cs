@@ -25,6 +25,8 @@ public class Movimiento_player : MonoBehaviour
     private int correctestampa;
     private bool atrapado, aguilalanzada;
     private float time;
+    private bool corriente;
+    private bool GODMODE;
     
 
 
@@ -61,6 +63,8 @@ public class Movimiento_player : MonoBehaviour
         corregirpos = false;
         atrapado = false;
         aguilalanzada = false;
+        corriente = false;
+        GODMODE = false;
         time = 1;
         PuntosMoneda = 0;
 
@@ -72,6 +76,20 @@ public class Movimiento_player : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        if (Input.GetKey("g"))
+        {
+            if (!GODMODE)
+            {
+                GODMODE = true;
+             
+            }
+            else
+            {
+                GODMODE = false;
+                
+            }
+            gameObject.GetComponentInChildren<BoxCollider>().enabled = !gameObject.GetComponentInChildren<BoxCollider>().enabled;
+        }
         if (perdido)
         {
             animacion.Stop("salto");
@@ -81,31 +99,33 @@ public class Movimiento_player : MonoBehaviour
             if (chafado) endPos.y -= 5; chafado = false;
             if (atrapado)
             {
-       
+                
                 Vector3 position = this.transform.position;
                 position.z += -400 * Time.deltaTime;
                 this.transform.position = position;
             }
           
         }
-        if (corregirpos && !atrapado)
+        if (corregirpos && !colision && !atrapado)
         {
             endPos.x = ((int)(endPos.x / 40) * 40);
             if (endPos.x >= 160) endPos.x = 160;
             else if (endPos.x <= -160) endPos.x = -160;
             corregirpos = false;
         }
-        if (gameObject.transform.position.x > 165 && !perdido)
+        if (gameObject.transform.position.x > 180 && !perdido && !GODMODE)
             {
                 this.perder();
+            corriente = true;
                 endPos.x += 250;
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
                 
             }
-            else if(gameObject.transform.position.x < -165 && !perdido)
+            else if(gameObject.transform.position.x < -180 && !perdido && !GODMODE)
             {
                 this.perder();
-                endPos.x -= 250;
+            corriente = true;
+            endPos.x -= 250;
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPos, ac.Evaluate(perc));
             }
             puntos = maxdisp;
@@ -158,15 +178,15 @@ public class Movimiento_player : MonoBehaviour
             }
 
             startPos = gameObject.transform.position;
-            if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision && !perdido)
+            if (Input.GetButtonUp("izq") && gameObject.transform.position == endPos && gameObject.transform.position.x < 160 && !colision && !perdido )
             {
                 endPos = new Vector3(transform.position.x + 40, transform.position.y, transform.position.z);
             }
-            if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision && !perdido)
+            if (Input.GetButtonUp("der") && gameObject.transform.position == endPos && gameObject.transform.position.x > -160 && !colision && !perdido )
             {
                 endPos = new Vector3(transform.position.x - 40, transform.position.y, transform.position.z);
             }
-            if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision && !perdido)
+            if (Input.GetButtonUp("arriba") && gameObject.transform.position == endPos && !colision && !perdido )
             {
                 endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
             }
@@ -248,6 +268,17 @@ public class Movimiento_player : MonoBehaviour
         gameObject.GetComponent<Animaciones>().setPerdido();
         GameObject.Find("Main Camera").GetComponent<SeguimientoCamara>().perdido();
     }
+    public bool getAtrapado()
+    {
+        return atrapado;
+    }
+    public bool Notaguila()
+    {
+        
+            return hundido || chafado || estampado || corriente;
+        
+        
+    }
     public  void AguilaLanzada()
     {
 
@@ -263,6 +294,10 @@ public class Movimiento_player : MonoBehaviour
     public bool getperdido()
     {
         return perdido;
+    }
+    public bool getGod()
+    {
+        return GODMODE;
     }
 
 

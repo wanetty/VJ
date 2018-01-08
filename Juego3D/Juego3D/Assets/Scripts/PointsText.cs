@@ -13,7 +13,13 @@ public class PointsText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        int puntos = player.GetComponent<Movimiento_player>().getPuntos();
-        this.gameObject.GetComponent<Text>().text = "Score: " + puntos.ToString();
+        if (!player.GetComponent<Movimiento_player>().getGod()){
+            int puntos = player.GetComponent<Movimiento_player>().getPuntos();
+            this.gameObject.GetComponent<Text>().text = "Score: " + puntos.ToString();
+        }
+        else {
+            this.gameObject.GetComponent<Text>().text = "GODMODE";
+        }
+        
     }
 }

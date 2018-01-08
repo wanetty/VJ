@@ -12,6 +12,7 @@ public class Colisiones : MonoBehaviour {
     public AudioClip coins;
     public AudioClip crujidoTronco;
     public AudioClip estamparseAu;
+    public AudioClip muerteGallina;
 
     public GameObject Salpicar;
     public GameObject Plumas;
@@ -81,7 +82,8 @@ public class Colisiones : MonoBehaviour {
                
                     float speed;
                     anim.Play("estampa");
-                reproductor.PlayOneShot(estamparseAu, 0.7f);
+                    reproductor.PlayOneShot(estamparseAu, 0.7f);
+                    reproductor.PlayOneShot(muerteGallina, 0.7f);
                     Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                      PlumasVolando = Instantiate(Plumas) as GameObject;
                     speed = col.gameObject.GetComponentInParent<vagones>().getSpeed();
@@ -101,6 +103,7 @@ public class Colisiones : MonoBehaviour {
                     Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                     PlumasVolando = Instantiate(Plumas) as GameObject;
                     anim.Play("chafar");
+                    reproductor.PlayOneShot(muerteGallina, 0.7f);
                     reproductor.PlayOneShot(estamparseAu, 0.7f);
                     Player.GetComponent<Movimiento_player>().setchafado();
 
@@ -121,6 +124,7 @@ public class Colisiones : MonoBehaviour {
 
                     anim.Play("estampa");
                     reproductor.PlayOneShot(estamparseAu, 0.7f);
+                    reproductor.PlayOneShot(muerteGallina, 0.7f);
                     Plumas.transform.position = new Vector3(Player.transform.position.x, 18, Player.transform.position.z);
                      PlumasVolando = Instantiate(Plumas) as GameObject;
 

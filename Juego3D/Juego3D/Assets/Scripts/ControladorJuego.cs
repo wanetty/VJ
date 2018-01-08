@@ -26,10 +26,10 @@ public class ControladorJuego : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (!perdido)
+        GameObject jugador = GameObject.Find("gallina");
+        if (!perdido  && !jugador.GetComponent<Movimiento_player>().getGod())
         {
-            GameObject jugador = GameObject.Find("gallina");
+            
             float pos = jugador.transform.position.z;
             time += Time.deltaTime;
             if (pos <= oldpos && time > timepoEspera && !lost)

@@ -233,7 +233,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: EscenaEduard
+          m_StringArgument: Principal
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -549,7 +549,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1699259141679098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 87, z: 0}
   m_LocalScale: {x: 0.9995807, y: 0.24801737, z: 0.24801737}
   m_Children:
   - {fileID: 224843507995740112}
@@ -568,7 +568,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1877769168035084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 149, y: -203, z: 0}
   m_LocalScale: {x: 0.9849145, y: 4.9481864, z: 3.9052596}
   m_Children:
   - {fileID: 224985079853963104}
@@ -587,7 +587,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1130807318977912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -147, y: -203, z: 0}
   m_LocalScale: {x: 0.9799632, y: 4.735968, z: 1}
   m_Children:
   - {fileID: 224153340636340012}
@@ -606,7 +606,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374447912585586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 638.9996, y: -428, z: 0}
   m_LocalScale: {x: 2.8648698, y: 16.92483, z: 11.546234}
   m_Children: []
   m_Father: {fileID: 224201213315568568}
